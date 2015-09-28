@@ -12,7 +12,12 @@ class CreateMoviebookingTable extends Migration
      */
     public function up()
     {
-
+        /**
+         * Kina 
+         * - kino będzie w relacji jeden do jednego dla userów
+         * - kino dodaj się w momencie dodania usera (rejestracja)
+         * - podstawowe dane w tej tabeli będzie się edytować dopiero w panelu po zalogowaniu
+         */
         Schema::create('cinemas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -20,16 +25,15 @@ class CreateMoviebookingTable extends Migration
             $table->string('street');
             $table->string('postcode');
             $table->string('www');
-            $table->string('email');
-            $table->string('password');
-            $table->string('remember_token');
-            
-            
-
-
-
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-
+        
+        /**
+         * Sale
+         * - sal moze byc kilka w kazdym kinie 
+         * - w panelu bedzie mozna dodawac, edytowac, usuwac sale
+         */
         Schema::create('halls', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -38,72 +42,103 @@ class CreateMoviebookingTable extends Migration
             $table->integer('position');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
-    
+            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
+        });
+
+        /**
+         * Miejsca w sali 
+         * - podczas dodawania sali w drugim kroku określa się, ktore miejsca
+         * sa zablokowane i reszta wpada do tej tabeli
+         */
+        Schema::create('seats_in_halls', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('pos_x'); // miejsce w rzedzie
+            $table->integer('pos_y'); // rzad
+            $table->integer('hall_id');
+            $table->foreign('hall_id')->references('id')->on('halls')->onDelete('cascade');
         });
         
+        /**
+         * Filmy 
+         * - przed ustaleniem repertuaru trzeba określić filmy jakie kino wyświetla
+         */
         Schema::create('movies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('original_title');
-            $table->integer('time');
-            $table->string('describtion');
-            $table->decimal('price', 11, 2);
+            $table->string('title'); // tytul filmu
+            $table->string('original_title'); // tytul oryginalny 
+            $table->integer('time'); // czas trwania
+            $table->string('describtion'); // opis filmu
+            $table->decimal('price', 11, 2); // opcjonalnie inna cena na seans tego filmu
+            $table->integer('cinema_id');
+            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
         });
     
-            Schema::create('reportoire', function (Blueprint $table) {
+        /**
+         * Repertuar
+         * - polaczenie filmu i sali o podanej godzinie 
+         */
+        Schema::create('reportoire', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('hall_id');
             $table->integer('movie_id');
             $table->datetime('time');
+            $table->foreign('hall_id')->references('id')->on('halls')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
         });
 
-            Schema::create('reservations', function (Blueprint $table) {
+        /**
+         * Typy klientow 
+         * - dodawane w panelu kina 
+         * - kazdy typ musi miec cene np. bilet ulgowy 9 zl, normalny 10 zl
+         */
+        Schema::create('spectators_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->decimal('price',11,2);
+            $table->integer('cinema_id');
+            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
+        });
+
+        /**
+         * Rezerwacje
+         * - klienci po stronie publicznej beda skladac rezerwacje na seans
+         */
+        Schema::create('reservations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('repertoire_id');
-            $table->decimal('summary',11,2);
-            $table->datetime('date_start');
-            $table->datetime('date_end');
+            $table->decimal('summary',11,2); // cena calej rezerwacji
+            $table->datetime('date_start'); // data rozpoczecia wybierania miejsc
+            $table->datetime('date_end'); // data zakonczenia wybierania miejsc
             $table->string('customer_first_name');
             $table->string('customer_last_name');
             $table->string('customer_email');
             $table->string('customer_phone');
-            $table->integer('status');
+            $table->integer('status'); // status rezerwacji
             $table->timestamps();
+            $table->foreign('repertoire_id')->references('id')->on('repertorie')->onDelete('cascade');
         });
-            
-            Schema::create('reservations_seats', function (Blueprint $table) {
+        
+        /**
+         * Wybrane miejsca przy rezerwacji
+         */
+        Schema::create('reservations_seats', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reportoire_id');
             $table->integer('reservation_id');
             $table->datetime('date');
-            
+            $table->foreign('repertoire_id')->references('id')->on('repertorie')->onDelete('cascade');
+            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
         });
-
-            Schema::create('reservations_spectators_types', function (Blueprint $table) {
+        
+        /**
+         * Typy klientow wybranych podczas rezerwowania miejsc
+         */
+        Schema::create('reservations_spectators_types', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reservation_id');
             $table->integer('spectator_type_id');
             $table->integer('count');
         });
-
-            Schema::create('seats_in_halls', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('pos_x');
-            $table->integer('pos_y');
-            $table->integer('hall_id');
-            $table->foreign('hall_id')->references('id')->on('halls');
-        });
-
-            Schema::create('spectators_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->decimal('price',11,2);
-            $table->integer('cinema_id');
-        });
-            
-
-    
-        
 
     }
 
