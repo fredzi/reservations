@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Movies;
+use App\User;
+use App\Hall;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class MovieController extends Controller
+class MainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movies::all();
-        return view('movies.index')->with('movies',$movies);
+        return view('main.index');
     }
 
     /**
@@ -27,7 +28,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movies.create');
+        //
     }
 
     /**
@@ -38,14 +39,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $movies = new Movies();
-        $movies->title = $request->title;
-        $movies->original_title = $request->original_title;
-        $movies->time = $request->time;
-        $movies->describtion = $request->describtion;
-        $movies->price = $request->price;
-        $movies->save();
-        return redirect('movies');
+        //
     }
 
     /**
@@ -56,8 +50,7 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        $movies=Movies::findOrFail($id);
-        return view('movies.show',['movies'=>$movies]);
+        //
     }
 
     /**
@@ -68,9 +61,7 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        $movies=Movies::findOrFail($id);
-        return view('movies.edit',['movies'=>$movies]);
-
+        //
     }
 
     /**
@@ -82,14 +73,7 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $movies = Movies::findOrFail($id);
-        $movies->title = $request->title;
-        $movies->original_title = $request->original_title;
-        $movies->time = $request->time;
-        $movies->describtion = $request->describtion;
-        $movies->price = $request->price;
-        $movies->save();
-        return redirect('movies');
+        //
     }
 
     /**
@@ -100,8 +84,6 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        $movies = Movies::findOrFail($id);
-        $movies=delete();
-        return redirect('movies');
+        //
     }
 }

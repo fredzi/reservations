@@ -6,6 +6,8 @@
     
 <br />
 
+<!--FORMULARZ DODAWANIA  -->
+
 {!! Form::open(['url' => 'hall']) !!}
 
 @for($y = 0; $y < Session::get('y'); $y++)
@@ -23,5 +25,8 @@
 {!! Form::submit('Dodaj') !!}
 
 {!! Form::close() !!}
+
+
+
 
 @stop

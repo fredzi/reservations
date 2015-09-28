@@ -3,7 +3,7 @@
 @section('content')
     
 <h1>Tworzenie nowej sali</h1>
-    
+ 
 <br >
 
 {!! Form::open(['url' => 'hall']) !!}
@@ -22,3 +22,4 @@
 {!! Form::close() !!}
 
 @stop
+
