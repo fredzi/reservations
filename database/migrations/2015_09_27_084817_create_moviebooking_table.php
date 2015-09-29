@@ -9,26 +9,7 @@ class CreateMoviebookingTable extends Migration
      * @return void
      */
     public function up()
-    {
-        /**
-         * Kina 
-         * - kino będzie w relacji jeden do jednego dla userów
-         * - kino dodaj się w momencie dodania usera (rejestracja)
-         * - podstawowe dane w tej tabeli będzie się edytować dopiero w panelu po zalogowaniu
-         */
-        Schema::create('cinemas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('city');
-            $table->string('street');
-            $table->string('postcode');
-            $table->string('www');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-        });
-        
-        /**
+    {/**
          * Sale
          * - sal moze byc kilka w kazdym kinie 
          * - w panelu bedzie mozna dodawac, edytowac, usuwac sale
@@ -37,11 +18,11 @@ class CreateMoviebookingTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('seats');
-            $table->integer('cinema_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('position');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
-            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         /**
          * Miejsca w sali 
@@ -67,8 +48,8 @@ class CreateMoviebookingTable extends Migration
             $table->integer('time'); // czas trwania
             $table->string('describtion'); // opis filmu
             $table->decimal('price', 11, 2); // opcjonalnie inna cena na seans tego filmu
-            $table->integer('cinema_id')->unsigned();
-            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     
         /**
@@ -91,9 +72,8 @@ class CreateMoviebookingTable extends Migration
         Schema::create('spectators_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->decimal('price',11,2);
-            $table->integer('cinema_id')->unsigned();
-            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         /**
          * Rezerwacje
@@ -143,7 +123,7 @@ class CreateMoviebookingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cinemas');
+        
         Schema::drop('halls');
         Schema::drop('migrations');
         Schema::drop('movies');

@@ -11,8 +11,7 @@ class Spectator_type extends Model
     protected $fillable = [
         
         'name',
-        'price',
-        'cinema_id'
+        'user_id'
     ];
     protected $primaryKey = 'id';
     protected $hidden =[];

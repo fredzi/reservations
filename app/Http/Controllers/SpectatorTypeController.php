@@ -40,8 +40,7 @@ class SpectatorTypeController extends Controller
     {
         $spectators = new Spectator_type();
         $spectators->name = $request->name;
-        $spectators->price = $request->price;
-        $spectators->cinema_id = $request->cinema_id;
+        
         
         $spectators->save();
         return redirect('spectators');
@@ -82,8 +81,7 @@ class SpectatorTypeController extends Controller
     {
         $spectators = Spectator_type::findOrFail($id);
         $spectators->name = $request->name;
-        $spectators->price = $request->price;
-        $spectators->cinema_id = $request->cinema_id;
+        
         $spectators->save();
         return redirect('spectators');
     }

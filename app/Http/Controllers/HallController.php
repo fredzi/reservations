@@ -57,7 +57,7 @@ class HallController extends Controller
                 $rows = \Session::get('y');
                 $hall_id = DB::table('halls')->insertGetId([
                     'name' => $name,
-                    'cinema_id' => 1,
+                    
                     'position' => 1
                 ]);
                 $seats_in_hall = [];

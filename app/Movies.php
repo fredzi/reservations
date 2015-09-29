@@ -13,8 +13,7 @@ class Movies extends Model
         'original_title',
         'time',
         'describtion',
-        'price',
-        'cinema_id'
+        'price'
     ];
     protected $primaryKey = 'id';
     protected $hidden =[];
