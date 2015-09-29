@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spectator_type;
+use App\Cinema;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SpectatorTypeController extends Controller
+class CinemasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,9 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
-        $spectators = Spectator_type::all();
-        return view('spectators.index')->with('spectators',$spectators);
+        $cinemas = Cinema::all();
+
+        return view('cinemas.index')->with('cinemas',$cinemas);
     }
 
     /**
@@ -27,7 +29,7 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
-        return view('spectators.create');
+        return view('cinemas.create');
     }
 
     /**
@@ -38,13 +40,15 @@ class SpectatorTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $spectators = new Spectator_type();
-        $spectators->name = $request->name;
-        $spectators->price = $request->price;
-        $spectators->cinema_id = $request->cinema_id;
-        
-        $spectators->save();
-        return redirect('spectators');
+         $cinemas = new Cinema();
+        $cinemas->name = $request->name;
+        $cinemas->city = $request->city;
+        $cinemas->street = $request->street;
+        $cinemas->postcode = $request->postcode;
+        $cinemas->www = $request->www;
+        $cinemas->user_id = $request->user_id;
+        $cinemas->save();
+        return redirect('cinemas');
     }
 
     /**
@@ -55,8 +59,8 @@ class SpectatorTypeController extends Controller
      */
     public function show($id)
     {
-        $spectators=Spectator_type::findOrFail($id);
-        return view('spectators.show',['spectators'=>$spectators]);
+        $cinemas=Cinema::findOrFail($id);
+        return view('cinemas.show',['cinemas'=>$cinemas]);
     }
 
     /**
@@ -67,8 +71,8 @@ class SpectatorTypeController extends Controller
      */
     public function edit($id)
     {
-        $spectators=Spectator_type::findOrFail($id);
-        return view('spectators.edit',['spectators'=>$spectators]);
+        $cinemas=Cinema::findOrFail($id);
+        return view('cinemas.edit',['cinemas'=>$cinemas]);
     }
 
     /**
@@ -80,12 +84,15 @@ class SpectatorTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $spectators = Spectator_type::findOrFail($id);
-        $spectators->name = $request->name;
-        $spectators->price = $request->price;
-        $spectators->cinema_id = $request->cinema_id;
-        $spectators->save();
-        return redirect('spectators');
+        $cinemas = Cinema::findOrFail($id);
+        $cinemas->name = $request->name;
+        $cinemas->city = $request->city;
+        $cinemas->street = $request->street;
+        $cinemas->postcode = $request->postcode;
+        $cinemas->www = $request->www;
+        $cinemas->user_id = $request->user_id;
+        $cinemas->save();
+        return redirect('cinemas');
     }
 
     /**
@@ -96,8 +103,8 @@ class SpectatorTypeController extends Controller
      */
     public function destroy($id)
     {
-        $spectators = Spectator_type::findOrFail($id);
-        $spectators=delete();
-        return redirect('spectators');
+        $cinemas = Cinema::findOrFail($id);
+        $cinemas=delete();
+        return redirect('cinemas');
     }
 }

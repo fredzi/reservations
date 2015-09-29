@@ -4,15 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Movies extends Model
+class Spectator_type extends Model
 {
-	public $timestamps = false;
-	protected $table = 'movies';
+    public $timestamps = false;
+	protected $table = 'spectators_types';
     protected $fillable = [
-        'title',
-        'original_title',
-        'time',
-        'describtion',
+        
+        'name',
         'price',
         'cinema_id'
     ];

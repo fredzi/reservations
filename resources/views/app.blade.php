@@ -15,9 +15,10 @@
         </div>
         <div>
           <ul class="nav navbar-nav ">
-            
+            <li><a href="{{action('CinemasController@index')}}">Cinema</a></li>
             <li><a href="{{action('HallController@index')}}">Hall</a></li>
             <li><a href="{{action('MovieController@index')}}">Movie</a></li>
+            <li><a href="#">Repertuar</a></li>
             
             
           </ul>

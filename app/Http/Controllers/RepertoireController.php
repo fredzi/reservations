@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spectator_type;
+use App\Repertoire;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SpectatorTypeController extends Controller
+class RepertoireController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,9 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
-        $spectators = Spectator_type::all();
-        return view('spectators.index')->with('spectators',$spectators);
+        $repertoires = Repertoire::all();
+
+        return view('reportoires.index')->with('repertoires',$repertoires);
     }
 
     /**
@@ -27,7 +28,7 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
-        return view('spectators.create');
+        return view('reportoires.create');
     }
 
     /**
@@ -38,13 +39,12 @@ class SpectatorTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $spectators = new Spectator_type();
-        $spectators->name = $request->name;
-        $spectators->price = $request->price;
-        $spectators->cinema_id = $request->cinema_id;
-        
-        $spectators->save();
-        return redirect('spectators');
+        $repertoires = new Repertoire();
+        $repertoires->hall_id = $request->hall_id;
+        $repertoires->movie_id = $request->movie_id;
+        $repertoires->time = $request->time;
+        $repertoires->save();
+        return redirect('repertoire');
     }
 
     /**
@@ -55,8 +55,8 @@ class SpectatorTypeController extends Controller
      */
     public function show($id)
     {
-        $spectators=Spectator_type::findOrFail($id);
-        return view('spectators.show',['spectators'=>$spectators]);
+        $repertoires=Repertoire::findOrFail($id);
+        return view('reportoires.show',['repertoires'=>$repertoires]);
     }
 
     /**
@@ -67,8 +67,8 @@ class SpectatorTypeController extends Controller
      */
     public function edit($id)
     {
-        $spectators=Spectator_type::findOrFail($id);
-        return view('spectators.edit',['spectators'=>$spectators]);
+        $repertoires=Repertoire::findOrFail($id);
+        return view('reportoires.edit',['repertoires'=>$repertoires]);
     }
 
     /**
@@ -80,12 +80,12 @@ class SpectatorTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $spectators = Spectator_type::findOrFail($id);
-        $spectators->name = $request->name;
-        $spectators->price = $request->price;
-        $spectators->cinema_id = $request->cinema_id;
-        $spectators->save();
-        return redirect('spectators');
+        $repertoires = Repertoire::findOrFail($id);
+        $repertoires->hall_id = $request->hall_id;
+        $repertoires->movie_id = $request->movie_id;
+        $repertoires->time = $request->time;
+        $repertoires->save();
+        return redirect('repertoire');
     }
 
     /**
@@ -96,8 +96,8 @@ class SpectatorTypeController extends Controller
      */
     public function destroy($id)
     {
-        $spectators = Spectator_type::findOrFail($id);
-        $spectators=delete();
-        return redirect('spectators');
+        $repertoires = Repertoire::findOrFail($id);
+        $repertoires=delete();
+        return redirect('repertoire');
     }
 }

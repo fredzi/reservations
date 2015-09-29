@@ -36,4 +36,26 @@ Route::get('movies/{id}/edit','MovieController@edit');
 Route::patch('movies/{id}/edit','MovieController@update');
 Route::delete('movies/delete/{id}','MovieController@destroy');
 
+//widok dla cinemas
+Route::get('cinemas','CinemasController@index');
+Route::get('cinemas/create','CinemasController@create');
+Route::post('cinemas','CinemasController@store');
+Route::get('cinemas/{id}/edit','CinemasController@edit');
+Route::patch('cinemas/{id}/edit','CinemasController@update');
+Route::delete('cinemas/delete/{id}','CinemasController@destroy');
 
+//widok dla reportoire
+Route::get('repertoire','RepertoireController@index');
+Route::get('repertoire/create','RepertoireController@create');
+Route::post('repertoire','RepertoireController@store');
+Route::get('repertoire/{id}/edit','RepertoireController@edit');
+Route::patch('repertoire/{id}/edit','RepertoireController@update');
+Route::delete('repertoire/delete/{id}','RepertoireController@destroy');
+
+//widok dla spectators
+Route::get('spectators','SpectatorTypeController@index');
+Route::get('spectators/create','SpectatorTypeController@create');
+Route::post('spectators','SpectatorTypeController@store');
+Route::get('spectators/{id}/edit','SpectatorTypeController@edit');
+Route::patch('spectators/{id}/edit','SpectatorTypeController@update');
+Route::delete('spectators/delete/{id}','SpectatorTypeController@destroy');

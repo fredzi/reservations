@@ -1,14 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Model;
 
-class CinemaController extends Controller
+class Cinema extends Model
 {
+	public $timestamps = false;
+    protected $table = 'cinemas';
+	protected $fillable = [
+	'id',
+	'name',
+	'city',
+	'street',
+	'postcode',
+	'www',
+	'user_id'
+	];
     public function halls()
     {
         return $this->hasMany('App\Hall');
     }
+    public function users()
+    {
+    	return $this->belongTo('App\User');
+    }
+    protected $hidden = [];
+    protected $primaryKey = 'id';
 }

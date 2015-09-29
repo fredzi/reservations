@@ -8,7 +8,12 @@ class Hall extends Model
 {
     
     protected $fillable = [
-        'name'
+        'name',
+        'seats',
+        'cinema_id',
+        'position',
+        'created_at',
+        'updated_at'
     ];
     
     public function cinema()
