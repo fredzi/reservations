@@ -9,7 +9,12 @@ class CreateMoviebookingTable extends Migration
      * @return void
      */
     public function up()
+<<<<<<< HEAD
     {/**
+=======
+    {        
+        /**
+>>>>>>> f970a6aafc58d4a9743970e149583bba6facbbc6
          * Sale
          * - sal moze byc kilka w kazdym kinie 
          * - w panelu bedzie mozna dodawac, edytowac, usuwac sale
