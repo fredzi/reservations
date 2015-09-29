@@ -37,12 +37,12 @@ Route::patch('movies/{id}/edit','MovieController@update');
 Route::delete('movies/delete/{id}','MovieController@destroy');
 
 //widok dla cinemas
-Route::get('cinemas','CinemasController@index');
-Route::get('cinemas/create','CinemasController@create');
-Route::post('cinemas','CinemasController@store');
-Route::get('cinemas/{id}/edit','CinemasController@edit');
-Route::patch('cinemas/{id}/edit','CinemasController@update');
-Route::delete('cinemas/delete/{id}','CinemasController@destroy');
+//Route::get('cinemas','CinemasController@index');
+//Route::get('cinemas/create','CinemasController@create');
+//Route::post('cinemas','CinemasController@store');
+//Route::get('cinemas/{id}/edit','CinemasController@edit');
+//Route::patch('cinemas/{id}/edit','CinemasController@update');
+//Route::delete('cinemas/delete/{id}','CinemasController@destroy');
 
 //widok dla reportoire
 Route::get('repertoire','RepertoireController@index');
