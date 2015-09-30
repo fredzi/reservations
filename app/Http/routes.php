@@ -25,8 +25,8 @@ Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
 //wybrane widoki tylko dla zalogowanych 
-Route::get('profile', ['middleware' => 'auth', function() {
-}]);
+//Route::group(['middleware' => 'auth', function() {
+//}]);
 
 //widok dla movies
 Route::get('movies','MovieController@index');
@@ -59,3 +59,15 @@ Route::post('spectators','SpectatorTypeController@store');
 Route::get('spectators/{id}/edit','SpectatorTypeController@edit');
 Route::patch('spectators/{id}/edit','SpectatorTypeController@update');
 Route::delete('spectators/delete/{id}','SpectatorTypeController@destroy');
+
+//widok dla reservations
+Route::get('reservations','ReservationsController@index');
+Route::get('reservations/create','ReservationsController@create');
+Route::post('reservations','ReservationsController@store');
+Route::get('reservations/{id}/edit','ReservationsController@edit');
+Route::patch('reservations/{id}/edit','ReservationsController@update');
+Route::delete('reservations/delete/{id}','ReservationsController@destroy');
+
+//widok dla reservations_seats
+
+//widok dla reservations_seats_types

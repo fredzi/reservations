@@ -18,9 +18,9 @@
             
             <li><a href="{{action('HallController@index')}}">Hall</a></li>
             <li><a href="{{action('MovieController@index')}}">Movie</a></li>
-            <li><a href="{{action('SpectatorTypeController@index')}}">Spectaors</a></li>
+            <li><a href="{{action('SpectatorTypeController@index')}}">Spectators</a></li>
             <li><a href="{{action('RepertoireController@index')}}">Repertuar</a></li>
-            
+            <li><a href="{{action('ReservationsController@index')}}">Reservations</a></li>
             
           </ul>
 
