@@ -9,13 +9,6 @@ use App\Http\Controllers\Controller;
 
 class SpectatorTypeController extends Controller
 {
-     /**
-     * Autoryzacja
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Autoryzacja
      */

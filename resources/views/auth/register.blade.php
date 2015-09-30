@@ -11,8 +11,28 @@
             {!! csrf_field() !!}
 
             <div>
-                <label>Nazwa użytkownika:</label>
+                <label>Nazwa kina:</label>
                 <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+            </div>
+
+            <div>
+                <label>Miasto:</label>
+                <input type="text" name="city" value="{{ old('city') }}" class="form-control">
+            </div>
+
+            <div>
+                <label>Ulica:</label>
+                <input type="text" name="street" value="{{ old('street') }}" class="form-control">
+            </div>
+
+            <div>
+                <label>Kod pocztowy:</label>
+                <input type="text" name="postcode" value="{{ old('postcode') }}" class="form-control">
+            </div>
+
+            <div>
+                <label>www:</label>
+                <input type="text" name="www" value="{{ old('www') }}" class="form-control">
             </div>
 
             <div>

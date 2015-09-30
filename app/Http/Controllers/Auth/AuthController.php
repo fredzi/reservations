@@ -20,7 +20,9 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-
+    protected $redirectPath = '/';
+    protected $loginPath = '/';
+    protected $redirectAfterLogout = '/auth/login';
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
@@ -45,6 +47,10 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'city' => 'required',
+            'street' => 'required',
+            'postcode' => 'required',
+            'www' => 'required'
         ]);
     }
 
@@ -58,8 +64,15 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'city' => $data['city'],
+            'street' => $data['street'],
+            'postcode' => $data['postcode'],
+            'www' => $data['www'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+            'password' => bcrypt($data['password'])
+            
+
+            ]);
+        
     }
 }
