@@ -20,6 +20,7 @@
                     <th>Email</th>
                     <th>Telefon</th>
                     <th>Status rezerwacji</th>
+                    <th>Miejsca zarezerwowane</th>
         		</tr>
         	</thead>
     @foreach($reservations as $reservation)
@@ -35,6 +36,7 @@
                     <td>{{$reservation->customer_email}}</td>
                     <td>{{$reservation->customer_phone}}</td>
                     <td>{{$reservation->status}}</td>
+                    <td></td>
         			<td><a href="{{action('ReservationsController@edit',['id'=>$reservation->id])}}" class="btn btn-success">Edytuj</a></td>
 
         	</tbody>	

@@ -13,8 +13,14 @@ class Movies extends Model
         'original_title',
         'time',
         'describtion',
-        'price'
+        'price',
+        'user_id'
     ];
     protected $primaryKey = 'id';
     protected $hidden =[];
+
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

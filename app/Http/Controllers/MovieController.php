@@ -1,22 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use Illuminate\Http\Request;
+use App\User;
 use App\Movies;
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class MovieController extends Controller
 {
-    /**
+        /**
      * Autoryzacja
      */
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +25,12 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movies::all();
+        if(Auth::user()->id)
+        {
+        $movies = DB::table('movies')->where('user_id', Auth::user()->id)->get();
+        
         return view('movies.index')->with('movies',$movies);
+        }
     }
 
     /**
@@ -46,12 +51,16 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::check())
+        {
         $movies = new Movies();
         $movies->title = $request->title;
         $movies->original_title = $request->original_title;
         $movies->time = $request->time;
         $movies->describtion = $request->describtion;
         $movies->price = $request->price;
+        $movies->user_id = Auth::user()->id;
+        }
         $movies->save();
         return redirect('movies');
     }

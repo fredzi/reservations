@@ -20,6 +20,7 @@ Oryginalny tytuł:<input type="text" name="original_title" value="{{ old('origin
 Czas trwania:<input type="text" name="time" value="{{ old('time')}}" class="form-control"><br>
 Opis:<input type="text" name="describtion" value="{{ old('describtion')}}" class="form-control"><br>
 Cena:<input type="text" name="price" value="{{ old('price')}}" class="form-control"><br>
+<input type="hidden" name="user_id" value="{{ old('user_id')}}" class="form-control"><br>
 <input type="submit" value="Dodaj" class="btn btn-success">
 
 </form>

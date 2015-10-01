@@ -1,25 +1,24 @@
 @extends('app')
 
-@section('content')
-    
+@section('header')
 <h1>Tworzenie nowej sali</h1>
- 
-<br >
+@endsection
 
-{!! Form::open(['url' => 'hall']) !!}
 
-{!! Form::label('name', 'Nazwa:') !!}
-{!! Form::text('name', null) !!}
+@section('content')
 
-{!! Form::label('x', 'Miejsc w rzędzie:') !!}
-{!! Form::text('x', null) !!}
+<div id="row">
+	<div class="col-sm-3">
+<form method="POST" action="{{ action('HallController@store') }}" class="form-group">
+{!! csrf_field() !!}
+Nazwa: <input type="text" name="name" value="{{ old('name')}}" class="form-control"><br>
+Miejsc w rzędzie:<input type="text" name="x" value="{{ old('x')}}" class="form-control"><br>
+Rzędów:<input type="text" name="y" value="{{ old('y')}}" class="form-control"><br>
+<input type="submit" value="Wybierz miejsca" class="btn btn-success">
 
-{!! Form::label('y', 'Rzędów:') !!}
-{!! Form::text('y', null) !!}
+</form>
 
-{!! Form::submit('Wybierz miejsca') !!}
-
-{!! Form::close() !!}
-
-@stop
-
+</div>
+<br>
+</div>
+@endsection

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
+use DB;
 use Illuminate\Http\Request;
 use App\Spectator_type;
 use App\Http\Requests;
@@ -9,14 +10,13 @@ use App\Http\Controllers\Controller;
 
 class SpectatorTypeController extends Controller
 {
-    /**
+     /**
      * Autoryzacja
      */
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +24,11 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
-        $spectators = Spectator_type::all();
+        if(Auth::user()->id)
+        {
+        $spectators = DB::table('spectators_types')->where('user_id', Auth::user()->id)->get();
         return view('spectators.index')->with('spectators',$spectators);
+        }
     }
 
     /**
@@ -48,7 +51,7 @@ class SpectatorTypeController extends Controller
     {
         $spectators = new Spectator_type();
         $spectators->name = $request->name;
-        
+        $spectators->user_id = Auth::user()->id;
         
         $spectators->save();
         return redirect('spectators');
