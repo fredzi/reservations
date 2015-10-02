@@ -5,7 +5,7 @@
 Route::get('/', 'MainController@index');
 
 Route::get('/', 'HomeController@index');
-Route::get('test', 'TestController@index');
+//Route::get('test', 'TestController@index');
 
 //hall - sale
 Route::get('hall/block_seats', 'HallController@blockSeats');
