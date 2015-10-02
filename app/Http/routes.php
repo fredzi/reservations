@@ -1,8 +1,11 @@
 <?php
 
 //główny widok
-Route::get('/','MainController@index');
+//Route::get('/','MainController@index');
+Route::get('/', 'MainController@index');
 
+Route::get('/', 'HomeController@index');
+Route::get('test', 'TestController@index');
 
 //hall - sale
 Route::get('hall/block_seats', 'HallController@blockSeats');

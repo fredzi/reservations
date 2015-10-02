@@ -1,9 +1,6 @@
-@extends('app')
+@extends('dashboard')
 
-@section('header')
-<h1 >Dodaj repertuar</h1>
 
-@endsection
 
 
 
@@ -11,6 +8,7 @@
 
 <!-- FORMULARZ DODAWANIA REPERTUARU -->
 @section('content')
+<h1>Dodaj repertuar</h1>
 <div id="row">
 	<div id="col-sm-4">
 <form method="POST" action="{{ action('RepertoireController@store') }}" class="form-group">

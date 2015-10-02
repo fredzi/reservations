@@ -1,11 +1,9 @@
-@extends('app')
+@extends('dashboard')
 
 
 @section('content')
     <h1>Movies-filmy</h1>
-    <div>
-    	<a href="{{action('MovieController@create')}}" class="btn btn-primary">Dodaj film</a>
-    </div>
+   
     
         <table class="table table-hover">
         	<thead>
@@ -33,4 +31,5 @@
         	</tbody>	
 
     @endforeach
-@stop
+        </table>
+@endsection

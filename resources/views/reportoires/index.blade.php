@@ -1,11 +1,9 @@
-@extends('app')
+@extends('dashboard')
 
 
 @section('content')
     <h1>Repertoise - repertuar</h1>
-    <div>
-    	<a href="{{action('RepertoireController@create')}}" class="btn btn-primary">Dodaj repertuar</a>
-    </div>
+    
     
         <table class="table table-hover">
         	<thead>

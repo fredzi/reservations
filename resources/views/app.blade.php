@@ -16,11 +16,7 @@
         <div>
           <ul class="nav navbar-nav ">
             
-            <li><a href="{{action('HallController@index')}}">Hall</a></li>
-            <li><a href="{{action('MovieController@index')}}">Movie</a></li>
-            <li><a href="{{action('SpectatorTypeController@index')}}">Spectators</a></li>
-            <li><a href="{{action('RepertoireController@index')}}">Repertuar</a></li>
-            <li><a href="{{action('ReservationsController@index')}}">Reservations</a></li>
+           
             
           </ul>
 
@@ -41,6 +37,8 @@
             @endif
           </ul>
         </div>
+
+
         
       </div>
 
@@ -55,6 +53,7 @@
       <div class="container">
           @yield('header')
           @yield('content')
+          
       </div>
 
       

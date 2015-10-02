@@ -1,11 +1,9 @@
-@extends('app')
+@extends('dashboard')
 
 
 @section('content')
     <h1>Spectators - typ klienta</h1>
-    <div>
-    	<a href="{{action('SpectatorTypeController@create')}}" class="btn btn-primary">Dodaj typ</a>
-    </div>
+    
     
         <table class="table table-hover">
         	<thead>

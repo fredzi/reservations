@@ -1,12 +1,10 @@
-@extends('app')
+@extends('dashboard')
 
-@section('header')
-<h1>Tworzenie nowej sali</h1>
-@endsection
+
 
 
 @section('content')
-
+<h1>Dodaj hall</h1>
 <div id="row">
 	<div class="col-sm-3">
 <form method="POST" action="{{ action('HallController@store') }}" class="form-group">

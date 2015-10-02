@@ -1,10 +1,10 @@
-@extends('app')
+@extends('dashboard')
 
-@section('header')
-<h1>Edytuj film</h1>
-@endsection
+
 
 @section('content')
+<h1>Edytuj film</h1>
+
 <form method="POST" action="{{ action('MovieController@edit', ['id' => $movies->id]) }}" class="form-group">
 	<input name="_method" type="hidden" value="PATCH">
 	{!! csrf_field() !!}
