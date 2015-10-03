@@ -50,7 +50,7 @@ class MovieController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateMovie $request)
     {
        
         $movies = new Movies($request->all());
