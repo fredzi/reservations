@@ -60,27 +60,8 @@ class MovieController extends Controller
         $movies->describtion = $request->describtion;
         $movies->price = 123;
         $movies->user_id = Auth::user()->id;
-
-        $validator = Validator::make($request->all(),[
-            $request->title = 'title' => 'required',
-            $request->original_title = 'original_title' => 'required',
-            $request->time = 'time' => 'required|integer',
-            $request->describtion = 'describtion' => 'required|max:1000',
-            $request->price = 'price' => 'required|integer']);
-
-        if ($validator->fails()) {
-            return redirect('movies/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        else{
-            $movies->save();
+        $movies->save();
         return redirect('movies');
-        }
-
-
-
-        
     }
 
     /**
