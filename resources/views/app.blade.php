@@ -1,61 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
-    <title>System rezerwacji</title>
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link href="{{ asset("/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link href="{{ asset("/bower_components/AdminLTE/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset("/bower_components/AdminLTE/plugins/iCheck/square/blue.css")}}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
-  <body>
-    <div
-
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="{{action('MainController@index')}}">System rezerwacji</a>
-        </div>
-        <div>
-          <ul class="nav navbar-nav ">
-            
-           
-            
-          </ul>
-
-        </div>
+  <body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        <a ><b>Admin</b></a>
+      </div><!-- /.login-logo -->
+      <div class="login-box-body">
+        <p class="login-box-msg" style="font-size:15px;">Zaloguj się</p>
 
 
 
 
 
-        <div>
-          <ul class="nav navbar-nav navbar-right">
-            @if(Auth::check())
-            <p style="margin-top:15px;">Witaj, <strong>{{{Auth::user()->email}}}</strong></p>
-            <li><a href="{{asset('/auth/logout')}}">Wyloguj się</a></li>
-            @else
-            <li><a href="{{asset('/auth/login')}}">Zaloguj się</a></li>
-            <li><a href="{{asset('/auth/register')}}">Zarejestruj się</a></li>
-            @endif
-          </ul>
-        </div>
+        @yield('formularz')
 
 
         
-      </div>
 
+        <a href="#">Nie pamiętam hasła</a><br>
+        <a href="#" class="text-center">Nie masz konta ? Zajerestruj się !</a>
 
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
 
-
-
-
-      </div>
-</nav>
-
-      <div class="container">
-          @yield('header')
-          @yield('content')
-          
-      </div>
-
-      
+    <!-- jQuery 2.1.4 -->
+    <script src="{{ asset("/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js")}}"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{{ asset("/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js")}}"></script>
+    <!-- iCheck -->
+    <script src="{{ asset("/bower_components/AdminLTE/plugins/iCheck/icheck.min.js")}}"></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+    </script>
   </body>
 </html>
