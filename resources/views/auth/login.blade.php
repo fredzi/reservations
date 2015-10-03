@@ -30,6 +30,8 @@
             <button type="submit" class="btn btn-primary btn-block btn-flat">Zaloguj się </button>
         </div>
     </div>
+    <a href="#">Nie pamiętam hasła</a><br>
+        <a href="{{asset('/auth/register')}}" class="text-center">Nie masz konta ? Zajerestruj się !</a>
 </form>
 
 @if (count($errors) > 0)
