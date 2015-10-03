@@ -32,29 +32,29 @@
       
       
       <li class="treeview">
-              <a href="#">
-                <i class="fa fa-table"></i> <span>Tabele</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{action('HallController@index')}}"><i class="fa fa-circle-o"></i> Halls</a></li>
-                <li><a href="{{action('MovieController@index')}}"><i class="fa fa-circle-o"></i> Movies</a></li>
-                <li><a href="{{action('SpectatorTypeController@index')}}"><i class="fa fa-circle-o"></i> Spectators</a></li>
-                <li><a href="{{action('RepertoireController@index')}}"><i class="fa fa-circle-o"></i> Repertoires</a></li>
-              </ul>
+              <a href="{{action('HallController@index')}}">
+                <i class=" fa fa-angle-right"></i> <span>Sale</span>
+              </a>     
       </li>
-      <li class="treeview">
-              <a href="#">
-                <i class="fa fa-table"></i> <span>Formularze</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{action('HallController@create')}}"><i class="fa fa-circle-o"></i> Add Halls</a></li>
-                <li><a href="{{action('MovieController@create')}}"><i class="fa fa-circle-o"></i> Add Movies</a></li>
-                <li><a href="{{action('SpectatorTypeController@create')}}"><i class="fa fa-circle-o"></i> Add Spectators</a></li>
-                <li><a href="{{action('RepertoireController@create')}}"><i class="fa fa-circle-o"></i> Add Repertoires</a></li>
-              </ul>
+       <li class="treeview">
+              <a href="{{action('MovieController@index')}}">
+                <i class="  fa fa-angle-right"></i> <span>Filmy</span>
+              </a>   
       </li>
+       <li class="treeview">
+              <a href="{{action('SpectatorTypeController@index')}}">
+                <i class="  fa fa-angle-right"></i> <span>Typ klienta</span>
+              </a>    
+      </li>
+       <li class="treeview">
+              <a href="{{action('RepertoireController@index')}}">
+                <i class="  fa fa-angle-right"></i> <span>Repertuar</span>
+              </a>   
+      </li>
+      
+              
+              
+      
     </ul><!-- /.sidebar-menu -->
   </section>
   <!-- /.sidebar -->

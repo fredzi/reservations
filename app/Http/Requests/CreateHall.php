@@ -24,16 +24,21 @@ class CreateHall extends Request
     public function rules()
     {
         $name = $this->input('name');
+
         if(isset($name))
         {
             return [
-                'name' => 'required'
+                'name' => 'required',
+                'x' => 'required|integer',
+                'y'=> 'required|integer'
             ];
         }
         else
         {
             return [
-                'name' => 'required'
+                'name' => 'required',
+                'x' => 'required|integer',
+                'y'=> 'required|integer'
             ];
             
         }

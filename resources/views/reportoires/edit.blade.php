@@ -1,33 +1,68 @@
 @extends('app')
-
-
-
 @section('content')
-<h1>Edytuj repertuar</h1>
-<form method="POST" action="{{ action('RepertoireController@edit', ['id' => $repertoires->id]) }}" class="form-group">
+
+<div class="box box-info">
+	<div class="box-header with-border">
+        <h3 class="box-title">
+            Edytuj
+        </h3>
+    </div><!-- /.box-header -->
+
+
+<form method="POST" action="{{ action('RepertoireController@edit', ['id' => $repertoires->id]) }}" class="form-horizontal">
 	<input name="_method" type="hidden" value="PATCH">
 	{!! csrf_field() !!}
-	<div class="row">
-		<div class="col-sm-5">
-		<label>Nr sali:</label> 
-		<input type="text" name="hall_id" value="<?= $repertoires->hall_id; ?>" class="form-control">
-		<label>Nr filmu:</label> 
-		<input type="text" name="movies_id" value="<?= $repertoires->movies_id; ?>" class="form-control">
-		<label>Godzina:</label> 
-		<input type="text" name="time" value="<?= $repertoires->time; ?>" class="form-control">
-		
-		</div>
-	</div>
-	
-	<br>
-	<div>
-		<button type="submit" class="btn btn-success">Aktualizuj</button>
-	</div>
+	<div class="box-body">
+		        <!-- NR SALI -->
+		        <div class="form-group">
+		          <label for="hall_id" class="col-sm-2 control-label">
+		              Nr sali
+		          </label>
+		          <div class="col-sm-10">
+		            <input class="form-control" id="hall_id" value="<?= $repertoires->hall_id; ?>"  name="hall_id">
+		          </div>
+		        </div>
+	</div><!--/.box-body -->
+	<div class="box-body">
+		        <!-- NR FILMU -->
+		        <div class="form-group">
+		          <label for="movies_id" class="col-sm-2 control-label">
+		              Nr filmu
+		          </label>
+		          <div class="col-sm-10">
+		            <input class="form-control" id="movies_id" value="<?= $repertoires->movies_id; ?>" name="movies_id">
+		          </div>
+		        </div>
+	</div><!--/.box-body -->
+	<div class="box-body">
+		        <!-- GODZINA -->
+		        <div class="form-group">
+		          <label for="time" class="col-sm-2 control-label">
+		              Godzina
+		          </label>
+		          <div class="col-sm-10">
+		            <input class="form-control" id="time" value="<?= $repertoires->time; ?>" placeholder="Podaj godzinę" name="time">
+		          </div>
+		        </div>
+	</div><!--/.box-body -->
+	<div class="box-footer">
+            <a href="{{ action('RepertoireController@index') }}" type="submit" class="btn btn-default pull-right">
+                Anuluj
+            </a>
+            <button type="submit" class="btn btn-info pull-left">
+                Aktualizuj
+            </button>
+    </div><!-- /.box-footer -->
 </form>
-<form method="POST" action="{{ action('RepertoireController@destroy', ['id' => $repertoires->id]) }}">
+
+
+
+
+
+<form method="POST" action="{{ action('RepertoireController@destroy', ['id' => $repertoires->id]) }}" class="form-horizontal">
 	<input name="_method" type="hidden" value="delete">
 	{!! csrf_field() !!}
-	<div>
+	<div class="box-body">
 		<button type="submit" class="btn btn-danger">Usuń</button>
 	</div>
 </form>
@@ -40,4 +75,5 @@
 		@endforeach
 	</ul>
 @endif
+</div><!--/.box box-info -->
 @endsection

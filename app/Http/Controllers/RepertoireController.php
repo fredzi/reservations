@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Validator;
 use Illuminate\Http\Request;
 use App\Repertoire;
 use App\Http\Requests;
@@ -43,12 +43,32 @@ class RepertoireController extends Controller
      */
     public function store(Request $request)
     {
-        $repertoires = new Repertoire();
+        $repertoires = new Repertoire($request->all());
         $repertoires->hall_id = $request->hall_id;
         $repertoires->movie_id = $request->movie_id;
         $repertoires->time = $request->time;
-        $repertoires->save();
-        return redirect('repertoire');
+
+        $validator = Validator::make($request->all(),[
+            $request->name = 'name' => 'required',
+            $request->time = 'time' => 'required'
+           ]);
+
+        if ($validator->fails()) {
+            return redirect('repertoire/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else{
+            $repertoires->save();
+            return redirect('repertoire');
+        }
+
+
+
+        
+
+
+        
     }
 
     /**
@@ -101,7 +121,7 @@ class RepertoireController extends Controller
     public function destroy($id)
     {
         $repertoires = Repertoire::findOrFail($id);
-        $repertoires=delete();
+        $repertoires->delete();
         return redirect('repertoire');
     }
 }

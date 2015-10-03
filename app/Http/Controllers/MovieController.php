@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Validator;
 use DB;
 use Illuminate\Http\Request;
 use App\User;
 use App\Movies;
 use Auth;
 use App\Http\Requests;
+use App\Http\Requests\CreateMovie;
 use App\Http\Controllers\Controller;
 
 class MovieController extends Controller
@@ -25,9 +27,11 @@ class MovieController extends Controller
      */
     public function index()
     {
+        
         $movies = DB::table('movies')->where('user_id', Auth::user()->id)->get();
         
         return view('movies.index')->with('movies',$movies);
+        
     }
 
     /**
@@ -48,12 +52,13 @@ class MovieController extends Controller
      */
     public function store(Requests\CreateMovie $request)
     {
-        $movies = new Movies();
+       
+        $movies = new Movies($request->all());
         $movies->title = $request->title;
         $movies->original_title = $request->original_title;
         $movies->time = $request->time;
         $movies->describtion = $request->describtion;
-        $movies->price = $request->price;
+        $movies->price = 123;
         $movies->user_id = Auth::user()->id;
         $movies->save();
         return redirect('movies');
@@ -112,7 +117,7 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movies = Movies::findOrFail($id);
-        $movies=delete();
+        $movies->delete();
         return redirect('movies');
     }
 }

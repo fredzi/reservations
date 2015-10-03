@@ -1,37 +1,79 @@
 @extends('dashboard')
-
-
-
 @section('content')
-<h1>Edytuj film</h1>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            Edytuj
+        </h3>
+    </div><!-- /.box-header -->
 
-<form method="POST" action="{{ action('MovieController@edit', ['id' => $movies->id]) }}" class="form-group">
+
+
+<form method="POST" action="{{ action('MovieController@edit', ['id' => $movies->id]) }}" class="form-horizontal">
 	<input name="_method" type="hidden" value="PATCH">
 	{!! csrf_field() !!}
-	<div class="row">
-		<div class="col-sm-5">
-		<label>Tytuł:</label> 
-		<input type="text" name="title" value="<?= $movies->title; ?>" class="form-control">
-		<label>Oryginalny tytuł:</label> 
-		<input type="text" name="original_title" value="<?= $movies->original_title; ?>" class="form-control">
-		<label>Czas:</label> 
-		<input type="text" name="time" value="<?= $movies->time; ?>" class="form-control">
-		<label>Opis:</label> 
-		<input type="text" name="describtion" value="<?= $movies->describtion; ?>" class="form-control">
-		<label>Cena:</label> 
-		<input type="text" name="price" value="<?= $movies->price; ?>" class="form-control">
-		</div>
-	</div>
+		<div class="box-body">
+        <!-- TYTUL -->
+	        <div class="form-group">
+	          <label for="title" class="col-sm-2 control-label">
+	              Tytuł
+	          </label>
+	          <div class="col-sm-10">
+	            <input class="form-control" id="title" value="<?= $movies->title; ?>" name="title">
+	          </div>
+	        </div>
+	        <!--TYTUŁ ORYGINALNY -->
+	        <div class="form-group">
+	          <label for="original_title" class="col-sm-2 control-label">
+	              Tytuł oryginalny
+	          </label>
+	          <div class="col-sm-10">
+	            <input class="form-control" id="original_title" value="<?= $movies->original_title; ?>" name="original_title">
+	          </div>
+	        </div>
+	        <!--CZAS TRWANIA -->
+	        <div class="form-group">
+	          <label for="time" class="col-sm-2 control-label">
+	              Czas trwania
+	          </label>
+	          <div class="col-sm-10">
+	            <input class="form-control" id="time" value="<?= $movies->time; ?>" name="time">
+	          </div>
+        	</div>
+        	<!-- OPIS -->
+	        <div class="form-group">
+	          <label for="describtion" class="col-sm-2 control-label">
+	              Opis
+	          </label>
+	          <div class="col-sm-10">
+	            <input class="form-control" id="describtion" value="<?= $movies->describtion; ?>" name="describtion">
+	          </div>
+	        </div>
+	        <!-- CENA -->
+	        <div class="form-group">
+	          <label for="price" class="col-sm-2 control-label">
+	              Cena
+	          </label>
+	          <div class="col-sm-10">
+	            <input class="form-control" id="price" value="<?= $movies->price; ?>" name="price">
+	          </div>
+	        </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <a href="{{ action('MovieController@index') }}" type="submit" class="btn btn-default pull-right">
+                Anuluj
+            </a>
+            <button type="submit" class="btn btn-info pull-left">
+                Aktualizuj
+            </button>
+        </div><!-- /.box-footer -->
 	
-	<br>
-	<div>
-		<button type="submit" class="btn btn-success">Aktualizuj</button>
-	</div>
 </form>
-<form method="POST" action="{{ action('MovieController@destroy', ['id' => $movies->id]) }}">
+
+<form method="POST" action="{{ action('MovieController@destroy', ['id' => $movies->id]) }}" class="form-horizontal">
 	<input name="_method" type="hidden" value="delete">
 	{!! csrf_field() !!}
-	<div>
+	<div class="box-body">
 		<button type="submit" class="btn btn-danger">Usuń</button>
 	</div>
 </form>
@@ -44,4 +86,5 @@
 		@endforeach
 	</ul>
 @endif
+</div><!--/.box box-info -->
 @endsection

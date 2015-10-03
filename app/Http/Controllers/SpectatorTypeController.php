@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Validator;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -24,11 +25,10 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->id)
-        {
+        
         $spectators = DB::table('spectators_types')->where('user_id', Auth::user()->id)->get();
         return view('spectators.index')->with('spectators',$spectators);
-        }
+        
     }
 
     /**
@@ -49,12 +49,26 @@ class SpectatorTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $spectators = new Spectator_type();
+        $spectators = new Spectator_type($request->all());
         $spectators->name = $request->name;
         $spectators->user_id = Auth::user()->id;
-        
-        $spectators->save();
+
+        $validator = Validator::make($request->all(),[
+            $request->name = 'name' => 'required'
+           ]);
+
+        if ($validator->fails()) {
+            return redirect('spectators/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else{
+            $spectators->save();
         return redirect('spectators');
+        }
+
+
+        
     }
 
     /**
@@ -106,7 +120,7 @@ class SpectatorTypeController extends Controller
     public function destroy($id)
     {
         $spectators = Spectator_type::findOrFail($id);
-        $spectators=delete();
+        $spectators->delete();
         return redirect('spectators');
     }
 }

@@ -110,7 +110,7 @@ class ReservationsController extends Controller
     public function destroy($id)
     {
         $reservations = Reservation::findOrFail($id);
-        $reservations=delete();
+        $reservations->delete();
         return redirect('reservations');
     }
 }
