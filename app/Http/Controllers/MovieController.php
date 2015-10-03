@@ -25,12 +25,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->id)
-        {
         $movies = DB::table('movies')->where('user_id', Auth::user()->id)->get();
         
         return view('movies.index')->with('movies',$movies);
-        }
     }
 
     /**
@@ -49,10 +46,8 @@ class MovieController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateMovie $request)
     {
-        if(Auth::check())
-        {
         $movies = new Movies();
         $movies->title = $request->title;
         $movies->original_title = $request->original_title;
@@ -60,7 +55,6 @@ class MovieController extends Controller
         $movies->describtion = $request->describtion;
         $movies->price = $request->price;
         $movies->user_id = Auth::user()->id;
-        }
         $movies->save();
         return redirect('movies');
     }
