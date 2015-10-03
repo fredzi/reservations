@@ -1,6 +1,8 @@
 @extends('dashboard')
 @section('content')
 
+@include('forms/errors')
+
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">
@@ -12,7 +14,7 @@
         {!! csrf_field() !!}
         <div class="box-body">
         <!-- TYTUL -->
-        <div class="form-group">
+        <div class="form-group @if($errors->has('title'))  has-error @endif">
           <label for="title" class="col-sm-2 control-label">
               Tytuł
           </label>
@@ -45,15 +47,6 @@
           </label>
           <div class="col-sm-10">
             <input class="form-control" id="describtion" value="{{ old('describtion')}}" placeholder="Opis filmu do 1000 znaków">
-          </div>
-        </div>
-        <!-- TYTUL -->
-        <div class="form-group">
-          <label for="title" class="col-sm-2 control-label">
-              Tytuł
-          </label>
-          <div class="col-sm-10">
-            <input class="form-control" id="title" value="{{ old('title')}}" placeholder="Podaj tytuł">
           </div>
         </div>
         </div><!-- /.box-body -->
