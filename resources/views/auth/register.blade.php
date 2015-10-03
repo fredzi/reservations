@@ -1,12 +1,9 @@
 @extends('app')
 
-@section('header')
-<h1>Zarejestruj się</h1>
-@endsection
 
-@section('content')
-<div class="row">
-    <div class="col-sm-4">
+
+@section('formularz')
+
         <form method="POST" action="/auth/register" class="form-group" role="form">
             {!! csrf_field() !!}
 
@@ -54,9 +51,7 @@
                 <button type="submit" class="btn btn-primary" style="margin-top:10px;">Zarejestruj się</button>
             </div>
         </form>
-    </div>
-</div>
-
+   
 
 <div >
     @if (count($errors) > 0)

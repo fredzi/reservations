@@ -41,8 +41,7 @@
 
         
 
-        <a href="#">Nie pamiętam hasła</a><br>
-        <a href="#" class="text-center">Nie masz konta ? Zajerestruj się !</a>
+        
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
