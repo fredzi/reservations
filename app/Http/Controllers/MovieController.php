@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Validator;
 use DB;
 use Illuminate\Http\Request;
 use App\User;
 use App\Movies;
 use Auth;
 use App\Http\Requests;
+use App\Http\Requests\CreateMovie;
 use App\Http\Controllers\Controller;
 
 class MovieController extends Controller
@@ -25,9 +27,11 @@ class MovieController extends Controller
      */
     public function index()
     {
+        
         $movies = DB::table('movies')->where('user_id', Auth::user()->id)->get();
         
         return view('movies.index')->with('movies',$movies);
+        
     }
 
     /**
@@ -46,17 +50,37 @@ class MovieController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Requests\CreateMovie $request)
+    public function store(Request $request)
     {
-        $movies = new Movies();
+       
+        $movies = new Movies($request->all());
         $movies->title = $request->title;
         $movies->original_title = $request->original_title;
         $movies->time = $request->time;
         $movies->describtion = $request->describtion;
         $movies->price = $request->price;
         $movies->user_id = Auth::user()->id;
-        $movies->save();
+
+        $validator = Validator::make($request->all(),[
+            $request->title = 'title' => 'required',
+            $request->original_title = 'original_title' => 'required',
+            $request->time = 'time' => 'required|integer',
+            $request->describtion = 'describtion' => 'required|max:1000',
+            $request->price = 'price' => 'required|integer']);
+
+        if ($validator->fails()) {
+            return redirect('movies/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else{
+            $movies->save();
         return redirect('movies');
+        }
+
+
+
+        
     }
 
     /**
@@ -112,7 +136,7 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movies = Movies::findOrFail($id);
-        $movies=delete();
+        $movies->delete();
         return redirect('movies');
     }
 }

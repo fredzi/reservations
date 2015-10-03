@@ -17,7 +17,7 @@
               Tytuł
           </label>
           <div class="col-sm-10">
-            <input class="form-control" id="title" value="{{ old('title')}}" placeholder="Podaj tytuł">
+            <input class="form-control" id="title" value="{{ old('title')}}" placeholder="Podaj tytuł" name="title">
           </div>
         </div>
         <!-- TYTUL ORIGINALNU -->
@@ -26,7 +26,7 @@
               Tytuł oryginalny
           </label>
           <div class="col-sm-10">
-            <input class="form-control" id="original_title" value="{{ old('original_title')}}" placeholder="Podaj tytuł oryginalny">
+            <input class="form-control" id="original_title" value="{{ old('original_title')}}" placeholder="Podaj tytuł oryginalny" name="original_title">
           </div>
         </div>
         <!-- CZAS TRWANIA -->
@@ -35,7 +35,7 @@
               Czas trwania
           </label>
           <div class="col-sm-10">
-            <input class="form-control" id="time" value="{{ old('time')}}" placeholder="Czas trwania filmu w minutach">
+            <input class="form-control" id="time" value="{{ old('time')}}" placeholder="Czas trwania filmu w minutach" name="time">
           </div>
         </div>
         <!-- OPIS -->
@@ -44,16 +44,16 @@
               Opis
           </label>
           <div class="col-sm-10">
-            <input class="form-control" id="describtion" value="{{ old('describtion')}}" placeholder="Opis filmu do 1000 znaków">
+            <input class="form-control" id="describtion" value="{{ old('describtion')}}" placeholder="Opis filmu do 1000 znaków" name="describtion">
           </div>
         </div>
-        <!-- TYTUL -->
+        <!-- CENA -->
         <div class="form-group">
-          <label for="title" class="col-sm-2 control-label">
-              Tytuł
+          <label for="price" class="col-sm-2 control-label">
+              Cena
           </label>
           <div class="col-sm-10">
-            <input class="form-control" id="title" value="{{ old('title')}}" placeholder="Podaj tytuł">
+            <input class="form-control" id="price" value="{{ old('price')}}" placeholder="Podaj cenę" name="price">
           </div>
         </div>
         </div><!-- /.box-body -->
@@ -66,6 +66,19 @@
             </button>
         </div><!-- /.box-footer -->
     </form>
+    @if (count($errors) > 0)
+          <div class="alert alert-danger fade in" role="alert">
+
+            <ol>
+
+              @foreach ($errors->all() as $error)
+                <ul class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" >{{ $error }}</ul>
+              @endforeach
+
+            </ol>
+
+          </div>
+        @endif
 </div><!-- /.box -->
 
 @endsection
