@@ -56,10 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-            Informacje
-            
-          </h1>
+          
           <!-- You can dynamically generate breadcrumbs here -->
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>

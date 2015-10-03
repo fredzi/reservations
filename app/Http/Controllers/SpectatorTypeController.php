@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Spectator_type;
 use App\Http\Requests;
+use App\Http\Requests\CreateSpectatorType;
 use App\Http\Controllers\Controller;
 
 class SpectatorTypeController extends Controller
@@ -47,25 +48,14 @@ class SpectatorTypeController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateSpectatorType $request)
     {
         $spectators = new Spectator_type($request->all());
         $spectators->name = $request->name;
         $spectators->user_id = Auth::user()->id;
-
-        $validator = Validator::make($request->all(),[
-            $request->name = 'name' => 'required'
-           ]);
-
-        if ($validator->fails()) {
-            return redirect('spectators/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        else{
-            $spectators->save();
+        $spectators->save();
         return redirect('spectators');
-        }
+        
 
 
         
@@ -102,7 +92,7 @@ class SpectatorTypeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateSpectatorType $request, $id)
     {
         $spectators = Spectator_type::findOrFail($id);
         $spectators->name = $request->name;

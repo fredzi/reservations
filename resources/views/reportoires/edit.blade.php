@@ -1,5 +1,12 @@
 @extends('app')
 @section('content')
+<h1>
+<p>Repertuar <a class="fa fa-angle-right"></a> Edytuj
+
+</p>
+</h1>
+
+@include('forms/errors')
 
 <div class="box box-info">
 	<div class="box-header with-border">
@@ -14,7 +21,7 @@
 	{!! csrf_field() !!}
 	<div class="box-body">
 		        <!-- NR SALI -->
-		        <div class="form-group">
+		        <div class="form-group" @if($errors->has('hall_id'))  has-error @endif>
 		          <label for="hall_id" class="col-sm-2 control-label">
 		              Nr sali
 		          </label>
@@ -25,7 +32,7 @@
 	</div><!--/.box-body -->
 	<div class="box-body">
 		        <!-- NR FILMU -->
-		        <div class="form-group">
+		        <div class="form-group" @if($errors->has('movies_id'))  has-error @endif>
 		          <label for="movies_id" class="col-sm-2 control-label">
 		              Nr filmu
 		          </label>
@@ -36,7 +43,7 @@
 	</div><!--/.box-body -->
 	<div class="box-body">
 		        <!-- GODZINA -->
-		        <div class="form-group">
+		        <div class="form-group" @if($errors->has('time'))  has-error @endif>
 		          <label for="time" class="col-sm-2 control-label">
 		              Godzina
 		          </label>
@@ -45,14 +52,7 @@
 		          </div>
 		        </div>
 	</div><!--/.box-body -->
-	<div class="box-footer">
-            <a href="{{ action('RepertoireController@index') }}" type="submit" class="btn btn-default pull-right">
-                Anuluj
-            </a>
-            <button type="submit" class="btn btn-info pull-left">
-                Aktualizuj
-            </button>
-    </div><!-- /.box-footer -->
+	@include('forms/buttons', ['submit_action' => 'RepertoireController@index'])
 </form>
 
 
@@ -68,12 +68,6 @@
 </form>
 <br>
 
-@if ($errors->any())
-	<ul class="alert alert-danger">
-		@foreach ($errors->all() as $error)
-			<li>{{ $error }}</li>
-		@endforeach
-	</ul>
-@endif
+
 </div><!--/.box box-info -->
 @endsection

@@ -1,5 +1,10 @@
 @extends('dashboard')
 @section('content')
+<h1>
+<p>Sale
+
+</p>
+</h1>
     
 <div class="box">
 

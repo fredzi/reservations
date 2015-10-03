@@ -1,5 +1,10 @@
 @extends('dashboard')
 @section('content')
+<h1>
+<p>Typ klienta
+
+</p>
+</h1>
 
     <div class="box">
         <div class="box-header">

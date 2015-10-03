@@ -96,7 +96,7 @@ class MovieController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateMovie $request, $id)
     {
         $movies = Movies::findOrFail($id);
         $movies->title = $request->title;

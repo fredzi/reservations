@@ -1,5 +1,12 @@
 @extends('dashboard')
 @section('content')
+<h1>
+<p>Sale <a class="fa fa-angle-right"></a> Dodaj
+
+</p>
+</h1>
+
+@include('forms/errors')
 
 <div class="box box-info">
 	<div class="box-header with-border">
@@ -14,7 +21,7 @@
 	{!! csrf_field() !!}
 	<div class="box-body">
         <!-- NAZWA -->
-        <div class="form-group">
+        <div class="form-group" @if($errors->has('name'))  has-error @endif>
           <label for="name" class="col-sm-2 control-label">
               Nazwa
           </label>
@@ -23,7 +30,7 @@
           </div>
         </div>
         <!-- MIEJSC W RZĘDZIE -->
-        <div class="form-group">
+        <div class="form-group" @if($errors->has('x'))  has-error @endif>
           <label for="x" class="col-sm-2 control-label">
               Ilość miejsc w rzędzie
           </label>
@@ -32,7 +39,7 @@
           </div>
         </div>
         <!-- ILOŚĆ RZĘDÓW -->
-        <div class="form-group">
+        <div class="form-group"@if($errors->has('y'))  has-error @endif>
           <label for="y" class="col-sm-2 control-label">
               Ilość rzędów
           </label>
@@ -41,15 +48,8 @@
           </div>
         </div>
     </div><!--/.box-body -->
-    	<div class="box-footer">
-            <a href="{{ action('HallController@index') }}" type="submit" class="btn btn-default pull-right">
-                Anuluj
-            </a>
-            <button type="submit" class="btn btn-info pull-left">
-                Dodaj
-            </button>
-        </div><!-- /.box-footer -->
-
+    	
+@include('forms/buttons', ['submit_action' => 'RepertoireController@index'])
 
 
 
@@ -58,19 +58,6 @@
 	
 
 	</form>
-@if (count($errors) > 0)
-          <div class="alert alert-danger fade in" role="alert">
 
-            <ol>
-
-              @foreach ($errors->all() as $error)
-                <ul class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" >{{ $error }}</ul>
-              @endforeach
-
-            </ol>
-
-          </div>
-        @endif
-</div><!--/.box box-info -->
 
 @endsection

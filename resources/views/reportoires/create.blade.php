@@ -1,5 +1,12 @@
 @extends('dashboard')
 @section('content')
+<h1>
+<p>Repertuar <a class="fa fa-angle-right"></a> Dodaj
+
+</p>
+</h1>
+@include('forms/errors')
+
 <div class="box box-info">
 	<div class="box-header with-border">
         <h3 class="box-title">
@@ -13,7 +20,7 @@
 
 		<div class="box-body">
 		        <!-- NR SALI -->
-		        <div class="form-group">
+		        <div class="form-group "@if($errors->has('hall_id'))  has-error @endif>
 		          <label for="hall_id" class="col-sm-2 control-label">
 		              Nr sali
 		          </label>
@@ -23,7 +30,7 @@
 		        </div>
 		
 		        <!-- NR FILMU -->
-		        <div class="form-group">
+		        <div class="form-group" @if($errors->has('movies_id'))  has-error @endif>
 		          <label for="movies_id" class="col-sm-2 control-label">
 		              Nr filmu
 		          </label>
@@ -33,7 +40,7 @@
 		        </div>
 		
 		        <!-- GODZINA -->
-		        <div class="form-group">
+		        <div class="form-group"@if($errors->has('time'))  has-error @endif>
 		          <label for="time" class="col-sm-2 control-label">
 		              Godzina
 		          </label>
@@ -43,14 +50,7 @@
 		        </div>
 		</div><!--/.box-body -->
 
-		<div class="box-footer">
-            <a href="{{ action('RepertoireController@index') }}" type="submit" class="btn btn-default pull-right">
-                Anuluj
-            </a>
-            <button type="submit" class="btn btn-info pull-left">
-                Dodaj
-            </button>
-        </div><!-- /.box-footer -->
+		@include('forms/buttons', ['submit_action' => 'RepertoireController@index'])
 
 	
 
@@ -59,19 +59,6 @@
 
 	</form>
 
-@if (count($errors) > 0)
-          <div class="alert alert-danger fade in" role="alert">
-
-            <ol>
-
-              @foreach ($errors->all() as $error)
-                <ul class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" >{{ $error }}</ul>
-              @endforeach
-
-            </ol>
-
-          </div>
-        @endif
 
 
 </div><!--/.box box-info -->

@@ -1,6 +1,10 @@
 @extends('dashboard')
 @section('content')
+<h1 >
+<p>Filmy
 
+</p>
+</h1>
 <div class="box">
 
     <div class="box-header">

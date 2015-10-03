@@ -41,27 +41,14 @@ class RepertoireController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateRepertoire $request)
     {
         $repertoires = new Repertoire($request->all());
         $repertoires->hall_id = $request->hall_id;
         $repertoires->movie_id = $request->movie_id;
         $repertoires->time = $request->time;
-
-        $validator = Validator::make($request->all(),[
-            $request->name = 'name' => 'required',
-            $request->time = 'time' => 'required'
-           ]);
-
-        if ($validator->fails()) {
-            return redirect('repertoire/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        else{
-            $repertoires->save();
-            return redirect('repertoire');
-        }
+        $repertoires->save();
+        return redirect('repertoire');
 
 
 
@@ -102,7 +89,7 @@ class RepertoireController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateRepertoire $request, $id)
     {
         $repertoires = Repertoire::findOrFail($id);
         $repertoires->hall_id = $request->hall_id;

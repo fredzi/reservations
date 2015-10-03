@@ -1,5 +1,13 @@
 @extends('dashboard')
 @section('content')
+<h1>
+<p>Movies <a class="fa fa-angle-right"></a>Edytuj
+
+</p>
+</h1>
+
+@include('forms/errors')
+
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">
@@ -14,7 +22,7 @@
 	{!! csrf_field() !!}
 		<div class="box-body">
         <!-- TYTUL -->
-	        <div class="form-group">
+	        <div class="form-group" @if($errors->has('title'))  has-error @endif>
 	          <label for="title" class="col-sm-2 control-label">
 	              Tytuł
 	          </label>
@@ -23,7 +31,7 @@
 	          </div>
 	        </div>
 	        <!--TYTUŁ ORYGINALNY -->
-	        <div class="form-group">
+	        <div class="form-group" @if($errors->has('original_title'))  has-error @endif>
 	          <label for="original_title" class="col-sm-2 control-label">
 	              Tytuł oryginalny
 	          </label>
@@ -32,7 +40,7 @@
 	          </div>
 	        </div>
 	        <!--CZAS TRWANIA -->
-	        <div class="form-group">
+	        <div class="form-group" @if($errors->has('time'))  has-error @endif>
 	          <label for="time" class="col-sm-2 control-label">
 	              Czas trwania
 	          </label>
@@ -41,7 +49,7 @@
 	          </div>
         	</div>
         	<!-- OPIS -->
-	        <div class="form-group">
+	        <div class="form-group"@if($errors->has('describtion'))  has-error @endif>
 	          <label for="describtion" class="col-sm-2 control-label">
 	              Opis
 	          </label>
@@ -59,14 +67,7 @@
 	          </div>
 	        </div>
         </div><!-- /.box-body -->
-        <div class="box-footer">
-            <a href="{{ action('MovieController@index') }}" type="submit" class="btn btn-default pull-right">
-                Anuluj
-            </a>
-            <button type="submit" class="btn btn-info pull-left">
-                Aktualizuj
-            </button>
-        </div><!-- /.box-footer -->
+        @include('forms/buttons', ['submit_action' => 'MovieController@index'])
 	
 </form>
 
@@ -79,12 +80,6 @@
 </form>
 <br>
 
-@if ($errors->any())
-	<ul class="alert alert-danger">
-		@foreach ($errors->all() as $error)
-			<li>{{ $error }}</li>
-		@endforeach
-	</ul>
-@endif
+
 </div><!--/.box box-info -->
 @endsection
