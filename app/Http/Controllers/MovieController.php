@@ -30,7 +30,7 @@ class MovieController extends Controller
         
         $movies = DB::table('movies')->where('user_id', Auth::user()->id)->get();
         
-        return view('movies.index')->with('movies',$movies);
+        return view('movies.index')->with('movies',$movies)->with('header_big','Filmy');
         
     }
 
@@ -41,7 +41,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movies.create');
+        return view('movies.create')->with('header_big','Filmy')->with('header_small','Dodaj');
     }
 
     /**
@@ -61,6 +61,7 @@ class MovieController extends Controller
         $movies->price = 123;
         $movies->user_id = Auth::user()->id;
         $movies->save();
+
         return redirect('movies');
     }
 
@@ -85,7 +86,7 @@ class MovieController extends Controller
     public function edit($id)
     {
         $movies=Movies::findOrFail($id);
-        return view('movies.edit',['movies'=>$movies]);
+        return view('movies.edit',['movies'=>$movies])->with('header_big','Filmy')->with('header_small','Edytuj');
 
     }
 

@@ -28,7 +28,7 @@ class SpectatorTypeController extends Controller
     {
         
         $spectators = DB::table('spectators_types')->where('user_id', Auth::user()->id)->get();
-        return view('spectators.index')->with('spectators',$spectators);
+        return view('spectators.index')->with('spectators',$spectators)->with('header_big','Typ klienta');
         
     }
 
@@ -39,7 +39,7 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
-        return view('spectators.create');
+        return view('spectators.create')->with('header_big','Typ klienta')->with('header_small','Dodaj');
     }
 
     /**
@@ -82,7 +82,7 @@ class SpectatorTypeController extends Controller
     public function edit($id)
     {
         $spectators=Spectator_type::findOrFail($id);
-        return view('spectators.edit',['spectators'=>$spectators]);
+        return view('spectators.edit',['spectators'=>$spectators])->with('header_big','Typ klienta')->with('header_small','Edytuj');
     }
 
     /**

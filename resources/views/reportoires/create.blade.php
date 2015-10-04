@@ -1,10 +1,6 @@
 @extends('dashboard')
 @section('content')
-<h1>
-<p>Repertuar <a class="fa fa-angle-right"></a> Dodaj
 
-</p>
-</h1>
 @include('forms/errors')
 
 <div class="box box-info">
@@ -20,7 +16,7 @@
 
 		<div class="box-body">
 		        <!-- NR SALI -->
-		        <div class="form-group "@if($errors->has('hall_id'))  has-error @endif>
+		        <div class="form-group @if($errors->has('hall_id'))  has-error @endif">
 		          <label for="hall_id" class="col-sm-2 control-label">
 		              Nr sali
 		          </label>
@@ -30,7 +26,7 @@
 		        </div>
 		
 		        <!-- NR FILMU -->
-		        <div class="form-group" @if($errors->has('movies_id'))  has-error @endif>
+		        <div class="form-group @if($errors->has('movies_id'))  has-error @endif">
 		          <label for="movies_id" class="col-sm-2 control-label">
 		              Nr filmu
 		          </label>
@@ -40,7 +36,7 @@
 		        </div>
 		
 		        <!-- GODZINA -->
-		        <div class="form-group"@if($errors->has('time'))  has-error @endif>
+		        <div class="form-group @if($errors->has('time'))  has-error @endif">
 		          <label for="time" class="col-sm-2 control-label">
 		              Godzina
 		          </label>

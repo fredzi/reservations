@@ -1,10 +1,6 @@
 @extends('dashboard')
 @section('content')
-<h1>
-<p>Typ klienta <a class="fa fa-angle-right"></a> Edytuj
 
-</p>
-</h1>
 @include('forms/errors')
 
 <div class="box box-info">
@@ -21,7 +17,7 @@
 	
 	<div class="box-body">
 		        <!-- NAZWA -->
-		        <div class="form-group" @if($errors->has('name'))  has-error @endif>
+		        <div class="form-group @if($errors->has('name'))  has-error @endif">
 		          <label for="name" class="col-sm-2 control-label">
 		              Nazwa
 		          </label>
