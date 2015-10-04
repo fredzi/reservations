@@ -20,7 +20,7 @@
         {!! csrf_field() !!}
         <div class="box-body">
         <!-- TYTUL -->
-        <div class="form-group"@if($errors->has('title'))  has-error @endif>
+        <div class="form-group @if($errors->has('title'))  has-error @endif">
           <label for="title" class="col-sm-2 control-label">
               Tytuł
           </label>
