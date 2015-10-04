@@ -109,8 +109,8 @@ class SpectatorTypeController extends Controller
      */
     public function destroy($id)
     {
-        $spectators = Spectator_type::findOrFail($id);
-        $spectators->delete();
+        $spectator = Spectator_type::findOrFail($id);
+        $spectator->delete();
         return redirect('spectators');
     }
 }

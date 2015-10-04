@@ -5,7 +5,7 @@
 <div class="box">
 
     <div class="box-header">
-        <a href="{{ url('hall/create') }}" class="btn btn-success pull-left" style="margin-right: 5px;">
+        <a href="{{ url('hall/create') }}" class="btn btn-info pull-left" style="margin-right: 5px;">
             <i class="fa fa-plus"></i> Dodaj
         </a>
     </div><!-- /.box-header -->

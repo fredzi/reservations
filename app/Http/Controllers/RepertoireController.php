@@ -107,8 +107,8 @@ class RepertoireController extends Controller
      */
     public function destroy($id)
     {
-        $repertoires = Repertoire::findOrFail($id);
-        $repertoires->delete();
+        $repertoire = Repertoire::findOrFail($id);
+        $repertoire->delete();
         return redirect('repertoire');
     }
 }

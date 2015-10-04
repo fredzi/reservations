@@ -28,17 +28,7 @@
 	</div><!--/.box-body --> 
     @include('forms/buttons', ['submit_action' => 'SpectatorTypeController@index'])
 </form>
-<form method="POST" action="{{ action('SpectatorTypeController@destroy', ['id' => $spectators->id]) }}" class="form-horizontal">
-	<input name="_method" type="hidden" value="delete">
-	{!! csrf_field() !!}
 
-	<div class="box-body">
-            
-            <button type="submit" class="btn btn-danger pull-left">
-                Usuń
-            </button>
-    </div><!-- /.box-footer -->
-</form>
 <br>
 </div><!--/.box box-info -->
 @endsection
