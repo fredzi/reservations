@@ -22,7 +22,7 @@ class RepertoireController extends Controller
     {
         $repertoires = Repertoire::all();
 
-        return view('reportoires.index')->with('repertoires',$repertoires);
+        return view('reportoires.index')->with('repertoires',$repertoires)->with('header_big','Repertuar');
     }
 
     /**
@@ -32,7 +32,7 @@ class RepertoireController extends Controller
      */
     public function create()
     {
-        return view('reportoires.create');
+        return view('reportoires.create')->with('header_big','Repertuar')->with('header_small','Dodaj');
     }
 
     /**
@@ -79,7 +79,7 @@ class RepertoireController extends Controller
     public function edit($id)
     {
         $repertoires=Repertoire::findOrFail($id);
-        return view('reportoires.edit',['repertoires'=>$repertoires]);
+        return view('reportoires.edit',['repertoires'=>$repertoires])->with('header_big','Repertuar')->with('header_small','Edytuj');
     }
 
     /**

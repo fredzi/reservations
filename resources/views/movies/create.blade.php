@@ -1,11 +1,7 @@
 @extends('dashboard')
 @section('content')
 
-<h1>
-<p>Filmy <a class="fa fa-angle-right"></a> Dodaj
 
-</p>
-</h1>
 
 @include('forms/errors')
 
@@ -20,7 +16,7 @@
         {!! csrf_field() !!}
         <div class="box-body">
         <!-- TYTUL -->
-        <div class="form-group"@if($errors->has('title'))  has-error @endif>
+        <div class="form-group @if($errors->has('title'))  has-error @endif">
           <label for="title" class="col-sm-2 control-label">
               Tytuł
           </label>
@@ -29,7 +25,7 @@
           </div>
         </div>
         <!-- TYTUL ORIGINALNU -->
-        <div class="form-group"@if($errors->has('original_title'))  has-error @endif>
+        <div class="form-group @if($errors->has('original_title'))  has-error @endif">
           <label for="original_title" class="col-sm-2 control-label">
               Tytuł oryginalny
           </label>
@@ -38,7 +34,7 @@
           </div>
         </div>
         <!-- CZAS TRWANIA -->
-        <div class="form-group "@if($errors->has('time'))  has-error @endif>
+        <div class="form-group @if($errors->has('time'))  has-error @endif">
           <label for="time" class="col-sm-2 control-label">
               Czas trwania
           </label>
@@ -47,7 +43,7 @@
           </div>
         </div>
         <!-- OPIS -->
-        <div class="form-group "@if($errors->has('describtion'))  has-error @endif>
+        <div class="form-group @if($errors->has('describtion'))  has-error @endif">
           <label for="describtion" class="col-sm-2 control-label">
               Opis
           </label>

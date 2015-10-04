@@ -1,10 +1,6 @@
 @extends('dashboard')
 @section('content')
-<h1>
-<p>Sale <a class="fa fa-angle-right"></a> Dodaj
 
-</p>
-</h1>
 
 @include('forms/errors')
 
@@ -21,7 +17,7 @@
 	{!! csrf_field() !!}
 	<div class="box-body">
         <!-- NAZWA -->
-        <div class="form-group" @if($errors->has('name'))  has-error @endif>
+        <div class="form-group @if($errors->has('name'))  has-error @endif">
           <label for="name" class="col-sm-2 control-label">
               Nazwa
           </label>
@@ -30,7 +26,7 @@
           </div>
         </div>
         <!-- MIEJSC W RZĘDZIE -->
-        <div class="form-group" @if($errors->has('x'))  has-error @endif>
+        <div class="form-group @if($errors->has('x'))  has-error @endif ">
           <label for="x" class="col-sm-2 control-label">
               Ilość miejsc w rzędzie
           </label>
@@ -39,7 +35,7 @@
           </div>
         </div>
         <!-- ILOŚĆ RZĘDÓW -->
-        <div class="form-group"@if($errors->has('y'))  has-error @endif>
+        <div class="form-group @if($errors->has('y'))  has-error @endif">
           <label for="y" class="col-sm-2 control-label">
               Ilość rzędów
           </label>

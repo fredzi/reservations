@@ -28,7 +28,7 @@ class HallController extends Controller
     {
         $halls = Hall::all();
         
-        return view('halls.index')->with('halls', $halls);
+        return view('halls.index')->with('halls', $halls)->with('header_big','Sale');
     }
 
     /**
@@ -38,7 +38,7 @@ class HallController extends Controller
      */
     public function create()
     {
-        return view('halls.create');
+        return view('halls.create')->with('header_big','Sale')->with('header_small','Dodaj');
     }
 
     /**
@@ -137,6 +137,6 @@ class HallController extends Controller
     
     public function blockSeats(Request $request)
     {
-        return view('halls.block_seats');
+        return view('halls.block_seats')->with('header_big','Sale')->with('header_small','Wybierz miejsca');
     }
 }

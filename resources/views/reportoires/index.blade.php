@@ -1,10 +1,6 @@
 @extends('dashboard')
 @section('content')
-<h1>
-<p>Repertuar 
 
-</p>
-</h1>
 
     <div class="box">
     
