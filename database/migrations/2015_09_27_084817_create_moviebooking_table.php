@@ -25,6 +25,7 @@ class CreateMoviebookingTable extends Migration
             $table->timestamp('updated_at');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+        
         /**
          * Miejsca w sali 
          * - podczas dodawania sali w drugim kroku określa się, ktore miejsca
