@@ -1,11 +1,8 @@
 <?php
 
 //główny widok
-//Route::get('/','MainController@index');
 Route::get('/', 'MainController@index');
-
 Route::get('/', 'HomeController@index');
-//Route::get('test', 'TestController@index');
 
 //hall - sale
 Route::get('hall/block_seats', 'HallController@blockSeats');
@@ -27,10 +24,6 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
-//wybrane widoki tylko dla zalogowanych 
-//Route::group(['middleware' => 'auth', function() {
-//}]);
-
 //widok dla movies
 Route::get('movies','MovieController@index');
 Route::get('movies/create','MovieController@create');
@@ -38,14 +31,6 @@ Route::post('movies','MovieController@store');
 Route::get('movies/{id}/edit','MovieController@edit');
 Route::patch('movies/{id}/edit','MovieController@update');
 Route::delete('movies/delete/{id}','MovieController@destroy');
-
-//widok dla cinemas
-//Route::get('cinemas','CinemasController@index');
-//Route::get('cinemas/create','CinemasController@create');
-//Route::post('cinemas','CinemasController@store');
-//Route::get('cinemas/{id}/edit','CinemasController@edit');
-//Route::patch('cinemas/{id}/edit','CinemasController@update');
-//Route::delete('cinemas/delete/{id}','CinemasController@destroy');
 
 //widok dla reportoire
 Route::get('repertoire','RepertoireController@index');

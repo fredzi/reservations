@@ -55,13 +55,7 @@
 
 
 
-<form method="POST" action="{{ action('RepertoireController@destroy', ['id' => $repertoires->id]) }}" class="form-horizontal">
-	<input name="_method" type="hidden" value="delete">
-	{!! csrf_field() !!}
-	<div class="box-body">
-		<button type="submit" class="btn btn-danger">Usuń</button>
-	</div>
-</form>
+
 <br>
 
 

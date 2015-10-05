@@ -4,7 +4,7 @@
 <div class="box">
 
     <div class="box-header">
-        <a href="{{ url('movies/create') }}" class="btn btn-success pull-left" style="margin-right: 5px;">
+        <a href="{{ url('movies/create') }}" class="btn btn-info pull-left" style="margin-right: 5px;">
             <i class="fa fa-plus"></i> Dodaj
         </a>
     </div><!-- /.box-header -->
@@ -20,6 +20,7 @@
                     <th>Opis</th>
                     <th>Cena</th>
                     <th>Edycja</th>
+                    <th></th>
                 </tr>
             </thead>
             @if($movies)
@@ -32,7 +33,17 @@
                         <td>{{$movie->time}} minut</td>
                         <td>{{$movie->describtion}}</td>
                         <td>{{$movie->price}} zł</td>
-                        <td><a href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success">Edytuj</a></td>
+                        <td><a href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
+                        <td>
+
+                            <form method="POST" action="{{ action('MovieController@destroy', ['id' => $movie->id]) }}" class="form-horizontal">
+                                <input name="_method" type="hidden" value="delete">
+                                {!! csrf_field() !!}
+                                
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus-square"></i> Usuń</button>
+                                
+                            </form>
+                        </td>
                 </tbody>	
                 @endforeach
             @else

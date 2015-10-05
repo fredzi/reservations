@@ -117,8 +117,8 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        $movies = Movies::findOrFail($id);
-        $movies->delete();
+        $movie = Movies::findOrFail($id);
+        $movie->delete();
         return redirect('movies');
     }
 }
