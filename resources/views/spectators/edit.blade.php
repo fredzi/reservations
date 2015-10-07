@@ -25,6 +25,15 @@
 		            <input class="form-control" id="name" value="<?= $spectators->name; ?>"  name="name">
 		          </div>
 		        </div>
+		         <!-- CENA -->
+		        <div class="form-group @if($errors->has('price'))  has-error @endif">
+		          <label for="price" class="col-sm-2 control-label">
+		              Cena
+		          </label>
+		          <div class="col-sm-10">
+		            <input class="form-control" id="price" value="<?= $spectators->price; ?>"  name="price">
+		          </div>
+		        </div>
 	</div><!--/.box-body --> 
     @include('forms/buttons', ['submit_action' => 'SpectatorTypeController@index'])
 </form>
