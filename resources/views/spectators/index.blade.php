@@ -15,6 +15,7 @@
         		<tr>
         			<th>#</th>
         			<th>Nazwa</th>
+                    <th>Cena</th>
         			<th>Edytuj</th>
                     <th></th>
         		</tr>
@@ -26,7 +27,7 @@
                 		<tr>
                 			<td>{{$spectator->id}}</td>
                 			<td>{{$spectator->name}}</td>
-                			
+                			<td>{{$spectator->price}} zł </td>
                 			
                 			<td><a href="{{action('SpectatorTypeController@edit',['id'=>$spectator->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
                             <td>

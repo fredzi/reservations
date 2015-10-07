@@ -9,6 +9,7 @@ use App\Spectator_type;
 use App\Http\Requests;
 use App\Http\Requests\CreateSpectatorType;
 use App\Http\Controllers\Controller;
+use App\Movies_price;
 
 class SpectatorTypeController extends Controller
 {
@@ -50,10 +51,14 @@ class SpectatorTypeController extends Controller
      */
     public function store(Requests\CreateSpectatorType $request)
     {
+        
         $spectators = new Spectator_type($request->all());
         $spectators->name = $request->name;
+        $spectators->price = $request->price;
         $spectators->user_id = Auth::user()->id;
+        
         $spectators->save();
+        
         return redirect('spectators');
         
 
@@ -96,7 +101,7 @@ class SpectatorTypeController extends Controller
     {
         $spectators = Spectator_type::findOrFail($id);
         $spectators->name = $request->name;
-        
+        $spectators->price = $request->price;
         $spectators->save();
         return redirect('spectators');
     }

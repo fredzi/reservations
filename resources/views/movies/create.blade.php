@@ -51,6 +51,34 @@
             <input class="form-control" id="describtion" value="{{ old('describtion')}}" placeholder="Opis filmu do 1000 znaków" name="describtion">
           </div>
         </div>
+
+
+
+
+        @foreach ($spectator_type as $spectator_typ)
+        <div class="form-group ">
+          <label class="col-sm-2 control-label">
+              Typ klienta : {{$spectator_typ->name}}
+
+              <input type="hidden" name="id" value="{{old('spectator_type_id',$spectator_typ->id)}}">
+              
+          </label>
+          
+        </div>
+
+        <div class="form-group ">
+          <label for="price" class="col-sm-2 control-label">
+              Cena
+          </label>
+          <div class="col-sm-10">
+            <input class="form-control" id="price" value="{{ old('price',$spectator_typ->price)}}" name="price">
+          </div>
+        </div>        
+        @endforeach
+
+
+    
+    
         </div><!-- /.box-body -->
         @include('forms/buttons', ['submit_action' => 'MovieController@index'])
     </form>

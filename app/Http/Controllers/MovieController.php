@@ -10,6 +10,9 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Requests\CreateMovie;
 use App\Http\Controllers\Controller;
+use App\Movies_price;
+use App\Spectator_type;
+
 
 class MovieController extends Controller
 {
@@ -28,8 +31,11 @@ class MovieController extends Controller
     public function index()
     {
         
-        $movies = DB::table('movies')->where('user_id', Auth::user()->id)->get();
-        
+        $movies = DB::table('movies')
+        ->join('movies_prices','movies.id','=','movies_prices.movie_id')      
+        ->where('user_id', Auth::user()->id)
+        ->get();
+
         return view('movies.index')->with('movies',$movies)->with('header_big','Filmy');
         
     }
@@ -41,7 +47,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movies.create')->with('header_big','Filmy')->with('header_small','Dodaj');
+        $spectator_type = Spectator_type::all()->where('user_id',Auth::user()->id);
+        return view('movies.create')->with('header_big','Filmy')->with('header_small','Dodaj')->with('spectator_type',$spectator_type);
     }
 
     /**
@@ -54,14 +61,27 @@ class MovieController extends Controller
     {
        
         $movies = new Movies($request->all());
+        
         $movies->title = $request->title;
         $movies->original_title = $request->original_title;
         $movies->time = $request->time;
-        $movies->describtion = $request->describtion;
-        $movies->price = 123;
+        $movies->describtion = $request->describtion;        
         $movies->user_id = Auth::user()->id;
         $movies->save();
+        
+        $spectator = new Spectator_type($request->all());
+        $spectator->id = $request->id;
+        $spectator->price = $request->price;
+        
+        $movies_prices = new Movies_price($request->all());
+        $movies_prices['movie_id'] = $movies->id;
+        $movies_prices['spectator_type_id'] = $spectator->id ;
+        $movies_prices['price'] = $spectator->price;
+        $movies_prices->save();
+        
 
+
+                
         return redirect('movies');
     }
 
@@ -103,9 +123,22 @@ class MovieController extends Controller
         $movies->title = $request->title;
         $movies->original_title = $request->original_title;
         $movies->time = $request->time;
-        $movies->describtion = $request->describtion;
-        $movies->price = $request->price;
+        $movies->describtion = $request->describtion;        
+        $movies->user_id = Auth::user()->id;
         $movies->save();
+
+
+        $spectator = new Spectator_type($request->all());
+        $spectator->id = $request->id;
+        $spectator->price = $request->price;
+        
+        $movies_prices = new Movies_price($request->all());
+        $movies_prices['movie_id'] = $movies->id;
+        $movies_prices['spectator_type_id'] = $spectator->id ;
+        $movies_prices['price'] = $spectator->price;
+        $movies_prices->save();
+       
+        
         return redirect('movies');
     }
 

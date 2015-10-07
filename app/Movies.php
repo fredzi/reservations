@@ -9,12 +9,14 @@ class Movies extends Model
 	public $timestamps = false;
 	protected $table = 'movies';
     protected $fillable = [
+    
         'title',
         'original_title',
         'time',
         'describtion',
-        'price',
+        
         'user_id'
+        
     ];
     protected $primaryKey = 'id';
     protected $hidden =[];
@@ -23,4 +25,9 @@ class Movies extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function movies_price(){
+        return $this->hasOne('App\Movies_price');
+    }
+    
+    
 }
