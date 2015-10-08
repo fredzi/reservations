@@ -31,9 +31,12 @@ class MovieController extends Controller
     public function index()
     {
         
-        $movies = DB::table('movies')
-        ->join('movies_prices','movies.id','=','movies_prices.movie_id')      
-        ->where('user_id', Auth::user()->id)
+        $movies = DB::table('movies_prices')
+
+        ->where('user_id',Auth::user()->id)
+        ->join('movies','movies_prices.movie_id','=','movies.id')   
+         
+        
         ->get();
 
         return view('movies.index')->with('movies',$movies)->with('header_big','Filmy');
@@ -73,12 +76,13 @@ class MovieController extends Controller
         $spectator->id = $request->id;
         $spectator->price = $request->price;
         
-        $movies_prices = new Movies_price($request->all());
-        $movies_prices['movie_id'] = $movies->id;
-        $movies_prices['spectator_type_id'] = $spectator->id ;
+        $movies_prices = new Movies_price();
+        $movies_prices['movie_id'] = $movies->id; 
+        $movies_prices['spectator_type_id'] = $spectator->id;
         $movies_prices['price'] = $spectator->price;
         $movies_prices->save();
         
+       
 
 
                 
@@ -128,16 +132,7 @@ class MovieController extends Controller
         $movies->save();
 
 
-        $spectator = new Spectator_type($request->all());
-        $spectator->id = $request->id;
-        $spectator->price = $request->price;
         
-        $movies_prices = new Movies_price($request->all());
-        $movies_prices['movie_id'] = $movies->id;
-        $movies_prices['spectator_type_id'] = $spectator->id ;
-        $movies_prices['price'] = $spectator->price;
-        $movies_prices->save();
-       
         
         return redirect('movies');
     }

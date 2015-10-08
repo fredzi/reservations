@@ -31,7 +31,7 @@
 		              Cena
 		          </label>
 		          <div class="col-sm-10">
-		            <input class="form-control" id="price" value="<?= $spectators->price; ?>"  name="price">
+		            <input class="form-control" id="price" value="<?= $spectators->price; ?>"  name="price" data-inputmask='"mask": "99.99"' data-mask>
 		          </div>
 		        </div>
 	</div><!--/.box-body --> 

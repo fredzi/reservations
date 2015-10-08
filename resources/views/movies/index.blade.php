@@ -10,33 +10,35 @@
     </div><!-- /.box-header -->
 
     <div class="box-body">
-        <table class="table table-bordered table-hover">
+    
+        <table class="table table-bordered table-hover ">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Tytuł</th>
-                    <th>Oryginalny tytuł</th>
-                    <th>Czas</th>
-                    <th>Opis</th>
-                    <th>Movie id</th>
-                    <th>Spectator id</th>
-                    <th>Price</th>
-                    <th>Edycja</th>
-                    <th></th>
+                    <th> nr </th>
+                    <th >Tytuł</th>
+                    <th >Oryginalny tytuł</th>
+                    <th >Czas</th>
+                    <th  >Opis</th>
+                    <th >Cena</th>
+                    <th >Nazwa</th>
+                    <th >Edycja</th>
+                    
                 </tr>
             </thead>
             @if($movies)
                 @foreach($movies as $movie)
-                <tbody>
+
+                <tbody  >
                     <tr>
                         <td>{{$movie->id}}</td>
                         <td>{{$movie->title}}</td>
                         <td>{{$movie->original_title}}</td>
                         <td>{{$movie->time}} minut</td>
-                        <td>{{$movie->describtion}}</td>
-                        <td>{{$movie->movie_id}}</td>
-                        <td>{{$movie->spectator_type_id}}</td>
+                        <td >{{$movie->describtion}}</td>
+                        
                         <td>{{$movie->price}}</td>
+                        
+
                         <td><a href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
                         <td>
 
@@ -54,6 +56,7 @@
                 <tr><td colspan="7">Brak danych</td></tr>
             @endif
         </table>
+    
     </div><!-- /.box-body -->
 </div><!-- /.box -->
 

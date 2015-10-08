@@ -20,7 +20,7 @@
 		          <label for="name" class="col-sm-2 control-label">
 		              Nazwa
 		          </label>
-		          <div class="col-sm-10">
+		          <div class="col-xs-2">
 		            <input class="form-control" id="name" value="{{ old('name')}}" placeholder="Podaj nazwę" name="name">
 		          </div>
 		        </div>
@@ -29,11 +29,19 @@
 		          <label for="price" class="col-sm-2 control-label">
 		              Cena
 		          </label>
-		          <div class="col-sm-10">
-		            <input type="text" class="form-control" name="price" id="price" value="{{ old('price')}}" data-inputmask='"mask": "99,99"' data-mask >
-		          </div>
+		          <div class="col-xs-1">
+		            <input type="text" class="form-control" name="price" id="price" value="{{ old('price')}}" data-inputmask='"mask": "99.99"' data-mask >
 		        </div>
-                   
+    
+
+
+                 
+
+
+
+
+
+
 		</div><!--/.box-body -->
 
 		 

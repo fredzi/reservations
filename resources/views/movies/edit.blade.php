@@ -53,15 +53,8 @@
 	            <input class="form-control" id="describtion" value="<?= $movies->describtion; ?>" name="describtion">
 	          </div>
 	        </div>
-	        <!-- CENA -->
-	        <div class="form-group">
-	          <label for="price" class="col-sm-2 control-label">
-	              Cena
-	          </label>
-	          <div class="col-sm-10">
-	            <input class="form-control" id="price" value="<?= $movies->price; ?>" name="price">
-	          </div>
-	        </div>
+	        
+	        
         </div><!-- /.box-body -->
         @include('forms/buttons', ['submit_action' => 'MovieController@index'])
 	

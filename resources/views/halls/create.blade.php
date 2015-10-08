@@ -21,7 +21,7 @@
           <label for="name" class="col-sm-2 control-label">
               Nazwa
           </label>
-          <div class="col-sm-10">
+          <div class="col-xs-3">
             <input type="text" name="name" value="{{ old('name')}}" class="form-control" id="name" placeholder="Podaj nazwę">
           </div>
         </div>
@@ -30,7 +30,7 @@
           <label for="x" class="col-sm-2 control-label">
               Ilość miejsc w rzędzie
           </label>
-          <div class="col-sm-10">
+          <div class="col-xs-3">
             <input type="text" name="x" value="{{ old('x')}}" class="form-control" placeholder="Ilość miejsc w rzędzie" id="x">
           </div>
         </div>
@@ -39,7 +39,7 @@
           <label for="y" class="col-sm-2 control-label">
               Ilość rzędów
           </label>
-          <div class="col-sm-10">
+          <div class="col-xs-3">
             <input type="text" name="y" value="{{ old('y')}}" class="form-control" placeholder="Ilość rzędów" id="y">
           </div>
         </div>
