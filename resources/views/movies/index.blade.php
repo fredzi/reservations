@@ -20,8 +20,8 @@
                     <th >Czas</th>
                     <th  >Opis</th>
                     <th >Cena</th>
-                    <th >Nazwa</th>
                     <th >Edycja</th>
+                    <th >Usuń</th>
                     
                 </tr>
             </thead>
