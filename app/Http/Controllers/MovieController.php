@@ -133,6 +133,10 @@ class MovieController extends Controller
 
 
         
+<<<<<<< HEAD
+=======
+       
+>>>>>>> 3fdd7ff30bc7b3b890c3ad914aa50f87015c65e9
         
         return redirect('movies');
     }
