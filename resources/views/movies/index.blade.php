@@ -18,9 +18,6 @@
                     <th>Oryginalny tytuł</th>
                     <th>Czas</th>
                     <th>Opis</th>
-                    <th>Movie id</th>
-                    <th>Spectator id</th>
-                    <th>Price</th>
                     <th>Edycja</th>
                     <th></th>
                 </tr>
@@ -34,9 +31,6 @@
                         <td>{{$movie->original_title}}</td>
                         <td>{{$movie->time}} minut</td>
                         <td>{{$movie->describtion}}</td>
-                        <td>{{$movie->movie_id}}</td>
-                        <td>{{$movie->spectator_type_id}}</td>
-                        <td>{{$movie->price}}</td>
                         <td><a href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
                         <td>
 

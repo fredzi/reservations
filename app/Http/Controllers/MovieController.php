@@ -30,11 +30,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        
-        $movies = DB::table('movies')
-        ->join('movies_prices','movies.id','=','movies_prices.movie_id')      
-        ->where('user_id', Auth::user()->id)
-        ->get();
+        $movies = DB::table('movies')    
+            ->where('user_id', Auth::user()->id)
+            ->get();
 
         return view('movies.index')->with('movies',$movies)->with('header_big','Filmy');
         
