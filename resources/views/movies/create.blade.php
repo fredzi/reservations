@@ -12,7 +12,7 @@
         </h3>
     </div><!-- /.box-header -->
     <!-- form start -->
-    <form class="form-horizontal" method="POST" action="{{ action('MovieController@store') }}" >
+    <form class="form-horizontal" method="POST" action="{{ action('MovieController@store') }}" enctype='multipart/form-data'>
         {!! csrf_field() !!}
         <div class="box-body">
         <!-- TYTUL -->
@@ -67,16 +67,16 @@
               Cena
           </label>
           <div class="col-xs-3">
-            <input class="form-control" id="price" value="{{ old('price',$spectator_typ->price)}}" name="price">
+            <input class="form-control" id="price" value="{{ old('price',$spectator_typ->price)}}" name="price" data-inputmask='"mask": "99.99"' data-mask>
           </div>
         </div>        
         @endforeach
 
         <!-- MINIATURKA FILMU -->
-        <div class="form-group">
+        <div class="form-group @if($errors->has('image'))  has-error @endif" >
                       <label for="file" class="col-sm-2 control-label">Miniaturka filmu</label>
                       <div class="col-xs-3 " >
-                      <input  type="file" id="exampleInputFile" class="btn btn-default" >
+                      <input  type="file" id="exampleInputFile" class="btn btn-default" name="image">
                       </div>
                       <!-- <p class="help-block">Example block-level help text here.</p> -->
         </div>

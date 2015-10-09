@@ -14,6 +14,7 @@ use App\Movies_price;
 use App\Spectator_type;
 
 
+
 class MovieController extends Controller
 {
         /**
@@ -82,6 +83,11 @@ class MovieController extends Controller
         $movies_prices['price'] = $spectator->price;
         $movies_prices->save();
         
+        $imageName = $movies->title . '.' . 
+        $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move(
+            base_path() . '/public/images/', $imageName
+        );
        
 
 
@@ -133,10 +139,6 @@ class MovieController extends Controller
 
 
         
-<<<<<<< HEAD
-=======
-       
->>>>>>> 3fdd7ff30bc7b3b890c3ad914aa50f87015c65e9
         
         return redirect('movies');
     }
