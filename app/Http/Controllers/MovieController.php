@@ -67,7 +67,7 @@ class MovieController extends Controller
         $movies->describtion = $request->describtion;        
         $movies->user_id = Auth::user()->id;
         $movies->save();
-        
+        /*
         $spectator = new Spectator_type($request->all());
         $spectator->id = $requ                                                                                                                      est->id;
         $spectator->price = $request->price;
@@ -77,7 +77,7 @@ class MovieController extends Controller
         $movies_prices['spectator_type_id'] = $spectator->id;
         $movies_prices['price'] = $spectator->price;
         $movies_prices->save();
-        
+        */
         $imageName = $movies->title . '.' . 
         $request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(
