@@ -46,8 +46,14 @@ class MovieController extends Controller
      */
     public function create()
     {
-        $spectator_type = Spectator_type::all()->where('user_id',Auth::user()->id);
-        return view('movies.create')->with('header_big','Filmy')->with('header_small','Dodaj')->with('spectator_type',$spectator_type);
+        $spectators_types = Spectator_type::all()
+            ->where('user_id', Auth::user()->id);
+        $movie = new Movies();
+        return view('movies.edit', ['movie' => $movie])
+            ->with('header_big','Filmy')
+            ->with('header_small','Dodaj')
+            ->with('spectators_types', $spectators_types)
+            ->with('action', action('MovieController@store'));
     }
 
     /**
@@ -58,35 +64,39 @@ class MovieController extends Controller
      */
     public function store(Requests\CreateMovie $request)
     {
-       
-        $movies = new Movies($request->all());
+        // Typy widzow
+        $prices = array();
+        $spectators_types = Spectator_type::all()
+            ->where('user_id', Auth::user()->id);
+        foreach($spectators_types as $st)
+        {
+            if($request->has('price_'.$st->id))
+            {
+                $prices[] = new Movies_price([
+                    'price' => $request->{'price_'.$st->id},
+                    'spectator_type_id' => $st->id
+                ]);
+            }
+        }
         
-        $movies->title = $request->title;
-        $movies->original_title = $request->original_title;
-        $movies->time = $request->time;
-        $movies->describtion = $request->describtion;        
-        $movies->user_id = Auth::user()->id;
-        $movies->save();
-        /*
-        $spectator = new Spectator_type($request->all());
-        $spectator->id = $requ                                                                                                                      est->id;
-        $spectator->price = $request->price;
+        $movie = new Movies($request->all());
+        $movie->title = $request->title;
+        $movie->original_title = $request->original_title;
+        $movie->time = $request->time;
+        $movie->describtion = $request->describtion;        
+        $movie->user_id = Auth::user()->id;
+        $movie->save();
+        $movie->prices()->saveMany($prices);
         
-        $movies_prices = new Movies_price();
-        $movies_prices['movie_id'] = $movies->id; 
-        $movies_prices['spectator_type_id'] = $spectator->id;
-        $movies_prices['price'] = $spectator->price;
-        $movies_prices->save();
-        */
-        $imageName = $movies->title . '.' . 
-        $request->file('image')->getClientOriginalExtension();
-        $request->file('image')->move(
-            base_path() . '/public/images/', $imageName
-        );
+        if($request->has('image'))
+        {
+            $imageName = $movie->title . '.' . 
+            $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(
+                base_path() . '/public/images/', $imageName
+            );
+        }
        
-
-
-                
         return redirect('movies');
     }
 
@@ -110,9 +120,18 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        $movies=Movies::findOrFail($id);
-        return view('movies.edit',['movies'=>$movies])->with('header_big','Filmy')->with('header_small','Edytuj');
-
+        $spectators_types = Spectator_type::all()
+            ->where('user_id', Auth::user()->id);
+        $movie = Movies::findOrFail($id);
+        foreach($movie->prices as $price)
+        {
+            $movie->{'price_'.$price->spectator_type_id} = $price->price;
+        }
+        return view('movies.edit', ['movie' => $movie])
+                ->with('header_big','Filmy')
+                ->with('header_small','Edytuj')
+                ->with('spectators_types', $spectators_types)
+                ->with('action', action('MovieController@edit', ['id' => $id]));
     }
 
     /**
@@ -124,16 +143,43 @@ class MovieController extends Controller
      */
     public function update(Requests\CreateMovie $request, $id)
     {
-        $movies = Movies::findOrFail($id);
-        $movies->title = $request->title;
-        $movies->original_title = $request->original_title;
-        $movies->time = $request->time;
-        $movies->describtion = $request->describtion;        
-        $movies->user_id = Auth::user()->id;
-        $movies->save();
-
-
-        
+        $movie = Movies::findOrFail($id);
+        $movie->title = $request->title;
+        $movie->original_title = $request->original_title;
+        $movie->time = $request->time;
+        $movie->describtion = $request->describtion;        
+        $movie->user_id = Auth::user()->id;
+        $movie->save();
+        // Typy widzow
+        $price = array();
+        $spectators_types = Spectator_type::all()
+            ->where('user_id', Auth::user()->id);
+        foreach($spectators_types as $st)
+        {
+            $exist = false;
+            foreach($movie->prices() as $price)
+            {
+                if($st->id == $price->spectator_type_id)
+                {
+                    $exist = true;
+                    $movie->prices()->update(
+                        new Movies_price([
+                            'price' => $request->{'price_'.$st->id},
+                            'spectator_type_id' => $st->id
+                        ])
+                    );
+                }
+            }
+            if(!$exist)
+            {
+                $movie->prices()->save(
+                    new Movies_price([
+                        'price' => $request->{'price_'.$st->id},
+                        'spectator_type_id' => $st->id
+                    ])
+                );
+            }
+        }
         
         return redirect('movies');
     }

@@ -14,7 +14,6 @@
         <table class="table table-bordered table-hover ">
             <thead>
                 <tr>
-<<<<<<< HEAD
                     <th>#</th>
                     <th>Tytuł</th>
                     <th>Oryginalny tytuł</th>
@@ -22,17 +21,6 @@
                     <th>Opis</th>
                     <th>Edycja</th>
                     <th></th>
-=======
-                    <th> nr </th>
-                    <th >Tytuł</th>
-                    <th >Oryginalny tytuł</th>
-                    <th >Czas</th>
-                    <th  >Opis</th>
-                    <th >Cena</th>
-                    <th >Edycja</th>
-                    <th >Usuń</th>
-                    
->>>>>>> 72e37b883ed2ba06c615b8a9d4f39f20021804ed
                 </tr>
             </thead>
             @if($movies)
@@ -44,15 +32,7 @@
                         <td>{{$movie->title}}</td>
                         <td>{{$movie->original_title}}</td>
                         <td>{{$movie->time}} minut</td>
-<<<<<<< HEAD
                         <td>{{$movie->describtion}}</td>
-=======
-                        <td >{{$movie->describtion}}</td>
-                        
-                        <td>{{$movie->price}}</td>
-                        
-
->>>>>>> 72e37b883ed2ba06c615b8a9d4f39f20021804ed
                         <td><a href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
                         <td>
 

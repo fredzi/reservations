@@ -25,10 +25,9 @@ class CreateMovie extends Request
     {
         return [
             'title' => 'required',
-            'original_title' => 'required',
             'time' => 'required|integer',
-            'describtion' => 'required|max:1000',
-            'image' => 'required|mimes:jpeg,png|max:200px'
+            'describtion' => 'max:1000',
+            'image' => 'mimes:jpeg,png|max:200px'
         ];
     }
 }
