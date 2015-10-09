@@ -27,7 +27,8 @@ class CreateMovie extends Request
             'title' => 'required',
             'original_title' => 'required',
             'time' => 'required|integer',
-            'describtion' => 'required|max:1000'
+            'describtion' => 'required|max:1000',
+            'image' => 'required|mimes:jpeg,png|max:200px'
         ];
     }
 }

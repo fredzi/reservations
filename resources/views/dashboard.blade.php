@@ -43,6 +43,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ asset('/bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css" />
    
   </head>
+  <style>
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: green;
+    cursor: inherit;
+    display: block;
+}
+  </style>
   <body class="skin-blue">
     <div class="wrapper">
 
@@ -68,7 +89,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </section>
 
         <!-- Main content -->
-        <section class="content" >          
+        <section class="content" >  
+            
           <!-- Your Page Content Here -->
           @yield('content')
         </section><!-- /.content -->
@@ -127,5 +149,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset ("/bower_components/AdminLTE/dist/js/pages/dashboard.js")}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset ("/bower_components/AdminLTE/dist/js/demo.js")}}"></script>
+     <!-- InputMask -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.numeric.extensions.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.phone.extensions.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js")}}"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{{ asset ("/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js")}}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/select2/select2.full.min.js")}}"></script>
+    <!-- InputMask -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js")}}"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js")}}"></script>
+    <!-- date-range-picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.js")}}"></script>
+    <!-- bootstrap color picker -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js")}}"></script>
+    <!-- bootstrap time picker -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js")}}"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js")}}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/iCheck/icheck.min.js")}}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/fastclick/fastclick.min.js")}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset ("/bower_components/AdminLTE/dist/js/app.min.js")}}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset ("/bower_components/AdminLTE/dist/js/demo.js")}}"></script>
+     <!-- CK Editor -->
+    <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="{{ asset ("/bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js")}}"></script>
+    <!-- Page script -->
+    <script>
+      $(function () {
+       
+        $("[data-mask]").inputmask();
+CKEDITOR.replace('editor1');
+        //bootstrap WYSIHTML5 - text editor
+        $(".textarea").wysihtml5();
+        
+      });
+    </script>
+
+
+
   </body>
 </html>

@@ -14,6 +14,7 @@ use App\Movies_price;
 use App\Spectator_type;
 
 
+
 class MovieController extends Controller
 {
         /**
@@ -68,15 +69,21 @@ class MovieController extends Controller
         $movies->save();
         
         $spectator = new Spectator_type($request->all());
-        $spectator->id = $request->id;
+        $spectator->id = $requ                                                                                                                      est->id;
         $spectator->price = $request->price;
         
-        $movies_prices = new Movies_price($request->all());
-        $movies_prices['movie_id'] = $movies->id;
-        $movies_prices['spectator_type_id'] = $spectator->id ;
+        $movies_prices = new Movies_price();
+        $movies_prices['movie_id'] = $movies->id; 
+        $movies_prices['spectator_type_id'] = $spectator->id;
         $movies_prices['price'] = $spectator->price;
         $movies_prices->save();
         
+        $imageName = $movies->title . '.' . 
+        $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move(
+            base_path() . '/public/images/', $imageName
+        );
+       
 
 
                 
@@ -126,16 +133,7 @@ class MovieController extends Controller
         $movies->save();
 
 
-        $spectator = new Spectator_type($request->all());
-        $spectator->id = $request->id;
-        $spectator->price = $request->price;
         
-        $movies_prices = new Movies_price($request->all());
-        $movies_prices['movie_id'] = $movies->id;
-        $movies_prices['spectator_type_id'] = $spectator->id ;
-        $movies_prices['price'] = $spectator->price;
-        $movies_prices->save();
-       
         
         return redirect('movies');
     }

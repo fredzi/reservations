@@ -20,7 +20,7 @@
 		          <label for="hall_id" class="col-sm-2 control-label">
 		              Nr sali
 		          </label>
-		          <div class="col-sm-10">
+		          <div class="col-xs-3">
 		            <input class="form-control" id="hall_id" value="{{ old('hall_id')}}" placeholder="Podaj numer sali" name="hall_id">
 		          </div>
 		        </div>
@@ -30,7 +30,7 @@
 		          <label for="movies_id" class="col-sm-2 control-label">
 		              Nr filmu
 		          </label>
-		          <div class="col-sm-10">
+		          <div class="col-xs-3">
 		            <input class="form-control" id="movies_id" value="{{ old('movies_id')}}" placeholder="Podaj numer filmu" name="movies_id">
 		          </div>
 		        </div>
@@ -40,7 +40,7 @@
 		          <label for="time" class="col-sm-2 control-label">
 		              Godzina
 		          </label>
-		          <div class="col-sm-10">
+		          <div class="col-xs-3">
 		            <input class="form-control" id="time" value="{{ old('time')}}" placeholder="Podaj godzinę" name="time">
 		          </div>
 		        </div>
