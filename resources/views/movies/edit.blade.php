@@ -12,7 +12,7 @@
         </h3>
     </div><!-- /.box-header -->
     <!-- form start -->
-      {!! Form::model($movie, array('url' => $action, 'class' => 'form-horizontal')) !!}
+      {!! Form::model($movie, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')) !!}
         <div class="box-body">
         <!-- TYTUL -->
         <div class="form-group @if($errors->has('title'))  has-error @endif">
@@ -55,7 +55,7 @@
         <div class="form-group ">
           {!! Form::label('price_'.$spectator_type->id, 'Cena', ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-xs-3">
-              {!! Form::text('price_'.$spectator_type->id, null, ['class' => 'form-control', 'placeholder' => '']) !!}
+              {!! Form::text('price_'.$spectator_type->id, null, ['class' => 'form-control', 'placeholder' => '', 'id'=>'money-bank']) !!}
           </div>
         </div>        
         @endforeach

@@ -88,14 +88,13 @@ class MovieController extends Controller
         $movie->save();
         $movie->prices()->saveMany($prices);
         
-        if($request->has('image'))
-        {
+        
             $imageName = $movie->title . '.' . 
             $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move(
-                base_path() . '/public/images/', $imageName
+                base_path() . '/public/'.Auth::user()->name.'/', $imageName
             );
-        }
+        
        
         return redirect('movies');
     }
