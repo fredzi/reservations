@@ -38,7 +38,11 @@ class HallController extends Controller
      */
     public function create()
     {
-        return view('halls.create')->with('header_big','Sale')->with('header_small','Dodaj');
+        $hall = new Hall();
+        return view('halls.create',['hall' => $hall])
+            ->with('header_big','Sale')
+            ->with('header_small','Dodaj')
+            ->with('action', action('HallController@store'));
     }
 
     /**
