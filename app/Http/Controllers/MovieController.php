@@ -154,32 +154,37 @@ class MovieController extends Controller
         $price = array();
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
+        $movie_prices = $movie->prices()->get();
+        $not_delete_ids = array();
         foreach($spectators_types as $st)
         {
             $exist = false;
-            foreach($movie->prices() as $price)
+            foreach($movie_prices as $price)
             {
                 if($st->id == $price->spectator_type_id)
                 {
                     $exist = true;
-                    $movie->prices()->update(
-                        new Movies_price([
-                            'price' => $request->{'price_'.$st->id},
-                            'spectator_type_id' => $st->id
-                        ])
-                    );
+                    $movie->prices()
+                        ->where('spectator_type_id', $st->id)
+                        ->update([
+                            'price' => $request->{'price_'.$st->id}
+                        ]);
+                    $not_delete_ids[] = $price->id;
                 }
             }
             if(!$exist)
             {
-                $movie->prices()->save(
+                $new_movie = $movie->prices()->save(
                     new Movies_price([
                         'price' => $request->{'price_'.$st->id},
                         'spectator_type_id' => $st->id
                     ])
                 );
+                $not_delete_ids[] = $new_movie->id;
             }
         }
+        Movies_price::where('movie_id', $id)
+            ->whereNotIn('id', $not_delete_ids)->delete();
         
         return redirect('movies');
     }
