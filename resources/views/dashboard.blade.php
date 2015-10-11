@@ -8,6 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="UTF-8">
     <title>{{ "Panel administracyjny" }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+
+    <script src="{{ asset ("/bower_components/AdminLTE/bootstrap/js/jquery.maskMoney.js")}}" ></script>
     <!-- Bootstrap 3.3.2 -->
     <link href="{{ asset("/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
@@ -44,25 +47,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
    
   </head>
   <style>
-  .btn-file {
-    position: relative;
-    overflow: hidden;
-}
-  .btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
+  #prawa{
     text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: green;
-    cursor: inherit;
-    display: block;
-}
+  }
   </style>
   <body class="skin-blue">
     <div class="wrapper">
@@ -185,17 +172,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
     <!-- Bootstrap WYSIHTML5 -->
     <script src="{{ asset ("/bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js")}}"></script>
-    <!-- Page script -->
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+
+    <script src="{{ asset ("/bower_components/AdminLTE/bootstrap/js/jquery.maskMoney.js")}}" ></script><!-- Page script -->
     <script>
       $(function () {
        
-        $("[data-mask]").inputmask();
+        $("[data-mask]").priceFormat({
+    prefix: 'R$ ',
+    centsSeparator: ',',
+    thousandsSeparator: '.'
+});
 CKEDITOR.replace('editor1');
         //bootstrap WYSIHTML5 - text editor
         $(".textarea").wysihtml5();
-        
+        $('#money').mask('000.000.000.000.000,00', {reverse: true});
       });
     </script>
+    <script type="text/javascript">
+$(".man").maskMoney({
+prefix:'PLN ', // The symbol to be displayed before the value entered by the user
+allowZero:false, // Prevent users from inputing zero
+allowNegative:true, // Prevent users from inputing negative values
+defaultZero:false, // when the user enters the field, it sets a default mask using zero
+thousands: '.', // The thousands separator
+decimal: '.' , // The decimal separator
+precision: 2, // How many decimal places are allowed
+affixesStay : false, // set if the symbol will stay in the field after the user exits the field. 
+symbolPosition : 'left' // use this setting to position the symbol at the left or right side of the value. default 'left'
+}); //
+</script>
 
 
 

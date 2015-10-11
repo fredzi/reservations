@@ -51,6 +51,11 @@
                 <i class="  fa fa-angle-right"></i> <span>Repertuar</span>
               </a>   
       </li>
+       <li class="treeview">
+              <a href="{{action('ReservationsController@index')}}">
+                <i class="  fa fa-angle-right"></i> <span>Rezerwacje</span>
+              </a>   
+      </li>
       
               
               

@@ -11,49 +11,37 @@
         </h3>
     </div><!-- /.box-header -->
 
+<!-- form start -->
+      {!! Form::model($hall, array('url' => $action, 'class' => 'form-horizontal')) !!}
 
 
-	<form method="POST" action="{{ action('HallController@store') }}" class="form-horizontal">
-	{!! csrf_field() !!}
-	<div class="box-body">
+
+  <div class="box-body">
         <!-- NAZWA -->
-        <div class="form-group @if($errors->has('name'))  has-error @endif">
-          <label for="name" class="col-sm-2 control-label">
-              Nazwa
-          </label>
+        <div class="form-group @if($errors->has('repertoire_id'))  has-error @endif">
+          {!! Form::label('name', 'Nazwa', ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-xs-3">
-            <input type="text" name="name" value="{{ old('name')}}" class="form-control" id="name" placeholder="Podaj nazwę">
+              {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Podaj nazwę sali']) !!}
           </div>
         </div>
-        <!-- MIEJSC W RZĘDZIE -->
-        <div class="form-group @if($errors->has('x'))  has-error @endif ">
-          <label for="x" class="col-sm-2 control-label">
-              Ilość miejsc w rzędzie
-          </label>
+        <!-- ILOŚĆ MIEJSC W RZĘDZIE -->
+        <div class="form-group @if($errors->has('x'))  has-error @endif">
+          {!! Form::label('x', 'Ilość miejsc w rzędzie', ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-xs-3">
-            <input type="text" name="x" value="{{ old('x')}}" class="form-control" placeholder="Ilość miejsc w rzędzie" id="x">
+              {!! Form::text('x', null, ['class' => 'form-control', 'placeholder' => '']) !!}
           </div>
         </div>
         <!-- ILOŚĆ RZĘDÓW -->
         <div class="form-group @if($errors->has('y'))  has-error @endif">
-          <label for="y" class="col-sm-2 control-label">
-              Ilość rzędów
-          </label>
+          {!! Form::label('y', 'Ilość rzędów', ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-xs-3">
-            <input type="text" name="y" value="{{ old('y')}}" class="form-control" placeholder="Ilość rzędów" id="y">
+              {!! Form::text('y', null, ['class' => 'form-control', 'placeholder' => '']) !!}
           </div>
         </div>
+        @include('forms/buttons', ['submit_action' => 'HallController@index'])
+        {!! Form::close() !!}
+
+	
     </div><!--/.box-body -->
-    	
-@include('forms/buttons', ['submit_action' => 'RepertoireController@index'])
-
-
-
-	
-	
-	
-
-	</form>
-
-
+  </div><!-- /.box -->
 @endsection

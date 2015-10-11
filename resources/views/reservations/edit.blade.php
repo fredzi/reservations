@@ -1,60 +1,91 @@
-@extends('app')
-
-@section('header')
-<h1>Edytuj wybraną rezerwacje</h1>
-@endsection
-
+@extends('dashboard')
 @section('content')
-<form method="POST" action="{{ action('ReservationsController@edit', ['id' => $reservations->id]) }}" class="form-group">
-	<input name="_method" type="hidden" value="PATCH">
-	{!! csrf_field() !!}
-	<div class="row">
-		<div class="col-sm-5">
-		<label>Nr repertuaru:</label> 
-		<input type="text" name="repertoire_id" value="<?= $reservations->repertoire_id; ?>" class="form-control">
-		<label>Cena rezerwacji:</label> 
-		<input type="text" name="summary" value="<?= $reservations->summary; ?>" class="form-control">
-		
-		<input type="hidden" name="date_start" value="<?= $reservations->date_start; ?>" class="form-control">
-		<input type="hidden" name="date_end" value="<?= $reservations->date_end; ?>" class="form-control">
-		
-		<label>Imię:</label> 
-		<input type="text" name="customer_first_name" value="<?= $reservations->customer_first_name; ?>" class="form-control">
-		
-		<label>Nazwisko:</label> 
-		<input type="text" name="customer_last_name" value="<?= $reservations->customer_last_name; ?>" class="form-control">
-		
-		<label>Email:</label> 
-		<input type="text" name="customer_email" value="<?= $reservations->customer_email; ?>" class="form-control">
-		
-		<label>Telefon:</label> 
-		<input type="text" name="customer_phone" value="<?= $reservations->customer_phone; ?>" class="form-control">
-		
-		<label>Status rezerwacji:</label> 
-		<input type="text" name="status" value="<?= $reservations->status; ?>" class="form-control">
-		</div>
 
-	</div>
+@include('forms/errors')
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            
+        </h3>
+    </div><!-- /.box-header -->
+    <!-- form start -->
+      {!! Form::model($reservation, array('url' => $action, 'class' => 'form-horizontal')) !!}
+
+
+
+	<div class="box-body">
+        <!-- NR REPERTUARU -->
+        <div class="form-group @if($errors->has('repertoire_id'))  has-error @endif">
+        	{!! Form::label('repertoire_id', 'Nr repertuaru', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('repertoire_id', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- CENA REZERWACJI -->
+        <div class="form-group @if($errors->has('summary'))  has-error @endif">
+        	{!! Form::label('summary', 'Cena rezerwacji', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('summary', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- DATA POCZĄTKOWA -->
+        <div class="form-group @if($errors->has('date_start'))  has-error @endif">
+        	{!! Form::label('date_start', 'Data początkowa', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('date_start', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- DATA KOŃCOWA -->
+        <div class="form-group @if($errors->has('date_end'))  has-error @endif">
+        	{!! Form::label('date_end', 'Data końcowa', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('date_end', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- IMIĘ KLIENTA -->
+        <div class="form-group @if($errors->has('customer_first_name'))  has-error @endif">
+        	{!! Form::label('customer_first_name', 'Imię', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('customer_first_name', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- NAZWISKO KLIENTA -->
+        <div class="form-group @if($errors->has('customer_last_name'))  has-error @endif">
+        	{!! Form::label('customer_last_name', 'Nazwisko', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('customer_last_name', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- EMAIL -->
+        <div class="form-group @if($errors->has('customer_email'))  has-error @endif">
+        	{!! Form::label('customer_email', 'Email', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('customer_email', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- TELEFON -->
+        <div class="form-group @if($errors->has('customer_phone'))  has-error @endif">
+        	{!! Form::label('customer_phone', 'Telefon', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('customer_phone', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+        <!-- STATUS REZERWACJI -->
+        <div class="form-group @if($errors->has('status'))  has-error @endif">
+        	{!! Form::label('status', 'Status rezerwacji', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-xs-3">
+              {!! Form::text('status', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          </div>
+        </div>
+		
+
+
+		@include('forms/buttons', ['submit_action' => 'ReservationsController@index'])
+    {!! Form::close() !!}
+	</div><!-- box-body -->
+
+</div><!-- box -->
 	
-	<br>
-	<div>
-		<button type="submit" class="btn btn-success">Aktualizuj</button>
-	</div>
-</form>
-<form method="POST" action="{{ action('ReservationsController@destroy', ['id' => $reservations->id]) }}">
-	<input name="_method" type="hidden" value="delete">
-	{!! csrf_field() !!}
-	<div>
-		<button type="submit" class="btn btn-danger">Usuń</button>
-	</div>
-</form>
-<br>
-
-@if ($errors->any())
-	<ul class="alert alert-danger">
-		@foreach ($errors->all() as $error)
-			<li>{{ $error }}</li>
-		@endforeach
-	</ul>
-@endif
+	
 @endsection

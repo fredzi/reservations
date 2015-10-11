@@ -1,4 +1,4 @@
-@extends('app')
+@extends('dashboard')
 @section('content')
 
 
@@ -7,49 +7,41 @@
 <div class="box box-info">
 	<div class="box-header with-border">
         <h3 class="box-title">
-            Edytuj
+            
         </h3>
     </div><!-- /.box-header -->
 
+{!! Form::model($repertoire, array('url'=>$action , 'class'=>'form-horizontal')) !!}
 
-<form method="POST" action="{{ action('RepertoireController@edit', ['id' => $repertoires->id]) }}" class="form-horizontal">
-	<input name="_method" type="hidden" value="PATCH">
-	{!! csrf_field() !!}
 	<div class="box-body">
 		        <!-- NR SALI -->
 		        <div class="form-group @if($errors->has('hall_id'))  has-error @endif">
-		          <label for="hall_id" class="col-sm-2 control-label">
-		              Nr sali
-		          </label>
+		          {!! Form::label('hall_id', 'Nr sali', ['class'=> 'col-sm-2 control-label'])!!}
 		          <div class="col-xs-3">
-		            <input class="form-control" id="hall_id" value="<?= $repertoires->hall_id; ?>"  name="hall_id">
+		            
+		            {!! Form::text('hall_id', null, ['class' => 'form-control', 'placeholder'=>'Nr sali']) !!}
 		          </div>
 		        </div>
-	</div><!--/.box-body -->
-	<div class="box-body">
+	
 		        <!-- NR FILMU -->
 		        <div class="form-group @if($errors->has('movies_id'))  has-error @endif">
-		          <label for="movies_id" class="col-sm-2 control-label">
-		              Nr filmu
-		          </label>
+		         {!! Form::label('movie_id', 'Nr filmu', ['class'=> 'col-sm-2 control-label'])!!}
 		          <div class="col-xs-3">
-		            <input class="form-control" id="movies_id" value="<?= $repertoires->movies_id; ?>" name="movies_id">
+		            {!! Form::text('movie_id', null, ['class' => 'form-control', 'placeholder'=>'Nr filmu']) !!}
 		          </div>
 		        </div>
-	</div><!--/.box-body -->
-	<div class="box-body">
+	
 		        <!-- GODZINA -->
 		        <div class="form-group @if($errors->has('time'))  has-error @endif">
-		          <label for="time" class="col-sm-2 control-label">
-		              Godzina
-		          </label>
+		          {!! Form::label('time', 'Godzina', ['class'=> 'col-sm-2 control-label'])!!}
 		          <div class="col-xs-3">
-		            <input class="form-control" id="time" value="<?= $repertoires->time; ?>" placeholder="Podaj godzinę" name="time">
+		            {!! Form::text('time', null, ['class' => 'form-control', 'placeholder'=>'Godzina']) !!}
 		          </div>
 		        </div>
+
 	</div><!--/.box-body -->
 	@include('forms/buttons', ['submit_action' => 'RepertoireController@index'])
-</form>
+{!! Form::close() !!}
 
 
 

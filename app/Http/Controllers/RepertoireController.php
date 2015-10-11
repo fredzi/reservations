@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repertoire;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class RepertoireController extends Controller
 {
@@ -22,7 +23,9 @@ class RepertoireController extends Controller
     {
         $repertoires = Repertoire::all();
 
-        return view('reportoires.index')->with('repertoires',$repertoires)->with('header_big','Repertuar');
+        return view('reportoires.index')
+            ->with('repertoires',$repertoires)
+            ->with('header_big','Repertuar');
     }
 
     /**
@@ -32,7 +35,13 @@ class RepertoireController extends Controller
      */
     public function create()
     {
-        return view('reportoires.create')->with('header_big','Repertuar')->with('header_small','Dodaj');
+        
+        $repertoire = new Repertoire();
+        return view('reportoires.edit',['repertoire'=>$repertoire])
+            ->with('header_big','Repertuar')
+            ->with('header_small','Dodaj')
+            ->with('action',action('RepertoireController@store'));
+        
     }
 
     /**
@@ -78,8 +87,11 @@ class RepertoireController extends Controller
      */
     public function edit($id)
     {
-        $repertoires=Repertoire::findOrFail($id);
-        return view('reportoires.edit',['repertoires'=>$repertoires])->with('header_big','Repertuar')->with('header_small','Edytuj');
+        $repertoire=Repertoire::findOrFail($id);
+        return view('reportoires.edit',['repertoire'=>$repertoire])
+        ->with('header_big','Repertuar')
+        ->with('header_small','Edytuj')
+        ->with('action',action('RepertoireController@edit',['id'=>$id]));
     }
 
     /**

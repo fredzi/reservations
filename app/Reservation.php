@@ -9,7 +9,6 @@ class Reservation extends Model
     
 	protected $table = 'reservations';
     protected $fillable = [
-        'id',
         'repertoire_id',
         'summary',
         'date_start',
@@ -22,4 +21,7 @@ class Reservation extends Model
     ];
     protected $primaryKey = 'id';
     protected $hidden =[];
+    public function repertoire(){
+        $this->belongsTo('App\Repertoire');
+    }
 }

@@ -1,13 +1,16 @@
-@extends('app')
-
-
+@extends('dashboard')
 @section('content')
-    <h1>Reservations - rezerwacje</h1>
-    <div>
-    	<a href="{{action('ReservationsController@create')}}" class="btn btn-primary">Dodaj rezerwacje</a>
-    </div>
+
+<div class="box">
+
+    <div class="box-header">
+        <a href="{{ url('reservations/create') }}" class="btn btn-info pull-left" style="margin-right: 5px;">
+            <i class="fa fa-plus"></i> Dodaj
+        </a>
+    </div><!-- /.box-header -->
     
-        <table class="table table-hover">
+    <div class="box-body">
+        <table class="table table-bordered table-hover">
         	<thead>
         		<tr>
         			<th>#</th>
@@ -20,10 +23,12 @@
                     <th>Email</th>
                     <th>Telefon</th>
                     <th>Status rezerwacji</th>
-                    <th>Miejsca zarezerwowane</th>
+                    <th>Edycja</th>
+                    
         		</tr>
         	</thead>
-    @foreach($reservations as $reservation)
+             @if($reservations)
+                @foreach($reservations as $reservation)
         	<tbody>
         		<tr>
                     <td>{{$reservation->id}}</td>
@@ -36,10 +41,25 @@
                     <td>{{$reservation->customer_email}}</td>
                     <td>{{$reservation->customer_phone}}</td>
                     <td>{{$reservation->status}}</td>
-                    <td></td>
+                    
         			<td><a href="{{action('ReservationsController@edit',['id'=>$reservation->id])}}" class="btn btn-success">Edytuj</a></td>
+                    <td>
 
+                            <form method="POST" action="{{ action('ReservationsController@destroy', ['id' => $reservation->id]) }}" class="form-horizontal">
+                                <input name="_method" type="hidden" value="delete">
+                                {!! csrf_field() !!}
+                                
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus-square"></i> Usuń</button>
+                                
+                            </form>
+                        </td>
+                    </tr>
         	</tbody>	
-
-    @endforeach
+            @endforeach
+            @else
+            <tr><td colspan="7">Brak danych</td></tr>
+            @endif
+        </table>
+    </div><!--/.box-body -->
+</div><!--/.box -->
 @stop

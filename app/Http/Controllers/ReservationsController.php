@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\CreateReservation;
 class ReservationsController extends Controller
-{
+{   
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +18,9 @@ class ReservationsController extends Controller
     public function index()
     {
         $reservations = Reservation::all();
-        return view('reservations.index')->with('reservations',$reservations);
+        return view('reservations.index')
+            ->with('reservations',$reservations)
+            ->with('header_big','Rezerwacje');
 
 
     }
@@ -29,7 +32,11 @@ class ReservationsController extends Controller
      */
     public function create()
     {
-        return view('reservations.create');
+        $reservation = new Reservation();
+        return view('reservations.edit',['reservation' => $reservation])
+            ->with('header_big','Rezerwacje')
+            ->with('header_small','Dodaj')
+            ->with('action', action('ReservationsController@store'));
     }
 
     /**
@@ -38,7 +45,7 @@ class ReservationsController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateReservation $request)
     {
         $reservations = new Reservation();
         $reservations->repertoire_id = $request->repertoire_id;
@@ -74,8 +81,11 @@ class ReservationsController extends Controller
      */
     public function edit($id)
     {
-        $reservations = Reservation::findOrFail($id);
-        return view('reservations.edit',['reservations'=>$reservations]);
+        $reservation = Reservation::findOrFail($id);
+        return view('reservations.edit',['reservations'=>$reservation])
+            ->with('header_big','Rezerwacje')
+            ->with('header_small','Edytuj')
+            ->with('action', action('ReservationsController@edit', ['id' => $id]));
     }
 
     /**
@@ -85,7 +95,7 @@ class ReservationsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateReservation $request, $id)
     {
         $reservations = Reservation::findOrFail($id);
         $reservations->repertoire_id = $request->repertoire_id;

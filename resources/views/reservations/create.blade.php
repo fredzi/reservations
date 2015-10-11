@@ -1,9 +1,6 @@
-@extends('app')
+@extends('dashboard')
 
-@section('header')
-<h1 >Dodaj rezerwacje</h1>
 
-@endsection
 
 
 
