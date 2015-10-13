@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Hall;
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +28,9 @@ class HallController extends Controller
     public function index()
     {
         $halls = Hall::all();
-        
-        return view('halls.index')->with('halls', $halls)->with('header_big','Sale');
+        return view('halls.index')
+            ->with('halls', $halls)
+            ->with('header_big','Sale');
     }
 
     /**
@@ -42,7 +44,15 @@ class HallController extends Controller
         return view('halls.create',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Dodaj')
-            ->with('action', action('HallController@store'));
+            ->with('action', action('HallController@storeFirstStep'));
+    }
+    
+    public function storeFirstStep(Requests\CreateHall $request)
+    {
+        \Session::put('x', $request->input('x'));
+        \Session::put('y', $request->input('y'));
+        \Session::put('name', $request->input('name'));
+        return redirect('hall/block_seats');
     }
 
     /**
@@ -51,46 +61,35 @@ class HallController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Requests\CreateHall $request)
+    public function storeSecondStep(Requests\CreateHall $request)
     {
-        $name = $request->input('name');
-        if(isset($name))
-        {
-            \Session::put('x', $request->input('x'));
-            \Session::put('y', $request->input('y'));
-            \Session::put('name', $request->input('name'));
-            return redirect('hall/block_seats');
-        }
-        else
-        {
-            DB::transaction(function($request) use ($request) {
-                $name = \Session::get('name');
-                $num_in_row = \Session::get('x');
-                $rows = \Session::get('y');
-                $hall_id = DB::table('halls')->insertGetId([
-                    'name' => $name,
-                    
-                    'position' => 1
-                ]);
-                $seats_in_hall = [];
-                for($y = 0; $y < $rows; $y++)
+        DB::transaction(function($request) use ($request) {
+            $name = \Session::get('name');
+            $num_in_row = \Session::get('x');
+            $rows = \Session::get('y');
+            $hall_id = DB::table('halls')->insertGetId([
+                'name' => $name,
+                'user_id' => Auth::user()->id,
+                'position' => 1
+            ]);
+            $seats_in_hall = [];
+            for($y = 0; $y < $rows; $y++)
+            {
+                for($x = 0; $x < $num_in_row; $x++)
                 {
-                    for($x = 0; $x < $num_in_row; $x++)
+                    if(!$request->has($x.'-'.$y))
                     {
-                        if(!$request->has($x.'-'.$y))
-                        {
-                            $seats_in_hall[] = [
-                                'pos_x' => $x, 
-                                'pos_y' => $y, 
-                                'hall_id' => $hall_id
-                            ];
-                        }
+                        $seats_in_hall[] = [
+                            'pos_x' => $x, 
+                            'pos_y' => $y, 
+                            'hall_id' => $hall_id
+                        ];
                     }
                 }
-                DB::table('seats_in_halls')->insert($seats_in_hall);
-            });
-            return redirect('hall');
-        }
+            }
+            DB::table('seats_in_halls')->insert($seats_in_hall);
+        });
+        return redirect('hall');
     }
 
     /**
@@ -102,7 +101,7 @@ class HallController extends Controller
     public function show($id)
     {
         $hall = Hall::findOrFail($id);
-        
+        exit();
         return view('halls.show')->with('hall', $hall);
     }
 
@@ -141,6 +140,9 @@ class HallController extends Controller
     
     public function blockSeats(Request $request)
     {
-        return view('halls.block_seats')->with('header_big','Sale')->with('header_small','Wybierz miejsca');
+        return view('halls.block_seats')
+            ->with('header_big','Sale')
+            ->with('header_small','Określ dostępne miejsa')
+            ->with('action', action('HallController@storeSecondStep'));
     }
 }

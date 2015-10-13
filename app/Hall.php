@@ -15,9 +15,9 @@ class Hall extends Model
         'updated_at'
     ];
     
-    //public function cinema()
-    //{
-    //    return $this->belongTo('App\Cinema');
-    //}
+    public function cinema()
+    {
+        return $this->belongTo('App\Cinema');
+    }
     
 }

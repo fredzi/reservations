@@ -4,12 +4,16 @@
 Route::get('/', 'MainController@index');
 Route::get('/', 'HomeController@index');
 
-//hall - sale
-Route::get('hall/block_seats', 'HallController@blockSeats');
-Route::resource('hall', 'HallController');
+//widok - sale
 Route::get('hall','HallController@index');
 Route::get('hall/create','HallController@create');
-Route::post('hall','HallController@store');
+Route::post('hall/first_step', 'HallController@storeFirstStep');
+Route::post('hall/second_step','HallController@storeSecondStep');
+Route::get('hall/{id}/edit','HallController@edit');
+Route::post('hall/{id}/edit','HallController@update');
+Route::delete('hall/delete/{id}','HallController@destroy');
+Route::get('hall/block_seats', 'HallController@blockSeats');
+
 
 //logowanie i rejestracja
 Route::controllers([

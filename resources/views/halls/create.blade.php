@@ -5,16 +5,14 @@
 @include('forms/errors')
 
 <div class="box box-info">
-	<div class="box-header with-border">
-        <h3 class="box-title">
-            Dodaj salę
-        </h3>
-    </div><!-- /.box-header -->
+    <div class="box-header with-border">
+    <h3 class="box-title">
+        Dodaj salę
+    </h3>
+</div><!-- /.box-header -->
 
 <!-- form start -->
-      {!! Form::model($hall, array('url' => $action, 'class' => 'form-horizontal')) !!}
-
-
+  {!! Form::model($hall, array('url' => $action, 'class' => 'form-horizontal')) !!}
 
   <div class="box-body">
         <!-- NAZWA -->

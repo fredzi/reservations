@@ -45,6 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="{{ asset('/bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css" />
    
+  @yield('head')
   </head>
   <style>
   #prawa{
