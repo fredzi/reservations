@@ -53,9 +53,11 @@ Route::get('reservations','ReservationsController@index');
 Route::get('reservations/create','ReservationsController@create');
 Route::post('reservations','ReservationsController@store');
 Route::get('reservations/{id}/edit','ReservationsController@edit');
-Route::patch('reservations/{id}/edit','ReservationsController@update');
+Route::post('reservations/{id}/edit','ReservationsController@update');
 Route::delete('reservations/delete/{id}','ReservationsController@destroy');
 
-//widok dla reservations_seats
+//widok dla ustawień
+Route::get('stetting','StettingController@index');
+Route::get('stetting/{id}/edit','StettingController@edit');
+Route::post('stetting/{id}/edit','StettingController@update');
 
-//widok dla reservations_seats_types

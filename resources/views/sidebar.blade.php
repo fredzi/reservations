@@ -56,6 +56,11 @@
                 <i class="  fa fa-angle-right"></i> <span>Rezerwacje</span>
               </a>   
       </li>
+      <li class="treeview">
+              <a href="{{action('StettingController@index')}}">
+                <i class="  fa fa-angle-right"></i> <span>Ustawienia</span>
+              </a>   
+      </li>
       
               
               
