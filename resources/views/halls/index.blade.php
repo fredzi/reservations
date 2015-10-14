@@ -16,14 +16,27 @@
     			<tr>
     				<th>#</th>
     				<th>Nazwa</th>
+    				<th>Akcje</th>
     			</tr>
     		</thead>
     		<tbody>
     		@if($halls)
 		    @foreach($halls as $hall)
 		    	<tr>
-		    		<td>{{$hall->id}}</td>
-		    		<td>{{$hall->name}}</td>
+                            <td>{{$hall->id}}</td>
+                            <td>{{$hall->name}}</td>
+                            <td>
+                                <a href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-success">
+                                    <i class="fa fa-edit"></i> Edytuj
+                                </a>
+                                <form method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
+                                    <input name="_method" type="hidden" value="delete">
+                                    {!! csrf_field() !!}
+
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-minus-square"></i> Usuń</button>
+
+                                </form>
+                            </td>
 		    	</tr>
 		    @endforeach
 		    @else
