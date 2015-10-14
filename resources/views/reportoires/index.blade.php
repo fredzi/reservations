@@ -25,14 +25,14 @@
             @foreach($repertoires as $repertoire)
         	<tbody>
         		<tr>
-        			<td>{{$reportoire->id}}</td>
-        			<td>{{$reportoire->hall_id}}</td>
-        			<td>{{$reportoire->movies_id}}</td>
-        			<td>{{$reportoire->time}} </td>
+        			<td>{{$repertoire->id}}</td>
+        			<td>{{$repertoire->hall_id}}</td>
+        			<td>{{$repertoire->movie_id}}</td>
+        			<td>{{$repertoire->time}} </td>
         			
-        			<td><a href="{{action('RepertoiseController@edit',['id'=>$repertoire->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
+        			<td><a href="{{action('RepertoireController@edit',['id'=>$repertoire->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
                     <td>
-                                <form method="POST" action="{{ action('RepertoiseController@destroy', ['id' => $repertoire->id]) }}" class="form-horizontal">
+                                <form method="POST" action="{{ action('RepertoireController@destroy', ['id' => $repertoire->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
                                     

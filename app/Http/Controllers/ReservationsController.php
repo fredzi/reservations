@@ -7,6 +7,8 @@ use App\Reservation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateReservation;
+use App\Spectator_type;
+use Auth;
 class ReservationsController extends Controller
 {   
 
@@ -68,9 +70,14 @@ class ReservationsController extends Controller
      * @return Response
      */
     public function show($id)
-    {
+    {   
+        //$spectators = Spectator_type::all()
+            //->where('user_id', Auth::user()->id);
         $reservations = Reservation::findOrFail($id);
-        return view('reservations.show',['reservations'=>$reservations]);
+        return view('reservations.show',['reservations'=>$reservations])
+           // ->with('spectators',$spectators)
+            ->with('header_big','Informacje')
+            ->with('header_small',$reservations->customer_last_name.' '.$reservations->customer_first_name);
     }
 
     /**
@@ -82,7 +89,7 @@ class ReservationsController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::findOrFail($id);
-        return view('reservations.edit',['reservations'=>$reservation])
+        return view('reservations.edit',['reservation'=>$reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Edytuj')
             ->with('action', action('ReservationsController@edit', ['id' => $id]));

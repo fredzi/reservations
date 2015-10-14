@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
+use App\Http\Requests\CreateUser;
+use App\Http\Requests\CreateImage;
 
 class StettingController extends Controller
 {
@@ -26,7 +28,11 @@ class StettingController extends Controller
             ->where('id', Auth::user()->id)    
             ->get();
 
-        return view('ustawienia.index')->with('stetting',$stetting)->with('header_big','Ustawienia');
+        return view('ustawienia.index')->with('stetting',$stetting)->with('header_big','Ustawienia')
+        ->with('katalog',Auth::user()->name)
+        ->with('folder','logo')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id);
     }
 
     /**
@@ -36,7 +42,11 @@ class StettingController extends Controller
      */
     public function create()
     {
-        
+        $stetting = new User();
+        return view('ustawienia.create', ['stetting' =>$stetting])
+            ->with('header_big','Ustawienia')
+            ->with('header_small','Dodaj logo')
+            ->with('action', action('StettingController@store'));
         
     }
 
@@ -46,9 +56,15 @@ class StettingController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CreateImage $request)
     {
-        //
+        $imageName = Auth::user()->id . '.' . 
+            $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(
+                base_path() . '/public/'.Auth::user()->name.'/logo/', $imageName
+            );
+            
+            return redirect('stetting');
     }
 
     /**
@@ -84,7 +100,7 @@ class StettingController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CreateUser $request, $id)
     {
         $stetting = User::findOrFail($id);
         $stetting->name = $request->name;

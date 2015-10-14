@@ -1,17 +1,42 @@
 @extends('dashboard')
 @section('content')
+<div class="box-header">
+        
+    </div><!-- /.box-header -->
 
-                @if($stetting)
-                @foreach($stetting as $stettings)
+                
     <div class="col-md-4">
                  
               <!-- Profile Image -->
               <div class="box box-primary">
                 <div class="box-body box-profile">
-                  <h2>Logo kina - tutaj będzie logo</h2>  
-                  <img src="public/" >
+                  <h2>Logo kina</h2>  
                   
-                  <h2 class="profile-username text-center">Nazwa kina : {{$stettings->name}}<button href="#" style="margin-left:30px;" class="btn btn-success" >Edytuj</button></h2>
+                  @if(!file_exists($katalog.'/logo/'.$plikjpg.'.jpg') && !file_exists($katalog.'/logo/'.$plikpng.'.png'))
+                  <a href="{{ url('stetting/create') }}" class="btn btn-info " >
+                        <i class="fa fa-plus"></i> Dodaj logo
+                  </a><br>
+                  @else
+                    @if(file_exists($katalog.'/logo/'.$plikjpg.'.jpg'))
+                    <img class=" img-responsive img-rounded" src="{{$katalog}}/logo/{{$plikjpg}}.jpg" alt="jpg" ><br>
+                    <a  href="{{ url('stetting/create') }}" class="btn btn-success pull-right">
+                        <i class="fa fa-edit"></i> Edytuj logo</a>
+
+                    @elseif (file_exists($katalog.'/logo/'.$plikpng.'.png'))
+                    <img class=" img-responsive img-rounded" src="{{$katalog}}/{{$folder}}/{{$plikpng}}.png" alt="png" ><br>
+                    <a  href="{{ url('stetting/create') }}" class="btn btn-success pull-right">
+                        <i class="fa fa-edit"></i> Edytuj</a>
+                    @endif
+                    
+                  @endif
+
+                  
+
+
+
+                  @if($stetting)
+                @foreach($stetting as $stettings)
+                  <h2 class="profile-username text-center">Nazwa kina : {{$stettings->name}}</h2>
                   
 
                   
@@ -52,7 +77,7 @@
                       <b>WWW:</b> <a class="pull-right">{{$stettings->www}}</a>
                     </li>
                     
-                    <a class="pull-right btn btn-success" href="{{action('StettingController@edit',['id'=>$stettings->id])}}" style="margin-top:10px;" >Edytuj</a>
+                    <a class="pull-right btn btn-success" href="{{action('StettingController@edit',['id'=>$stettings->id])}}" style="margin-top:10px;" ><i class="fa fa-edit"></i>Edytuj</a>
                     </li>
                   </ul>
 
@@ -69,5 +94,5 @@
                     <tr><td colspan="7">Brak danych</td></tr>
             @endif
 @endsection
-<!--logo kina, nazwa kina, dane firmowe do faktury (nazwa firmy, ulica, kod pocztowy, miasto) -->
+
 

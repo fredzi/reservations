@@ -36,7 +36,7 @@
                     <td>{{$reservation->customer_email}}</td>
                     <td>{{$reservation->customer_phone}}</td>
                     <td>{{$reservation->status}}</td>
-                    <td><a href="" class="btn btn-primary">Info</a></td>
+                    <td><a href="{{action('ReservationsController@show',['id'=>$reservation->id])}}" class="btn btn-primary">Info</a></td>
         			<td><a href="{{action('ReservationsController@edit',['id'=>$reservation->id])}}" class="btn btn-success">Edytuj</a></td>
                     <td>
 
