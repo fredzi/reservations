@@ -7,7 +7,7 @@
 <div class="box box-info">
     <div class="box-header with-border">
     <h3 class="box-title">
-        Dodaj salę
+        Sale
     </h3>
 </div><!-- /.box-header -->
 
