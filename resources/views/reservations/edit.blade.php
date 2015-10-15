@@ -72,13 +72,18 @@
           </div>
         </div>
         <!-- STATUS REZERWACJI -->
+        
         <div class="form-group @if($errors->has('status'))  has-error @endif">
-        	{!! Form::label('status', 'Status rezerwacji', ['class' => 'col-sm-2 control-label']) !!}
+          {!! Form::label('name','Status rezerwacji', ['class'=>'col-sm-2 control-label']) !!}
           <div class="col-xs-3">
-              {!! Form::text('status', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+          	<select class="form-control"  name="status">
+              <option value="1">Nowy</option>
+              <option value="2">Odebrany</option>
+              <option value="3">Nieodebrany</option>
+              <option value="4">Anulowany</option>
+            </select>
           </div>
         </div>
-		
 
 
 		@include('forms/buttons', ['submit_action' => 'ReservationsController@index'])

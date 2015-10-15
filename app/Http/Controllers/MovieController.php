@@ -35,7 +35,13 @@ class MovieController extends Controller
             ->where('user_id', Auth::user()->id)
             ->get();
 
-        return view('movies.index')->with('movies',$movies)->with('header_big','Filmy');
+        return view('movies.index')
+        ->with('movies',$movies)
+        ->with('header_big','Filmy')
+        ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id);
         
     }
 
@@ -52,6 +58,10 @@ class MovieController extends Controller
         return view('movies.edit', ['movie' => $movie])
             ->with('header_big','Filmy')
             ->with('header_small','Dodaj')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('spectators_types', $spectators_types)
             ->with('action', action('MovieController@store'));
     }
@@ -130,6 +140,10 @@ class MovieController extends Controller
                 ->with('header_big','Filmy')
                 ->with('header_small','Edytuj')
                 ->with('spectators_types', $spectators_types)
+                ->with('katalog','users')
+                ->with('folder','logos')
+                ->with('plikjpg',Auth::user()->id)
+                ->with('plikpng',Auth::user()->id)
                 ->with('action', action('MovieController@edit', ['id' => $id]));
     }
 
@@ -153,34 +167,39 @@ class MovieController extends Controller
         $price = array();
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
+            $movie_prices = $movie->prices()->get();
+            $not_delete_ids = array();
         foreach($spectators_types as $st)
         {
             $exist = false;
-            foreach($movie->prices() as $price)
+            foreach($movie_prices as $price)
             {
                 if($st->id == $price->spectator_type_id)
                 {
                     $exist = true;
-                    $movie->prices()->update(
-                        new Movies_price([
-                            'price' => $request->{'price_'.$st->id},
-                            'spectator_type_id' => $st->id
-                        ])
-                    );
+                    $movie->prices()
+                    ->where('spectator_type_id', $st->id)
+                    ->update([
+                        'price'=>$request->{'price_'.$st->id}
+                        ]);
+                    $not_delete_ids[] = $price->id;
                 }
             }
             if(!$exist)
             {
-                $movie->prices()->save(
+                $new_movie = $movie->prices()->save(
+                
                     new Movies_price([
                         'price' => $request->{'price_'.$st->id},
                         'spectator_type_id' => $st->id
                     ])
                 );
+                $not_delete_ids[] = $new_movie->id;
             }
         }
 
-        
+                Movies_price::where('movie_id', $id)
+           ->whereNotIn('id', $not_delete_ids)->delete();
             
             $imageName = $movie->id . '.' . 
                 $request->file('image')->getClientOriginalExtension();

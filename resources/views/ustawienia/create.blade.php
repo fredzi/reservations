@@ -24,7 +24,7 @@
         </div>
 
         </div><!-- /.box-body -->
-        @include('forms/buttons', ['submit_action' => 'StettingController@index'])
+        @include('forms/buttons', ['submit_action' => 'SettingsController@index'])
     {!! Form::close() !!}
 	
 

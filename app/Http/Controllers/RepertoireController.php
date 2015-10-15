@@ -25,7 +25,11 @@ class RepertoireController extends Controller
 
         return view('reportoires.index')
             ->with('repertoires',$repertoires)
-            ->with('header_big','Repertuar');
+            ->with('header_big','Repertuar')
+            ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id);
     }
 
     /**
@@ -40,6 +44,10 @@ class RepertoireController extends Controller
         return view('reportoires.edit',['repertoire'=>$repertoire])
             ->with('header_big','Repertuar')
             ->with('header_small','Dodaj')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action',action('RepertoireController@store'));
         
     }
@@ -91,6 +99,10 @@ class RepertoireController extends Controller
         return view('reportoires.edit',['repertoire'=>$repertoire])
         ->with('header_big','Repertuar')
         ->with('header_small','Edytuj')
+        ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id)
         ->with('action',action('RepertoireController@edit',['id'=>$id]));
     }
 

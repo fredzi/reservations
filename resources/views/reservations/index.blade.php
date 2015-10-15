@@ -4,9 +4,7 @@
 <div class="box">
 
     <div class="box-header">
-        <a href="{{ url('reservations/create') }}" class="btn btn-info pull-left" style="margin-right: 5px;">
-            <i class="fa fa-plus"></i> Dodaj
-        </a>
+       
     </div><!-- /.box-header -->
     
     <div class="box-body">
@@ -20,6 +18,7 @@
                     <th>Email</th>
                     <th>Telefon</th>
                     <th>Status rezerwacji</th>
+                    <th>Komentarz</th>
                     <th>Info</th>
                     <th>Edycja</th>
                     
@@ -36,18 +35,23 @@
                     <td>{{$reservation->customer_email}}</td>
                     <td>{{$reservation->customer_phone}}</td>
                     <td>{{$reservation->status}}</td>
+                    
+                        @if($reservation->status == 1)
+                            <td>Nowy</td>
+                        @elseif($reservation->status == 2)
+                            <td>Odebrany</td>
+                        @elseif($reservation->status == 3)
+                            <td>Nieodebrany</td>
+                        @elseif($reservation->status == 4)
+                            <td>Anulowany</td>
+                        @else
+                            <td></td>
+                        @endif
+
+                    
                     <td><a href="{{action('ReservationsController@show',['id'=>$reservation->id])}}" class="btn btn-primary">Info</a></td>
         			<td><a href="{{action('ReservationsController@edit',['id'=>$reservation->id])}}" class="btn btn-success">Edytuj</a></td>
-                    <td>
-
-                            <form method="POST" action="{{ action('ReservationsController@destroy', ['id' => $reservation->id]) }}" class="form-horizontal">
-                                <input name="_method" type="hidden" value="delete">
-                                {!! csrf_field() !!}
-                                
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus-square"></i> Usuń</button>
-                                
-                            </form>
-                        </td>
+                    
                     </tr>
         	</tbody>	
             @endforeach

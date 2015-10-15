@@ -27,9 +27,15 @@ class HallController extends Controller
      */
     public function index()
     {
-        $halls = Hall::all();
+        $halls = DB::table('halls')    
+            ->where('user_id', Auth::user()->id)
+            ->get();
         return view('halls.index')
             ->with('halls', $halls)
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('header_big','Sale');
     }
 
@@ -41,9 +47,13 @@ class HallController extends Controller
     public function create()
     {
         $hall = new Hall();
-        return view('halls.create',['hall' => $hall])
+        return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Dodaj')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action', action('HallController@storeFirstStep'));
     }
     
@@ -113,6 +123,11 @@ class HallController extends Controller
      */
     public function edit($id)
     {
+        $hall = new Hall();
+        return view('halls.edit',['hall' => $hall])
+            ->with('header_big','Sale')
+            ->with('header_small','Edytuj')
+            ->with('action', action('HallController@storeFirstStep'));
     }
 
     /**
@@ -135,7 +150,9 @@ class HallController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hall = Hall::findOrFail($id);
+        $hall->delete();
+        return redirect('halls');
     }
     
     public function blockSeats(Request $request)

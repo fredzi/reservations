@@ -12,20 +12,21 @@
                 <div class="box-body box-profile">
                   <h2>Logo kina</h2>  
                   
-                  @if(!file_exists($katalog.'/logo/'.$plikjpg.'.jpg') && !file_exists($katalog.'/logo/'.$plikpng.'.png'))
-                  <a href="{{ url('stetting/create') }}" class="btn btn-info " >
+                  @if(!file_exists($katalog.'/'.$folder.'/'.$plikjpg.'.jpg') && !file_exists($katalog.'/'.$folder.'/'.$plikpng.'.png'))
+                  <img class=" img-responsive img-rounded" src="{{$katalog}}/{{$folder}}/brak_loga.jpg" alt="jpg" ><br>
+                  <a href="{{ url('settings/create') }}" class="btn btn-info pull-right " >
                         <i class="fa fa-plus"></i> Dodaj logo
-                  </a><br>
+                  </a><br><br>
                   @else
-                    @if(file_exists($katalog.'/logo/'.$plikjpg.'.jpg'))
-                    <img class=" img-responsive img-rounded" src="{{$katalog}}/logo/{{$plikjpg}}.jpg" alt="jpg" ><br>
-                    <a  href="{{ url('stetting/create') }}" class="btn btn-success pull-right">
+                    @if(file_exists($katalog.'/'.$folder.'/'.$plikjpg.'.jpg'))
+                    <img class=" img-responsive img-rounded" src="{{$katalog}}/{{$folder}}/{{$plikjpg}}.jpg" alt="jpg" ><br>
+                    <a  href="{{ url('settings/create') }}" class="btn btn-success pull-right">
                         <i class="fa fa-edit"></i> Edytuj logo</a>
 
-                    @elseif (file_exists($katalog.'/logo/'.$plikpng.'.png'))
+                    @elseif (file_exists($katalog.'/'.$folder.'/'.$plikpng.'.png'))
                     <img class=" img-responsive img-rounded" src="{{$katalog}}/{{$folder}}/{{$plikpng}}.png" alt="png" ><br>
-                    <a  href="{{ url('stetting/create') }}" class="btn btn-success pull-right">
-                        <i class="fa fa-edit"></i> Edytuj</a>
+                    <a  href="{{ url('settings/create') }}" class="btn btn-success pull-right">
+                        <i class="fa fa-edit"></i> Edytuj logo</a>
                     @endif
                     
                   @endif
@@ -77,7 +78,7 @@
                       <b>WWW:</b> <a class="pull-right">{{$stettings->www}}</a>
                     </li>
                     
-                    <a class="pull-right btn btn-success" href="{{action('StettingController@edit',['id'=>$stettings->id])}}" style="margin-top:10px;" ><i class="fa fa-edit"></i>Edytuj</a>
+                    <a class="pull-right btn btn-success" href="{{action('SettingsController@edit',['id'=>$stettings->id])}}" style="margin-top:10px;" ><i class="fa fa-edit"></i>Edytuj</a>
                     </li>
                   </ul>
 

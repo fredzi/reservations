@@ -62,10 +62,10 @@ Route::post('reservations/{id}/edit','ReservationsController@update');
 Route::delete('reservations/delete/{id}','ReservationsController@destroy');
 
 //widok dla ustawień
-Route::get('stetting','StettingController@index');
-Route::get('stetting/create','StettingController@create');
-Route::post('stetting','StettingController@store');
-Route::get('stetting/{id}/edit','StettingController@edit');
-Route::post('stetting/{id}/edit','StettingController@update');
+Route::get('settings','SettingsController@index');
+Route::get('settings/create','SettingsController@create');
+Route::post('settings','SettingsController@store');
+Route::get('settings/{id}/edit','SettingsController@edit');
+Route::post('settings/{id}/edit','SettingsController@update');
 
 

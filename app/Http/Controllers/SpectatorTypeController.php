@@ -33,6 +33,10 @@ class SpectatorTypeController extends Controller
             ->get();
 
         return view('spectators.index')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('spectators',$spectators)
             ->with('header_big','Typ klienta');
         
@@ -49,6 +53,10 @@ class SpectatorTypeController extends Controller
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Dodaj')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action', action('SpectatorTypeController@store'));
     }
 
@@ -99,6 +107,10 @@ class SpectatorTypeController extends Controller
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Edytuj')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action',action('SpectatorTypeController@edit',['id'=>$id]));
     }
 

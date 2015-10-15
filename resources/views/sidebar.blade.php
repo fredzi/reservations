@@ -8,9 +8,28 @@
     <div class="user-panel" style="height:70px;">
       
       <div class="pull-left info" style="margin-left:-50px; font-size:20px;">
-        <p>{{Auth::user()->name}}</p>
+        <div class="pull-left image">
+              @if(!file_exists($katalog.'/'.$folder.'/'.$plikjpg.'.jpg') && !file_exists($katalog.'/'.$folder.'/'.$plikpng.'.png'))
+                  <img class=" img-circle" src="/{{$katalog}}/{{$folder}}/brak_loga.jpg" alt="jpg" width="50" height="50"><br>
+                  <br>
+                  @else
+                    @if(file_exists($katalog.'/'.$folder.'/'.$plikjpg.'.jpg'))
+                    <img class=" img-circle" src="/{{$katalog}}/{{$folder}}/{{$plikjpg}}.jpg" alt="jpg" width="50" height="50"><br>
+                    
+
+                    @elseif (file_exists($katalog.'/'.$folder.'/'.$plikpng.'.png'))
+                    <img class=" img-circle" src="/{{$katalog}}/{{$folder}}/{{$plikpng}}.png" alt="png" width="50" height="50"><br>
+                    
+                    @endif
+                    
+                  @endif
+            </div>
+            <div class="pull-left info">
+        <p style="padding-left:10px; font-size:14px; margin-top:5px;"><b>{{Auth::user()->name}}</b></p>
+        
         <!-- Status -->
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <a href="#" style="padding-left:10px; font-size:11px;margin-bottom:10px; "><i class="fa fa-circle text-success"></i> Online</a>
+      </div>
       </div>
     </div>
 
@@ -57,7 +76,7 @@
               </a>   
       </li>
       <li class="treeview">
-              <a href="{{action('StettingController@index')}}">
+              <a href="{{action('SettingsController@index')}}">
                 <i class="  fa fa-angle-right"></i> <span>Ustawienia</span>
               </a>   
       </li>

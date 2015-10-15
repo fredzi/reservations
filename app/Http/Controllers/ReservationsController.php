@@ -22,7 +22,11 @@ class ReservationsController extends Controller
         $reservations = Reservation::all();
         return view('reservations.index')
             ->with('reservations',$reservations)
-            ->with('header_big','Rezerwacje');
+            ->with('header_big','Rezerwacje')
+            ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id);
 
 
     }
@@ -38,6 +42,10 @@ class ReservationsController extends Controller
         return view('reservations.edit',['reservation' => $reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Dodaj')
+            ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id)
             ->with('action', action('ReservationsController@store'));
     }
 
@@ -75,6 +83,10 @@ class ReservationsController extends Controller
             //->where('user_id', Auth::user()->id);
         $reservations = Reservation::findOrFail($id);
         return view('reservations.show',['reservations'=>$reservations])
+        ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id)
            // ->with('spectators',$spectators)
             ->with('header_big','Informacje')
             ->with('header_small',$reservations->customer_last_name.' '.$reservations->customer_first_name);
@@ -92,6 +104,10 @@ class ReservationsController extends Controller
         return view('reservations.edit',['reservation'=>$reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Edytuj')
+            ->with('katalog','users')
+        ->with('folder','logos')
+        ->with('plikjpg',Auth::user()->id)
+        ->with('plikpng',Auth::user()->id)
             ->with('action', action('ReservationsController@edit', ['id' => $id]));
     }
 
@@ -129,5 +145,11 @@ class ReservationsController extends Controller
         $reservations = Reservation::findOrFail($id);
         $reservations->delete();
         return redirect('reservations');
+    }
+    public function pdf($id)
+    {
+        $data = Reservation::all();
+        $pdf = PDF::loadView('reservations.index', $data);
+        return $pdf->download('invoice.pdf');
     }
 }
