@@ -98,12 +98,19 @@ class MovieController extends Controller
         $movie->save();
         $movie->prices()->saveMany($prices);
         
-        
+        if($request->file('image'))
+        {
             $imageName = $movie->id . '.' . 
             $request->file('image')->getClientOriginalExtension();
+            
             $request->file('image')->move(
                 base_path() . '/public/'.Auth::user()->name.'/', $imageName
             );
+        }
+        else
+        {
+            return redirect('movies');
+        }
         
        
         return redirect('movies');
@@ -200,13 +207,18 @@ class MovieController extends Controller
 
                 Movies_price::where('movie_id', $id)
            ->whereNotIn('id', $not_delete_ids)->delete();
-            
+         if($request->file('image'))
+        {   
             $imageName = $movie->id . '.' . 
                 $request->file('image')->getClientOriginalExtension();
                 $request->file('image')->move(
                 base_path() . '/public/'.Auth::user()->name.'/', $imageName
             );
-        
+        }
+        else
+        {
+            return redirect('movies');
+        }
         return redirect('movies');
 
     

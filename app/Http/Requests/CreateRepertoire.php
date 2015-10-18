@@ -24,7 +24,7 @@ class CreateRepertoire extends Request
     public function rules()
     {
         return [
-            'time' => 'required|integer'
+            'time' => 'required'
             
         ];
     }

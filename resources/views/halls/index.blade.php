@@ -29,7 +29,7 @@
                                 <a href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-success">
                                     <i class="fa fa-edit"></i> Edytuj
                                 </a>
-                                <form method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
+                                <form style="margin-top:5px;" method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
 

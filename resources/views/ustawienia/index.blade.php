@@ -1,9 +1,9 @@
 @extends('dashboard')
 @section('content')
-<div class="box-header">
+<div class="box">
         
-    </div><!-- /.box-header -->
-
+    
+  <div class="box-body">
                 
     <div class="col-md-4">
                  
@@ -53,7 +53,7 @@
               <!-- Profile Image -->
               <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <h2>Dane firmowe do faktury</h2>
+                    <h2>Dane konta</h2>
                   
                   
                   
@@ -94,6 +94,8 @@
             @else
                     <tr><td colspan="7">Brak danych</td></tr>
             @endif
+          </div>
+</div>
 @endsection
 
 

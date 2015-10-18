@@ -24,12 +24,7 @@ class CreateReservation extends Request
     public function rules()
     {
         return [
-            'repertoire_id' => 'required|integer',
-            'summary' => 'required|integer',
-            'customer_first_name' => 'required',
-            'customer_last_name' => 'required',
-            'customer_email' => 'required|email',
-            'customer_phone' => 'required|integer',
+            
             'status' => 'required'
         ];
     }

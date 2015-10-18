@@ -58,8 +58,9 @@ input[type=checkbox]:checked + label{
     </div>
     
 </div>
+@include('forms/buttons', ['submit_action' => 'ReservationsController@index'])
 
-{!! Form::submit('Dodaj') !!}
+
 {!! Form::close() !!}
 
 @stop

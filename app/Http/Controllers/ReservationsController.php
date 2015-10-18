@@ -121,14 +121,6 @@ class ReservationsController extends Controller
     public function update(Requests\CreateReservation $request, $id)
     {
         $reservations = Reservation::findOrFail($id);
-        $reservations->repertoire_id = $request->repertoire_id;
-        $reservations->summary = $request->summary;
-        $reservations->date_start = $request->date_start;
-        $reservations->date_end = $request->date_end;
-        $reservations->customer_first_name = $request->customer_first_name;
-        $reservations->customer_last_name = $request->customer_last_name;
-        $reservations->customer_email = $request->customer_email;
-        $reservations->customer_phone = $request->customer_phone;
         $reservations->status = $request->status;
         $reservations->save();
         return redirect('reservations');

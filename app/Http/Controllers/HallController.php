@@ -160,6 +160,10 @@ class HallController extends Controller
         return view('halls.block_seats')
             ->with('header_big','Sale')
             ->with('header_small','Określ dostępne miejsa')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action', action('HallController@storeSecondStep'));
     }
 }
