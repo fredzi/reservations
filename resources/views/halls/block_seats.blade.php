@@ -3,11 +3,11 @@
 @section('head')
 <style>
 input[type=checkbox] {
-    display:inline-block;
+    display:none;
 }
 
 input[type=checkbox] + label{
-    background:url('../../chair1.png') no-repeat;
+    background:black;
     height: 32px;
     width: 32px;
     display:inline-block;
@@ -15,7 +15,7 @@ input[type=checkbox] + label{
 }
 
 input[type=checkbox]:checked + label{
-    background:url('../../chair2.png') no-repeat;
+    background:yellow;
     height: 32px;
     width: 32px;
     display:inline-block;
@@ -34,6 +34,8 @@ input[type=checkbox]:checked + label{
     </h3>
 </div><!-- /.box-header -->
 
+
+
 <!--FORMULARZ DODAWANIA  -->
 
 
@@ -45,8 +47,8 @@ input[type=checkbox]:checked + label{
 
         @for($x = 0; $x < Session::get('x'); $x++)
 
-            {!! Form::checkbox($x.'-'.$y, '1'), Form::label($x.'-'.$y, ' ') !!}
-
+            
+            <input type="checkbox" class="check" name="{{$x.'-'.$y}}" id="{{$x.'-'.$y}}" value='1'><label for="{{$x.'-'.$y}}"></label>
         @endfor
 
         <br />
