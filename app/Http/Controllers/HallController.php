@@ -56,7 +56,7 @@ class HallController extends Controller
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('HallController@storeFirstStep'));
     }
-    
+    /* 1 KROK */
     public function storeFirstStep(Requests\CreateHall $request)
     {
         \Session::put('x', $request->input('x'));
@@ -71,6 +71,8 @@ class HallController extends Controller
      * @param  Request  $request
      * @return Response
      */
+
+    /* 2 KROK */
     public function storeSecondStep(Requests\CreateHall $request)
     {
         DB::transaction(function($request) use ($request) {
@@ -123,11 +125,15 @@ class HallController extends Controller
      */
     public function edit($id)
     {
-        $hall = new Hall();
+        $hall = Hall::findOrFail($id);
         return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Edytuj')
-            ->with('action', action('HallController@storeFirstStep'));
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)           
+            ->with('action', action('HallController@edit', ['id' => $id]));
     }
 
     /**
@@ -137,9 +143,15 @@ class HallController extends Controller
      * @param  int  $id
      * @return Response
      */
+
+
     public function update(Request $request, $id)
     {
-        //
+        $hall = Hall::findOrFail($id);
+        $hall->name = $request->name;
+        $hall->save();
+       
+        return redirect('hall');
     }
 
     /**
