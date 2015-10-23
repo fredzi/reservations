@@ -48,7 +48,7 @@
 
               
           </div><!--/.col-md-->
-          <div class="col-md-6">
+          <div class="col-md-8">
                  
               <!-- Profile Image -->
               <div class="box box-primary">
@@ -82,20 +82,42 @@
                     </li>
                   </ul>
 
+
                   
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
-              
-          </div><!--/.col-md-->
-
-
+              @if($stettings->package == 1)
+                </div><!--/.col-md-->
+                <div class="col-md-8">
+                  <div class="callout callout-info" >
+                    <h4>Pakiet: PODSTAWOWY </h4>
+                    <p>Obowiązuje do: {{$stettings->package_payment_to}}</p>
+                  </div>
+                </div>
+                @elseif($stettings->package == 2)
+                </div><!--/.col-md-->
+                <div class="col-md-8">
+                  <div class="callout callout-gray" style="background:gray;">
+                    <h4>Pakiet: SREBRNY </h4>
+                    <p>Obowiązuje do: {{$stettings->package_payment_to}}</p>
+                  </div>
+                </div>
+                @elseif($stettings->package == 3)
+                </div><!--/.col-md-->
+                <div class="col-md-8">
+                  <div class="callout callout-warning">
+                    <h4>Pakiet: ZŁOTY</h4>
+                    <p>Obowiązuje do: {{$stettings->package_payment_to}}</p>
+                  </div>
+                </div>
+            @endif
           @endforeach
             @else
                     <tr><td colspan="7">Brak danych</td></tr>
             @endif
           </div>
-</div>
+</div><!--./box -->
 @endsection
 
 
