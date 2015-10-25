@@ -16,6 +16,7 @@ class SettingsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        
     }
     /**
      * Display a listing of the resource.
@@ -24,13 +25,20 @@ class SettingsController extends Controller
      */
     public function index()
     {
+         $pokaz = DB::table('reservations')->get();
+        
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
 
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
         return view('ustawienia.index')->with('stetting',$stetting)->with('header_big','Ustawienia')
         ->with('katalog','users')
         ->with('folder','logos')
+        ->with('pokaz',$pokaz)
+        ->with('stetting2',$stetting2)
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id);
     }
@@ -42,12 +50,19 @@ class SettingsController extends Controller
      */
     public function create()
     {
+         $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+        
         $stetting = new User();
         return view('ustawienia.create', ['stetting' =>$stetting])
             ->with('header_big','Ustawienia')
             ->with('header_small','Dodaj logo')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('stetting2',$stetting2)
+            ->with('pokaz',$pokaz)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('SettingsController@store'));
@@ -90,11 +105,17 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
         $stetting=User::findOrFail($id);
         return view('ustawienia.edit',['stetting'=>$stetting])
             ->with('header_big','Ustawienia')
             ->with('header_small','Edytuj')
             ->with('katalog','users')
+            ->with('stetting2',$stetting2)
+            ->with('pokaz',$pokaz)
             ->with('folder','logos')
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)

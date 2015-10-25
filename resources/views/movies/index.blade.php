@@ -11,32 +11,32 @@
 
     <div class="box-body">
     
-        <table class="table table-bordered table-hover ">
+        <table class="table table-bordered table-hover"  >
             <thead>
-                <tr>
+                <tr role="row">
                     <th>#</th>
                     <th>Tytuł</th>
                     <th>Oryginalny tytuł</th>
                     <th>Czas</th>
                     <th>Opis</th>
-                    <th>Edycja</th>
-                    <th></th>
+                    <th class="col-xs-1" style="text-align:center">Akcje</th>
+                    
                 </tr>
             </thead>
             @if($movies)
                 @foreach($movies as $movie)
 
                 <tbody  >
-                    <tr>
+                    <tr role="row">
                         <td>{{$movie->id}}</td>
                         <td>{{$movie->title}}</td>
                         <td>{{$movie->original_title}}</td>
                         <td>{{$movie->time}} minut</td>
                         <td>{{$movie->describtion}}</td>
-                        <td><a href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
-                        <td>
+                        <td ><a style="width:75px; margin-left:10px;" href="{{action('MovieController@edit',['id'=>$movie->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
+                        <td >
 
-                            <form method="POST" action="{{ action('MovieController@destroy', ['id' => $movie->id]) }}" class="form-horizontal">
+                            <form  method="POST" action="{{ action('MovieController@destroy', ['id' => $movie->id]) }}" class="form-horizontal">
                                 <input name="_method" type="hidden" value="delete">
                                 {!! csrf_field() !!}
                                 

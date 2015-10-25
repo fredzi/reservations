@@ -27,7 +27,13 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
         
+        
+            
         $spectators = DB::table('spectators_types')
             ->where('user_id', Auth::user()->id)
             ->get();
@@ -35,6 +41,8 @@ class SpectatorTypeController extends Controller
         return view('spectators.index')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('stetting2',$stetting2)
+            ->with('pokaz',$pokaz)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('spectators',$spectators)
@@ -49,12 +57,18 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
         $spectator = new Spectator_type();
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Dodaj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('SpectatorTypeController@store'));
@@ -91,8 +105,13 @@ class SpectatorTypeController extends Controller
      */
     public function show($id)
     {
+        $stetting = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $spectators=Spectator_type::findOrFail($id);
-        return view('spectators.show',['spectators'=>$spectators]);
+        return view('spectators.show',['spectators'=>$spectators])
+            ->with('stetting',$stetting);
     }
 
     /**
@@ -103,12 +122,19 @@ class SpectatorTypeController extends Controller
      */
     public function edit($id)
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+        
         $spectator=Spectator_type::findOrFail($id);
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Edytuj')
             ->with('katalog','users')
-            ->with('folder','logos')
+            ->with('folder','logos')            
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action',action('SpectatorTypeController@edit',['id'=>$id]));

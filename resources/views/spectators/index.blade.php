@@ -10,14 +10,14 @@
         </div>
         
         <div class="box-body">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" >
         	<thead>
         		<tr>
-        			<th>#</th>
-        			<th>Nazwa</th>
-                    <th>Cena</th>
-        			<th>Edytuj</th>
-                    <th></th>
+        			<th class="col-xs-1">#</th>
+        			<th class="">Nazwa</th>
+                    <th class="col-xs-2">Cena</th>
+        			<th class="col-xs-1" style="text-align:center">Akcje</th>
+                    
         		</tr>
         	</thead>
              @if($spectators)
@@ -29,9 +29,9 @@
                 			<td>{{$spectator->name}}</td>
                 			<td>{{$spectator->price}} zł </td>
                 			
-                			<td><a href="{{action('SpectatorTypeController@edit',['id'=>$spectator->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
+                			<td  ><a  href="{{action('SpectatorTypeController@edit',['id'=>$spectator->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
                             <td>
-                                <form method="POST" action="{{ action('SpectatorTypeController@destroy', ['id' => $spectator->id]) }}" class="form-horizontal">
+                                <form  method="POST" action="{{ action('SpectatorTypeController@destroy', ['id' => $spectator->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
                                     

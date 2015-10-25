@@ -3,7 +3,8 @@
 
 
 @section('formularz')
-
+@include('forms/errors')
+<p class="login-box-msg" style="font-size:15px;">Zaloguj się</p>
 
     
 <form method="POST" action="/auth/login" >
@@ -32,12 +33,11 @@
     </div>
     <a href="#">Nie pamiętam hasła</a><br>
         <a href="{{asset('/auth/register')}}" class="text-center">Nie masz konta ? Zajerestruj się !</a>
+
+
+    
 </form>
 
-@if (count($errors) > 0)
-    <ul>
-        <p class="alert alert-danger"><b>Błędne hasło lub nazwa użytkownika !</b> </p>
-    </ul>
-@endif
+
 
 @endsection

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateReservation;
 use App\Spectator_type;
 use Auth;
+use DB;
 class ReservationsController extends Controller
 {   
 
@@ -19,14 +20,21 @@ class ReservationsController extends Controller
      */
     public function index()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $reservations = Reservation::all();
         return view('reservations.index')
             ->with('reservations',$reservations)
             ->with('header_big','Rezerwacje')
             ->with('katalog','users')
-        ->with('folder','logos')
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id);
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id);
 
 
     }
@@ -38,14 +46,21 @@ class ReservationsController extends Controller
      */
     public function create()
     {
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            $pokaz = DB::table('reservations')->get();
+        
         $reservation = new Reservation();
         return view('reservations.edit',['reservation' => $reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Dodaj')
             ->with('katalog','users')
-        ->with('folder','logos')
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id)
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action', action('ReservationsController@store'));
     }
 
@@ -79,17 +94,25 @@ class ReservationsController extends Controller
      */
     public function show($id)
     {   
+        $pokaz = DB::table('reservations')->get();
+        $stetting = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+
         //$spectators = Spectator_type::all()
             //->where('user_id', Auth::user()->id);
-        $reservations = Reservation::findOrFail($id);
-        return view('reservations.show',['reservations'=>$reservations])
+        $reservation = Reservation::findOrFail($id);
+        return view('reservations.show')
+        ->with('reservations',$reservation)
+        ->with('pokaz',$pokaz)
         ->with('katalog','users')
         ->with('folder','logos')
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id)
-           // ->with('spectators',$spectators)
-            ->with('header_big','Informacje')
-            ->with('header_small',$reservations->customer_last_name.' '.$reservations->customer_first_name);
+        ->with('stetting',$stetting)
+        ->with('header_big','Informacje')
+        ->with('header_small',$reservation->customer_last_name.' '.$reservation->customer_first_name);
+
     }
 
     /**
@@ -100,14 +123,24 @@ class ReservationsController extends Controller
      */
     public function edit($id)
     {
+        $pokaz = DB::table('reservations')->get();
+        
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+        $reservations = DB::table('reservations')->get();
+       
         $reservation = Reservation::findOrFail($id);
         return view('reservations.edit',['reservation'=>$reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Edytuj')
             ->with('katalog','users')
-        ->with('folder','logos')
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id)
+            ->with('reservations',$reservations)
+            ->with('stetting2',$stetting2)
+            ->with('pokaz',$pokaz)
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
             ->with('action', action('ReservationsController@edit', ['id' => $id]));
     }
 

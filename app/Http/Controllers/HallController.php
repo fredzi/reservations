@@ -27,6 +27,11 @@ class HallController extends Controller
      */
     public function index()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $halls = DB::table('halls')    
             ->where('user_id', Auth::user()->id)
             ->get();
@@ -34,6 +39,8 @@ class HallController extends Controller
             ->with('halls', $halls)
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('header_big','Sale');
@@ -46,12 +53,19 @@ class HallController extends Controller
      */
     public function create()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $hall = new Hall();
         return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Dodaj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('HallController@storeFirstStep'));
@@ -112,9 +126,13 @@ class HallController extends Controller
      */
     public function show($id)
     {
+        $stetting = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $hall = Hall::findOrFail($id);
         exit();
-        return view('halls.show')->with('hall', $hall);
+        return view('halls.show')->with('hall', $hall)->with('stetting',$stetting);
     }
 
     /**
@@ -125,12 +143,19 @@ class HallController extends Controller
      */
     public function edit($id)
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $hall = Hall::findOrFail($id);
         return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Edytuj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)           
             ->with('action', action('HallController@edit', ['id' => $id]));
@@ -169,11 +194,18 @@ class HallController extends Controller
     
     public function blockSeats(Request $request)
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         return view('halls.block_seats')
             ->with('header_big','Sale')
             ->with('header_small','Określ dostępne miejsa')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('HallController@storeSecondStep'));

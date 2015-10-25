@@ -7,7 +7,7 @@ input[type=checkbox] {
 }
 
 input[type=checkbox] + label{
-    background:black;
+    background:url('/chair1.png');
     height: 32px;
     width: 32px;
     display:inline-block;
@@ -15,7 +15,7 @@ input[type=checkbox] + label{
 }
 
 input[type=checkbox]:checked + label{
-    background:yellow;
+    background:url('/chair2.png');
     height: 32px;
     width: 32px;
     display:inline-block;

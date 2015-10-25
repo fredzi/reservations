@@ -7,6 +7,7 @@ use App\Repertoire;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
+use DB;
 
 class RepertoireController extends Controller
 {
@@ -21,15 +22,22 @@ class RepertoireController extends Controller
      */
     public function index()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $repertoires = Repertoire::all();
 
         return view('reportoires.index')
             ->with('repertoires',$repertoires)
             ->with('header_big','Repertuar')
             ->with('katalog','users')
-        ->with('folder','logos')
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id);
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
+            ->with('folder','logos')
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id);
     }
 
     /**
@@ -39,13 +47,20 @@ class RepertoireController extends Controller
      */
     public function create()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
         
+            
         $repertoire = new Repertoire();
         return view('reportoires.edit',['repertoire'=>$repertoire])
             ->with('header_big','Repertuar')
             ->with('header_small','Dodaj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action',action('RepertoireController@store'));
@@ -83,8 +98,13 @@ class RepertoireController extends Controller
      */
     public function show($id)
     {
+        $stetting = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $repertoires=Repertoire::findOrFail($id);
-        return view('reportoires.show',['repertoires'=>$repertoires]);
+        return view('reportoires.show',['repertoires'=>$repertoires])
+            ->with('stetting',$stetting);
     }
 
     /**
@@ -95,12 +115,19 @@ class RepertoireController extends Controller
      */
     public function edit($id)
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+        
         $repertoire=Repertoire::findOrFail($id);
         return view('reportoires.edit',['repertoire'=>$repertoire])
         ->with('header_big','Repertuar')
         ->with('header_small','Edytuj')
         ->with('katalog','users')
         ->with('folder','logos')
+        ->with('pokaz',$pokaz)
+        ->with('stetting2',$stetting2)
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id)
         ->with('action',action('RepertoireController@edit',['id'=>$id]));

@@ -1,7 +1,7 @@
 <?php
 
 //główny widok
-Route::get('/', 'MainController@index');
+
 Route::get('/', 'HomeController@index');
 
 //widok - sale

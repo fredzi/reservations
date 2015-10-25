@@ -1,5 +1,5 @@
 <?php namespace App\Http\Controllers;
-
+use DB;
 use Auth;
 class HomeController extends Controller {
 
@@ -31,10 +31,17 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('dashboard')->with('katalog','users')
+		$pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
+		return view('glownastrona')->with('katalog','users')
         ->with('folder','logos')
         ->with('plikjpg',Auth::user()->id)
+     	->with('pokaz',$pokaz)
+        ->with('stetting2',$stetting2)
         ->with('plikpng',Auth::user()->id);
 	}
-
+	
 }

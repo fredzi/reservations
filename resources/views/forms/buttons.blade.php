@@ -1,9 +1,11 @@
 
 <div class="box-footer">
-    <a href="{{ action($submit_action) }}" type="submit" class="btn btn-default pull-right">
-        Anuluj
-    </a>
-    <button type="submit" class="btn btn-info pull-left">
+	<button type="submit" class="btn btn-info pull-left">
         OK
     </button>
+
+    <a href="{{ action($submit_action) }}" type="submit" class="btn btn-default pull-left" style="margin-left:10px;">
+        Anuluj
+    </a>
+    
 </div>

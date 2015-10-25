@@ -18,7 +18,7 @@
         			<th>Nr sali</th>
         			<th>Nr filmu</th>
         			<th>Godzina</th>
-        			<th>Edycja</th>
+        			<th class="col-xs-1"  style="text-align:center">Akcje</th>
         		</tr>
         	</thead>
             @if($repertoires)

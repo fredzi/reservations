@@ -27,10 +27,11 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a ><b>Admin</b></a>
+        <h1><b>Panel administracyjny</b><br><small>rezerwujemybilety.pl</small></h1>
       </div><!-- /.login-logo -->
+      
       <div class="login-box-body">
-        <p class="login-box-msg" style="font-size:15px;">Zaloguj się</p>
+        
 
 
 

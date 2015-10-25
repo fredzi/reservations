@@ -31,15 +31,22 @@ class MovieController extends Controller
      */
     public function index()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+
         $movies = DB::table('movies')    
             ->where('user_id', Auth::user()->id)
             ->get();
 
         return view('movies.index')
+        ->with('stetting2',$stetting2)
         ->with('movies',$movies)
         ->with('header_big','Filmy')
         ->with('katalog','users')
         ->with('folder','logos')
+        ->with('pokaz',$pokaz)
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id);
         
@@ -52,6 +59,11 @@ class MovieController extends Controller
      */
     public function create()
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+        
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
         $movie = new Movies();
@@ -60,9 +72,11 @@ class MovieController extends Controller
             ->with('header_small','Dodaj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokaz',$pokaz)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('spectators_types', $spectators_types)
+            ->with('stetting2',$stetting2)
             ->with('action', action('MovieController@store'));
     }
 
@@ -136,6 +150,11 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
+            ->where('id', Auth::user()->id)    
+            ->get();
+            
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
         $movie = Movies::findOrFail($id);
@@ -149,8 +168,10 @@ class MovieController extends Controller
                 ->with('spectators_types', $spectators_types)
                 ->with('katalog','users')
                 ->with('folder','logos')
+                ->with('pokaz',$pokaz)
                 ->with('plikjpg',Auth::user()->id)
                 ->with('plikpng',Auth::user()->id)
+                ->with('stetting2',$stetting2)
                 ->with('action', action('MovieController@edit', ['id' => $id]));
     }
 

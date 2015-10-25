@@ -14,9 +14,10 @@
     	<table class="table table-bordered table-hover">
     		<thead>
     			<tr>
-    				<th>#</th>
-    				<th>Nazwa</th>
-    				<th>Akcje</th>
+    				<th class="col-xs-1">#</th>
+    				<th class="col-xs-3">Nazwa</th>
+    				<th class="col-xs-1" style="text-align:center">Akcje</th>
+                    
     			</tr>
     		</thead>
     		<tbody>
@@ -29,7 +30,9 @@
                                 <a href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-success">
                                     <i class="fa fa-edit"></i> Edytuj
                                 </a>
-                                <form style="margin-top:5px;" method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
+                            </td>
+                            <td>
+                                <form style="" method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
 

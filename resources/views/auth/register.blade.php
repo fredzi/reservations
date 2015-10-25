@@ -3,7 +3,8 @@
 
 
 @section('formularz')
-
+@include('forms/errors')
+<p class="login-box-msg" style="font-size:15px;">Rejestracja</p>
         <form method="POST" action="/auth/register" class="form-group" role="form">
             {!! csrf_field() !!}
 
@@ -53,14 +54,6 @@
         </form>
    
 
-<div >
-    @if (count($errors) > 0)
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li class="alert alert-danger">{{ $error }}</li>
-        @endforeach
-        </ul>
-    @endif
-</div>
+
 
 @endsection
