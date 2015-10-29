@@ -16,6 +16,7 @@
     			<tr>
     				<th class="col-xs-1">#</th>
     				<th class="col-xs-3">Nazwa</th>
+                    <th class="col-xs-1" style="text-align:center">Miejsca</th>
     				<th class="col-xs-1" style="text-align:center">Akcje</th>
                     
     			</tr>
@@ -26,20 +27,23 @@
 		    	<tr>
                             <td>{{$hall->id}}</td>
                             <td>{{$hall->name}}</td>
-                            <td>
-                                <a href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-success">
+                            <td style="text-align:center"><a href="{{action('HallController@show',['id'=>$hall->id])}}" class="btn btn-primary">Podgląd miejsc</a></td>
+                            <td >
+                                
+                                <a  href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-success">
                                     <i class="fa fa-edit"></i> Edytuj
                                 </a>
-                            </td>
-                            <td>
-                                <form style="" method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
+                            
+                                <form style="margin-top:-34px; margin-left:90px;" method="POST" action="{{ action('HallController@destroy', ['id' => $hall->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
 
                                         <button type="submit" class="btn btn-danger"><i class="fa fa-minus-square"></i> Usuń</button>
 
                                 </form>
+                            
                             </td>
+
 		    	</tr>
 		    @endforeach
 		    @else

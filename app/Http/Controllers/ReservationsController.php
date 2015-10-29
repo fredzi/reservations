@@ -10,6 +10,7 @@ use App\Http\Requests\CreateReservation;
 use App\Spectator_type;
 use Auth;
 use DB;
+use Input;
 class ReservationsController extends Controller
 {   
 
@@ -18,8 +19,19 @@ class ReservationsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        
+            //$wyniki = DB::table('reservations')->where('id',1)->first();
+            //if (is_null($wyniki)) {
+            //    $wyniki = "" ;
+            //}
+            //else
+            //{
+            //    $wyniki = 1;
+            //}
+
+
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -35,6 +47,7 @@ class ReservationsController extends Controller
             ->with('folder','logos')
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id);
+           
 
 
     }
@@ -50,6 +63,7 @@ class ReservationsController extends Controller
             ->where('id', Auth::user()->id)    
             ->get();
             $pokaz = DB::table('reservations')->get();
+            $pokazz = DB::table('reservations')->count();
         
         $reservation = new Reservation();
         return view('reservations.edit',['reservation' => $reservation])
@@ -59,6 +73,7 @@ class ReservationsController extends Controller
             ->with('pokaz',$pokaz)
             ->with('stetting2',$stetting2)
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('ReservationsController@store'));
@@ -98,7 +113,7 @@ class ReservationsController extends Controller
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-
+        $pokazz = DB::table('reservations')->count();
         //$spectators = Spectator_type::all()
             //->where('user_id', Auth::user()->id);
         $reservation = Reservation::findOrFail($id);
@@ -107,6 +122,7 @@ class ReservationsController extends Controller
         ->with('pokaz',$pokaz)
         ->with('katalog','users')
         ->with('folder','logos')
+        ->with('pokazz',$pokazz)
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id)
         ->with('stetting',$stetting)
@@ -129,6 +145,7 @@ class ReservationsController extends Controller
             ->where('id', Auth::user()->id)    
             ->get();
         $reservations = DB::table('reservations')->get();
+       $pokazz = DB::table('reservations')->count();
        
         $reservation = Reservation::findOrFail($id);
         return view('reservations.edit',['reservation'=>$reservation])
@@ -139,6 +156,7 @@ class ReservationsController extends Controller
             ->with('stetting2',$stetting2)
             ->with('pokaz',$pokaz)
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
             ->with('action', action('ReservationsController@edit', ['id' => $id]));

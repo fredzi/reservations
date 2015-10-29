@@ -31,6 +31,7 @@ class HallController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+        $pokazz = DB::table('reservations')->count();
             
         $halls = DB::table('halls')    
             ->where('user_id', Auth::user()->id)
@@ -39,6 +40,7 @@ class HallController extends Controller
             ->with('halls', $halls)
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('pokaz',$pokaz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
@@ -57,7 +59,7 @@ class HallController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            
+        $pokazz = DB::table('reservations')->count();   
         $hall = new Hall();
         return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
@@ -65,6 +67,7 @@ class HallController extends Controller
             ->with('katalog','users')
             ->with('folder','logos')
             ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
@@ -125,14 +128,41 @@ class HallController extends Controller
      * @return Response
      */
     public function show($id)
-    {
-        $stetting = DB::table('users')
+    {   
+        
+        
+        $hall = Hall::findOrFail($id);
+            
+        $pokazz = DB::table('reservations')->count();
+        $pokaz = DB::table('reservations')->get();
+        $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            
-        $hall = Hall::findOrFail($id);
-        exit();
-        return view('halls.show')->with('hall', $hall)->with('stetting',$stetting);
+        
+        
+        
+        $seatsx = DB::table('seats_in_halls')->where('hall_id',$id)->join('halls','seats_in_halls.hall_id', '=', 'halls.id')
+        ->select('pos_x')->get();
+
+        $seatsy = DB::table('seats_in_halls')->where('hall_id',$id)->join('halls','seats_in_halls.hall_id', '=', 'halls.id')
+        ->select('pos_y')->get();
+       
+         
+        return view('halls.show')
+            ->with('header_big','Sale')
+            ->with('header_small','Miejsca')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('hallx',5)
+            ->with('hally',5)
+            ->with('hall',$hall)
+
+            ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
+            ->with('stetting2',$stetting2)
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id)
+            ->with('action', action('HallController@show'), ['id' => $id]);
     }
 
     /**
@@ -143,6 +173,7 @@ class HallController extends Controller
      */
     public function edit($id)
     {
+        $pokazz = DB::table('reservations')->count();
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -154,6 +185,7 @@ class HallController extends Controller
             ->with('header_small','Edytuj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('pokaz',$pokaz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
@@ -194,6 +226,7 @@ class HallController extends Controller
     
     public function blockSeats(Request $request)
     {
+        $pokazz = DB::table('reservations')->count();
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -205,6 +238,7 @@ class HallController extends Controller
             ->with('katalog','users')
             ->with('folder','logos')
             ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)

@@ -22,6 +22,8 @@ class RepertoireController extends Controller
      */
     public function index()
     {
+        $pokazz = DB::table('reservations')->count();
+        
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -34,6 +36,7 @@ class RepertoireController extends Controller
             ->with('header_big','Repertuar')
             ->with('katalog','users')
             ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('folder','logos')
             ->with('plikjpg',Auth::user()->id)
@@ -51,7 +54,7 @@ class RepertoireController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        
+        $pokazz = DB::table('reservations')->count();
             
         $repertoire = new Repertoire();
         return view('reportoires.edit',['repertoire'=>$repertoire])
@@ -60,6 +63,7 @@ class RepertoireController extends Controller
             ->with('katalog','users')
             ->with('folder','logos')
             ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
@@ -119,6 +123,7 @@ class RepertoireController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+        $pokazz = DB::table('reservations')->count();
         
         $repertoire=Repertoire::findOrFail($id);
         return view('reportoires.edit',['repertoire'=>$repertoire])
@@ -127,6 +132,7 @@ class RepertoireController extends Controller
         ->with('katalog','users')
         ->with('folder','logos')
         ->with('pokaz',$pokaz)
+        ->with('pokazz',$pokazz)
         ->with('stetting2',$stetting2)
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id)

@@ -30,9 +30,9 @@
         			<td>{{$repertoire->movie_id}}</td>
         			<td>{{$repertoire->time}} </td>
         			
-        			<td><a href="{{action('RepertoireController@edit',['id'=>$repertoire->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
-                    <td>
-                                <form method="POST" action="{{ action('RepertoireController@destroy', ['id' => $repertoire->id]) }}" class="form-horizontal">
+        			<td><a href="{{action('RepertoireController@edit',['id'=>$repertoire->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a>
+                    
+                                <form style="margin-top:-34px; margin-left:90px;" method="POST" action="{{ action('RepertoireController@destroy', ['id' => $repertoire->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
                                     

@@ -80,6 +80,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/_all-skins.min.css')}}">
    @yield('head')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#pol").click(function(){
+        $("#powiadomienie").remove();
+    });
+});
+
+</script>
   </head>
   <style>
   #prawa{
@@ -348,6 +357,9 @@ symbolPosition : 'left' // use this setting to position the symbol at the left o
     </script>
 <script>
       $(function () {
+
+
+
         /* ChartJS
          * -------
          * Here we will create a few charts using ChartJS

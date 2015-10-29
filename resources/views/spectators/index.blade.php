@@ -29,9 +29,9 @@
                 			<td>{{$spectator->name}}</td>
                 			<td>{{$spectator->price}} zł </td>
                 			
-                			<td  ><a  href="{{action('SpectatorTypeController@edit',['id'=>$spectator->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a></td>
-                            <td>
-                                <form  method="POST" action="{{ action('SpectatorTypeController@destroy', ['id' => $spectator->id]) }}" class="form-horizontal">
+                			<td  ><a  href="{{action('SpectatorTypeController@edit',['id'=>$spectator->id])}}" class="btn btn-success"><i class="fa fa-edit"></i> Edytuj</a>
+                            
+                                <form style="margin-top:-34px; margin-left:90px;" method="POST" action="{{ action('SpectatorTypeController@destroy', ['id' => $spectator->id]) }}" class="form-horizontal">
                                     <input name="_method" type="hidden" value="delete">
                                     {!! csrf_field() !!}
                                     

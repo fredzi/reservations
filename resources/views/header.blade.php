@@ -2,7 +2,7 @@
 <header class="main-header">
 
   <!-- Logo -->
-  <a href="" class="logo" style="font-size:18px"><b>Panel administracyjny</b> </a>
+  <a href="" class="logo" style="font-size:18px"><b>RezerwujemyBilety.pl</b> </a>
 
   <!-- Header Navbar -->
   <nav class="navbar navbar-static-top" role="navigation">
@@ -14,16 +14,20 @@
           
       <ul class="nav navbar-nav">
         <!-- Messages: style can be found in dropdown.less-->
-        
+
         
         <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <li class="dropdown notifications-menu" id="id_do_odswiezenia">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="pol">
                   <i class="fa fa-bell-o"></i>
-                  <span class="label label-danger">5</span>
+                 
+                  <span class="label label-danger" id="powiadomienie">
+                  {{count($pokaz)}}
+                  </span>
+                  
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">5 nowych powiadomień</li>
+                  
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">

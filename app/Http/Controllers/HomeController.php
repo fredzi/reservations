@@ -31,6 +31,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
+		$pokazz = DB::table('reservations')->count();
 		$pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -40,6 +41,7 @@ class HomeController extends Controller {
         ->with('folder','logos')
         ->with('plikjpg',Auth::user()->id)
      	->with('pokaz',$pokaz)
+        ->with('pokazz',$pokazz)
         ->with('stetting2',$stetting2)
         ->with('plikpng',Auth::user()->id);
 	}

@@ -20,7 +20,7 @@
                     <th>Status rezerwacji</th>
                     <th>Komentarz</th>
                     <th>Info</th>
-                    <th  style="text-align:center">Akcje</th>
+                    <th  style="text-align:center">Akcja</th>
                     
         		</tr>
         	</thead>

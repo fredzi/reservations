@@ -31,6 +31,8 @@ class MovieController extends Controller
      */
     public function index()
     {
+        $pokazz = DB::table('reservations')->count();
+        
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -42,6 +44,7 @@ class MovieController extends Controller
 
         return view('movies.index')
         ->with('stetting2',$stetting2)
+        ->with('pokazz',$pokazz)
         ->with('movies',$movies)
         ->with('header_big','Filmy')
         ->with('katalog','users')
@@ -63,6 +66,7 @@ class MovieController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+        $pokazz = DB::table('reservations')->count();
         
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
@@ -71,6 +75,7 @@ class MovieController extends Controller
             ->with('header_big','Filmy')
             ->with('header_small','Dodaj')
             ->with('katalog','users')
+            ->with('pokazz',$pokazz)
             ->with('folder','logos')
             ->with('pokaz',$pokaz)
             ->with('plikjpg',Auth::user()->id)
@@ -150,6 +155,8 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
+        $pokazz = DB::table('reservations')->count();
+
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -169,6 +176,7 @@ class MovieController extends Controller
                 ->with('katalog','users')
                 ->with('folder','logos')
                 ->with('pokaz',$pokaz)
+                ->with('pokazz',$pokazz)
                 ->with('plikjpg',Auth::user()->id)
                 ->with('plikpng',Auth::user()->id)
                 ->with('stetting2',$stetting2)

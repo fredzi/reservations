@@ -27,6 +27,8 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
+        $pokazz = DB::table('reservations')->count();
+        
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -41,6 +43,7 @@ class SpectatorTypeController extends Controller
         return view('spectators.index')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('pokaz',$pokaz)
             ->with('plikjpg',Auth::user()->id)
@@ -61,12 +64,15 @@ class SpectatorTypeController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+            $pokazz = DB::table('reservations')->count();
+
         $spectator = new Spectator_type();
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Dodaj')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('pokaz',$pokaz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
@@ -126,6 +132,7 @@ class SpectatorTypeController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+        $pokazz = DB::table('reservations')->count();
         
         $spectator=Spectator_type::findOrFail($id);
         return view('spectators.edit',['spectator'=>$spectator])
@@ -134,6 +141,7 @@ class SpectatorTypeController extends Controller
             ->with('katalog','users')
             ->with('folder','logos')            
             ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)

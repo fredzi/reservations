@@ -25,6 +25,8 @@ class SettingsController extends Controller
      */
     public function index()
     {
+        $pokazz = DB::table('reservations')->count();
+        
          $pokaz = DB::table('reservations')->get();
         
         $stetting = DB::table('users')
@@ -38,6 +40,8 @@ class SettingsController extends Controller
         ->with('katalog','users')
         ->with('folder','logos')
         ->with('pokaz',$pokaz)
+
+        ->with('pokazz',$pokazz)
         ->with('stetting2',$stetting2)
         ->with('plikjpg',Auth::user()->id)
         ->with('plikpng',Auth::user()->id);
@@ -54,6 +58,7 @@ class SettingsController extends Controller
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+        $pokazz = DB::table('reservations')->count();
         
         $stetting = new User();
         return view('ustawienia.create', ['stetting' =>$stetting])
@@ -61,6 +66,7 @@ class SettingsController extends Controller
             ->with('header_small','Dodaj logo')
             ->with('katalog','users')
             ->with('folder','logos')
+            ->with('pokazz',$pokazz)
             ->with('stetting2',$stetting2)
             ->with('pokaz',$pokaz)
             ->with('plikjpg',Auth::user()->id)
@@ -105,6 +111,7 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
+        $pokazz = DB::table('reservations')->count();
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -116,6 +123,7 @@ class SettingsController extends Controller
             ->with('katalog','users')
             ->with('stetting2',$stetting2)
             ->with('pokaz',$pokaz)
+            ->with('pokazz',$pokazz)
             ->with('folder','logos')
             ->with('plikjpg',Auth::user()->id)
             ->with('plikpng',Auth::user()->id)
