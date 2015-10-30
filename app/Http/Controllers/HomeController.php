@@ -56,7 +56,7 @@ class HomeController extends Controller {
 		
 
 
-		return view('glownastrona')
+		return view('home')
 		->with('katalog','users')
         ->with('folder','logos')
         ->with('plikjpg',Auth::user()->id)
