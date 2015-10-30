@@ -46,13 +46,14 @@
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
-
-    <!-- jQuery 2.1.4 -->
     <script src="{{ asset("/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js")}}"></script>
+    <!-- jQuery 2.1.4 -->
+    
+     <!-- iCheck -->
+    <script src="{{ asset("/bower_components/AdminLTE/plugins/iCheck/icheck.min.js")}}"></script>
+
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset("/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js")}}"></script>
-    <!-- iCheck -->
-    <script src="{{ asset("/bower_components/AdminLTE/plugins/iCheck/icheck.min.js")}}"></script>
     <script>
       $(function () {
         $('input').iCheck({
@@ -62,9 +63,10 @@
         });
       });
     </script>
-    
+
     @section('js')
-    @endsection
+
     
+    @endsection
   </body>
 </html>

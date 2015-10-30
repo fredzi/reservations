@@ -27,6 +27,7 @@ class HallController extends Controller
      */
     public function index()
     {
+        
         $pokaz = DB::table('reservations')->get();
         $stetting2 = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -221,7 +222,7 @@ class HallController extends Controller
     {
         $hall = Hall::findOrFail($id);
         $hall->delete();
-        return redirect('halls');
+        return redirect('hall');
     }
     
     public function blockSeats(Request $request)

@@ -2,7 +2,6 @@
 use DB;
 use Auth;
 use App\Reservation;
-use Carbon\Carbon;
 class HomeController extends Controller {
 
 	/*
