@@ -28,4 +28,8 @@ class Movies extends Model
         return $this->hasMany('App\Movies_price', 'movie_id');
     }
     
+    public function repertoire(){
+        return $this->hasMany('App\Movies_repertoire', 'movie_id');
+    }
+    
 }

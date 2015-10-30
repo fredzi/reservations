@@ -12,6 +12,7 @@ use App\Http\Requests\CreateMovie;
 use App\Http\Controllers\Controller;
 use App\Movies_price;
 use App\Spectator_type;
+use App\Movies_repertoire;
 use File;
 
 
@@ -165,9 +166,9 @@ class MovieController extends Controller
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
         $movie = Movies::findOrFail($id);
-        foreach($movie->prices as $price)
+        foreach($movie->prices as $repertoire)
         {
-            $movie->{'price_'.$price->spectator_type_id} = $price->price;
+            $movie->{'price_'.$repertoire->spectator_type_id} = $repertoire->price;
         }
         return view('movies.edit', ['movie' => $movie])
                 ->with('header_big','Filmy')
