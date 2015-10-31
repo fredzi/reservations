@@ -64,8 +64,11 @@
           </div><!-- /.row -->
 
 
+
+
+
 @endsection
-@section('skrypt')
+@section('js')
 <script>
       $(function () {
 

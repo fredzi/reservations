@@ -10,7 +10,7 @@
     </div><!-- /.box-header -->
 
     <div class="box-body">
-    
+       
         <table class="table table-bordered table-hover"  >
             <thead>
                 <tr role="row">
@@ -40,9 +40,49 @@
                                 <input name="_method" type="hidden" value="delete">
                                 {!! csrf_field() !!}
                                 
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus-square"></i> Usuń</button>
-                                
+                                    
+                             
+
+
+
+                                    <!-- Trigger the modal with a button -->
+                                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-minus-square"></i>Usuń</button>
+
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="myModal" role="danger">
+                                   
+                                    <div class="modal-danger modal-sm" style="text-align:center; margin-left:auto; margin-right:auto; margin-top:100px;">
+                                    
+                                      <!-- Modal content-->
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                          <h4 class="modal-title">Uwaga !</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>Czy jesteś pewien, że chcesz usunąć wybrany rekord ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+                                          <button type="submit" class="btn btn-default">Tak</button>
+                                        </div>
+                                      
+                                  </div>
+                                      
+                                    </div>
+                                  </div>
+
+
+
+
                             </form>
+
+                            <!-- Button trigger modal -->
+
+
+
+  
+
                         </td>
                 </tbody>	
                 @endforeach
@@ -52,6 +92,8 @@
         </table>
     
     </div><!-- /.box-body -->
+
 </div><!-- /.box -->
+
 
 @endsection
