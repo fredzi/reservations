@@ -63,8 +63,5 @@
       });
     </script>
     
-    @section('js')
-    @endsection
-    
   </body>
 </html>

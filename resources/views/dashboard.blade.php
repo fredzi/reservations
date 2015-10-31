@@ -356,6 +356,9 @@ symbolPosition : 'left' // use this setting to position the symbol at the left o
       });
     </script>
     @yield('skrypt')
+    
+    @section('js')
+    @endsection
 
 
   </body>
