@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ol class="breadcrumb">
                   <li style="font-size:15px;"><a style="color:#f39c12">Pakiet ZŁOTY </a> <a style="font-size:12px;"> Obowiązuje do: {{$stettings->package_payment_to}} </a></li>
                 </ol>
-                @elseif($stettings->package == 0 && $stettings->package == NULL)
+                @elseif($stettings->package == 0 || $stettings->package == NULL)
                 <ol class="breadcrumb">
                   <li style="font-size:15px;">Pakiet DARMOWY<a href="#" style="font-size:12px; color:#00c0ef" id="texti"> (kliknij tutaj żeby zobaczyć co zyskasz w płatnych pakietach)</a> </li>
                 </ol>

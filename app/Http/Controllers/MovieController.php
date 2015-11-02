@@ -44,15 +44,15 @@ class MovieController extends Controller
             ->get();
 
         return view('movies.index')
-        ->with('stetting2',$stetting2)
-        ->with('pokazz',$pokazz)
-        ->with('movies',$movies)
-        ->with('header_big','Filmy')
-        ->with('katalog','users')
-        ->with('folder','logos')
-        ->with('pokaz',$pokaz)
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id);
+            ->with('stetting2',$stetting2)
+            ->with('pokazz',$pokazz)
+            ->with('movies',$movies)
+            ->with('header_big','Filmy')
+            ->with('katalog','users')
+            ->with('folder','logos')
+            ->with('pokaz',$pokaz)
+            ->with('plikjpg',Auth::user()->id)
+            ->with('plikpng',Auth::user()->id);
         
     }
 
@@ -204,8 +204,8 @@ class MovieController extends Controller
         $price = array();
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
-            $movie_prices = $movie->prices()->get();
-            $not_delete_ids = array();
+        $movie_prices = $movie->prices()->get();
+        $not_delete_ids = array();
         foreach($spectators_types as $st)
         {
             $exist = false;
@@ -234,10 +234,60 @@ class MovieController extends Controller
                 $not_delete_ids[] = $new_movie->id;
             }
         }
-
-                Movies_price::where('movie_id', $id)
+        Movies_price::where('movie_id', $id)
            ->whereNotIn('id', $not_delete_ids)->delete();
-         if($request->file('image'))
+        // Repertuar
+        $input = $request->all();
+        $input_repertoire = array();
+        foreach($input as $name => $val)
+        {
+            $name = explode('-', $name);
+            if($name[0] == 'repertoire')
+            {
+                if(!isset($input_repertoire[$name[1]]))
+                {
+                    $input_repertoire[$name[1]] = array(
+                        'monday' => false,
+                        'tuesday' => false,
+                        'wednesday' => false,
+                        'thursday' => false,
+                        'friday' => false,
+                        'saturday' => false,
+                        'sunday' => false
+                    );
+                }
+                $input_repertoire[$name[1]][$name[2]] = $val;
+            }
+        }
+        $movie_repertoire = $movie->repertoire()->get();
+        $not_delete_ids = array();
+        foreach($input_repertoire as $repertoire_id => $ir)
+        {
+            $exist = false;
+            foreach($movie_repertoire as $repertoire)
+            {
+                if($repertoire_id == $repertoire->id)
+                {
+                    $exist = true;
+                    $movie->repertoire()
+                        ->where('id', $repertoire_id)
+                        ->update($ir);
+                    $not_delete_ids[] = $repertoire_id;
+                }
+            }
+            if(!$exist)
+            {
+                $new_repertoire = $movie->repertoire()->save(
+                    new Movies_repertoire($ir)
+                );
+                $not_delete_ids[] = $new_repertoire->id;
+            }
+        }
+        Movies_repertoire::where('movie_id', $id)
+           ->whereNotIn('id', $not_delete_ids)->delete();
+        
+        // Miniaturka
+        if($request->file('image'))
         {   
             $imageName = $movie->id . '.' . 
                 $request->file('image')->getClientOriginalExtension();
