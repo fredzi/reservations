@@ -13,6 +13,7 @@ Route::get('hall/{id}/edit','HallController@edit');
 Route::post('hall/{id}/edit','HallController@update');
 Route::delete('hall/delete/{id}','HallController@destroy');
 Route::get('hall/block_seats', 'HallController@blockSeats');
+Route::get('hall/{id}','HallController@show');
 
 
 //logowanie i rejestracja
