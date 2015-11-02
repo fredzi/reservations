@@ -9,16 +9,16 @@
       
       <div class="pull-left info" style="margin-left:-50px; font-size:20px;">
         <div class="pull-left image">
-              @if(!file_exists($katalog.'/'.$folder.'/'.$plikjpg.'.jpg') && !file_exists($katalog.'/'.$folder.'/'.$plikpng.'.png'))
-                  <img class=" img-circle" src="/{{$katalog}}/{{$folder}}/brak_loga.jpg" alt="jpg" width="50" height="50"><br>
+              @if(!file_exists($catalog.'/'.$folder.'/'.$filejpg.'.jpg') && !file_exists($catalog.'/'.$folder.'/'.$filepng.'.png'))
+                  <img class=" img-circle" src="/{{$catalog}}/{{$folder}}/brak_loga.jpg" alt="jpg" width="50" height="50"><br>
                   <br>
                   @else
-                    @if(file_exists($katalog.'/'.$folder.'/'.$plikjpg.'.jpg'))
-                    <img class=" img-circle" src="/{{$katalog}}/{{$folder}}/{{$plikjpg}}.jpg" alt="jpg" width="50" height="50"><br>
+                    @if(file_exists($catalog.'/'.$folder.'/'.$filejpg.'.jpg'))
+                    <img class=" img-circle" src="/{{$catalog}}/{{$folder}}/{{$filejpg}}.jpg" alt="jpg" width="50" height="50"><br>
                     
 
-                    @elseif (file_exists($katalog.'/'.$folder.'/'.$plikpng.'.png'))
-                    <img class=" img-circle" src="/{{$katalog}}/{{$folder}}/{{$plikpng}}.png" alt="png" width="50" height="50"><br>
+                    @elseif (file_exists($catalog.'/'.$folder.'/'.$filepng.'.png'))
+                    <img class=" img-circle" src="/{{$catalog}}/{{$folder}}/{{$filepng}}.png" alt="png" width="50" height="50"><br>
                     
                     @endif
                     

@@ -27,10 +27,10 @@ class SpectatorTypeController extends Controller
      */
     public function index()
     {
-        $pokazz = DB::table('reservations')->count();
         
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         
@@ -41,13 +41,12 @@ class SpectatorTypeController extends Controller
             ->get();
 
         return view('spectators.index')
-            ->with('katalog','users')
-            ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('stetting2',$stetting2)
-            ->with('pokaz',$pokaz)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('catalog','users')
+            ->with('folder','logos')           
+            ->with('stettings',$stetting)
+            ->with('notifications',$notification)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('spectators',$spectators)
             ->with('header_big','Typ klienta');
         
@@ -60,23 +59,23 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            $pokazz = DB::table('reservations')->count();
+            
 
         $spectator = new Spectator_type();
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Dodaj')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('pokaz',$pokaz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('SpectatorTypeController@store'));
     }
 
@@ -117,7 +116,7 @@ class SpectatorTypeController extends Controller
             
         $spectators=Spectator_type::findOrFail($id);
         return view('spectators.show',['spectators'=>$spectators])
-            ->with('stetting',$stetting);
+            ->with('stettings',$stetting);
     }
 
     /**
@@ -128,23 +127,21 @@ class SpectatorTypeController extends Controller
      */
     public function edit($id)
     {
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        $pokazz = DB::table('reservations')->count();
-        
+
         $spectator=Spectator_type::findOrFail($id);
         return view('spectators.edit',['spectator'=>$spectator])
             ->with('header_big','Typ klienta')
             ->with('header_small','Edytuj')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')            
-            ->with('pokaz',$pokaz)
-            ->with('pokazz',$pokazz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action',action('SpectatorTypeController@edit',['id'=>$id]));
     }
 

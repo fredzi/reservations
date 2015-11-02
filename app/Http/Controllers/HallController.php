@@ -28,24 +28,21 @@ class HallController extends Controller
     public function index()
     {
         
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
-            ->get();
-        $pokazz = DB::table('reservations')->count();
-            
+            ->get();  
         $halls = DB::table('halls')    
             ->where('user_id', Auth::user()->id)
             ->get();
         return view('halls.index')
             ->with('halls', $halls)
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('pokaz',$pokaz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('header_big','Sale');
     }
 
@@ -56,22 +53,20 @@ class HallController extends Controller
      */
     public function create()
     {
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
-            ->get();
-        $pokazz = DB::table('reservations')->count();   
+            ->get(); 
         $hall = new Hall();
         return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Dodaj')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
-            ->with('pokaz',$pokaz)
-            ->with('pokazz',$pokazz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('HallController@storeFirstStep'));
     }
     /* 1 KROK */
@@ -134,9 +129,8 @@ class HallController extends Controller
         
         $hall = Hall::findOrFail($id);
             
-        $pokazz = DB::table('reservations')->count();
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         
@@ -152,17 +146,16 @@ class HallController extends Controller
         return view('halls.show')
             ->with('header_big','Sale')
             ->with('header_small','Miejsca')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
             ->with('hallx',5)
             ->with('hally',5)
             ->with('hall',$hall)
 
-            ->with('pokaz',$pokaz)
-            ->with('pokazz',$pokazz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('HallController@show'), ['id' => $id]);
     }
 
@@ -174,9 +167,8 @@ class HallController extends Controller
      */
     public function edit($id)
     {
-        $pokazz = DB::table('reservations')->count();
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
@@ -184,13 +176,12 @@ class HallController extends Controller
         return view('halls.edit',['hall' => $hall])
             ->with('header_big','Sale')
             ->with('header_small','Edytuj')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('pokaz',$pokaz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)           
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)           
             ->with('action', action('HallController@edit', ['id' => $id]));
     }
 
@@ -227,22 +218,20 @@ class HallController extends Controller
     
     public function blockSeats(Request $request)
     {
-        $pokazz = DB::table('reservations')->count();
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
         return view('halls.block_seats')
             ->with('header_big','Sale')
             ->with('header_small','Określ dostępne miejsa')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
-            ->with('pokaz',$pokaz)
-            ->with('pokazz',$pokazz)
-            ->with('stetting2',$stetting2)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('HallController@storeSecondStep'));
     }
 }

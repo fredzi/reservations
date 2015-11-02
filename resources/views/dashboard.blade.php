@@ -71,23 +71,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <small>{{ $header_small or null }}</small>
           </h1>
           <!-- You can dynamically generate breadcrumbs here -->
-          @if(isset($stetting2))
-                @foreach($stetting2 as $stettings)
+          @if(isset($stettings))
+                @foreach($stettings as $stetting)
           
                 
-                @if($stettings->package == 1)
+                @if($stetting->package == 1)
                 <ol class="breadcrumb">
                   <li style="font-size:15px;"><a style="color:#00c0ef">Pakiet PODSTAWOWY</a> <a style="font-size:12px;">  Obowiązuje do: {{$stettings->package_payment_to}} </a></li>
                 </ol>
-                @elseif($stettings->package == 2)
+                @elseif($stetting->package == 2)
                 <ol class="breadcrumb">
                   <li style="font-size:15px;"><a style="color:gray">Pakiet SREBRNY</a> <a style="font-size:12px;"> Obowiązuje do: {{$stettings->package_payment_to}} </a></li>
                 </ol>
-                @elseif($stettings->package == 3)
+                @elseif($stetting->package == 3)
                 <ol class="breadcrumb">
                   <li style="font-size:15px;"><a style="color:#f39c12">Pakiet ZŁOTY </a> <a style="font-size:12px;"> Obowiązuje do: {{$stettings->package_payment_to}} </a></li>
                 </ol>
-                @elseif($stettings->package == 0 || $stettings->package == NULL)
+                @elseif($stetting->package == 0 || $stetting->package == NULL)
                 <ol class="breadcrumb">
                   <li style="font-size:15px;">Pakiet DARMOWY<a href="#" style="font-size:12px; color:#00c0ef" id="texti"> (kliknij tutaj żeby zobaczyć co zyskasz w płatnych pakietach)</a> </li>
                 </ol>

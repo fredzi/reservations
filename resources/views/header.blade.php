@@ -22,7 +22,7 @@
                   <i class="fa fa-bell-o"></i>
                  
                   <span class="label label-danger" id="powiadomienie">
-                  {{count($pokaz)}}
+                  {{count($notifications)}}
                   </span>
                   
                 </a>
@@ -31,11 +31,11 @@
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
-                      @if(isset($pokaz))
-                      @foreach($pokaz as $poka)
+                      @if(isset($notifications))
+                      @foreach($notifications as $notification)
                       <li>
                         <a href="{{action('ReservationsController@show',['id'=>$poka->id])}}" style="font-size:12px;">
-                          <i class="fa  fa-ticket text-green"></i> {{$poka->customer_first_name}} {{$poka->customer_last_name}} złożył rezerwację na film Avatar
+                          <i class="fa  fa-ticket text-green"></i> {{$notification->customer_first_name}} {{$notification->customer_last_name}} złożył rezerwację na film Avatar
                         </a>
                       </li>
                       @endforeach

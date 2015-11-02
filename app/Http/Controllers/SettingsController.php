@@ -25,26 +25,22 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $pokazz = DB::table('reservations')->count();
         
-         $pokaz = DB::table('reservations')->get();
+        
+         $notification = DB::table('reservations')->get();
         
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
 
-        $stetting2 = DB::table('users')
-            ->where('id', Auth::user()->id)    
-            ->get();
-        return view('ustawienia.index')->with('stetting',$stetting)->with('header_big','Ustawienia')
-        ->with('katalog','users')
-        ->with('folder','logos')
-        ->with('pokaz',$pokaz)
+        
 
-        ->with('pokazz',$pokazz)
-        ->with('stetting2',$stetting2)
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id);
+        return view('ustawienia.index')->with('stettings',$stetting)->with('header_big','Ustawienia')
+        ->with('catalog','users')
+        ->with('folder','logos')
+        ->with('notifications',$notification)
+        ->with('filejpg',Auth::user()->id)
+        ->with('filepng',Auth::user()->id);
     }
 
     /**
@@ -54,23 +50,20 @@ class SettingsController extends Controller
      */
     public function create()
     {
-         $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+         $notification = DB::table('reservations')->get();
+
+        
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        $pokazz = DB::table('reservations')->count();
-        
-        $stetting = new User();
-        return view('ustawienia.create', ['stetting' =>$stetting])
+        return view('ustawienia.create', ['stettings' =>$stetting])
             ->with('header_big','Ustawienia')
             ->with('header_small','Dodaj logo')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('stetting2',$stetting2)
-            ->with('pokaz',$pokaz)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('notifications',$notification)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('SettingsController@store'));
         
     }
@@ -111,22 +104,19 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
-        $pokazz = DB::table('reservations')->count();
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
-            ->where('id', Auth::user()->id)    
-            ->get();
+        $notification = DB::table('reservations')->get();
+        $stettings = DB::table('users')->where('id',Auth::user()->id)->get();
         $stetting=User::findOrFail($id);
-        return view('ustawienia.edit',['stetting'=>$stetting])
+        return view('ustawienia.edit')
+            ->with('stettingss',$stetting)
             ->with('header_big','Ustawienia')
             ->with('header_small','Edytuj')
-            ->with('katalog','users')
-            ->with('stetting2',$stetting2)
-            ->with('pokaz',$pokaz)
-            ->with('pokazz',$pokazz)
+            ->with('catalog','users')
+            ->with('stettings',$stettings)
+            ->with('notifications',$notification)
             ->with('folder','logos')
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action',action('SettingsController@edit',['id'=>$id]));
     }
 

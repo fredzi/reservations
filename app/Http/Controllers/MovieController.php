@@ -32,10 +32,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $pokazz = DB::table('reservations')->count();
         
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
 
@@ -44,15 +43,14 @@ class MovieController extends Controller
             ->get();
 
         return view('movies.index')
-            ->with('stetting2',$stetting2)
-            ->with('pokazz',$pokazz)
-            ->with('movies',$movies)
-            ->with('header_big','Filmy')
-            ->with('katalog','users')
-            ->with('folder','logos')
-            ->with('pokaz',$pokaz)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id);
+        ->with('stettings',$stetting)
+        ->with('movies',$movies)
+        ->with('header_big','Filmy')
+        ->with('catalog','users')
+        ->with('folder','logos')
+        ->with('notifications',$notification)
+        ->with('filejpg',Auth::user()->id)
+        ->with('filepng',Auth::user()->id);
         
     }
 
@@ -63,11 +61,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        $pokazz = DB::table('reservations')->count();
         
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
@@ -75,14 +72,13 @@ class MovieController extends Controller
         return view('movies.edit', ['movie' => $movie])
             ->with('header_big','Filmy')
             ->with('header_small','Dodaj')
-            ->with('katalog','users')
-            ->with('pokazz',$pokazz)
+            ->with('catalog','users')
+            ->with('notifications',$notification)
             ->with('folder','logos')
-            ->with('pokaz',$pokaz)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('spectators_types', $spectators_types)
-            ->with('stetting2',$stetting2)
+            ->with('stettings',$stetting)
             ->with('action', action('MovieController@store'));
     }
 
@@ -156,10 +152,9 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        $pokazz = DB::table('reservations')->count();
-
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        
+       $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
@@ -174,13 +169,12 @@ class MovieController extends Controller
                 ->with('header_big','Filmy')
                 ->with('header_small','Edytuj')
                 ->with('spectators_types', $spectators_types)
-                ->with('katalog','users')
+                ->with('catalog','users')
                 ->with('folder','logos')
-                ->with('pokaz',$pokaz)
-                ->with('pokazz',$pokazz)
-                ->with('plikjpg',Auth::user()->id)
-                ->with('plikpng',Auth::user()->id)
-                ->with('stetting2',$stetting2)
+                ->with('notifications',$notification)
+                ->with('filejpg',Auth::user()->id)
+                ->with('filepng',Auth::user()->id)
+                ->with('stettings',$stetting)
                 ->with('action', action('MovieController@edit', ['id' => $id]));
     }
 
@@ -204,8 +198,8 @@ class MovieController extends Controller
         $price = array();
         $spectators_types = Spectator_type::all()
             ->where('user_id', Auth::user()->id);
-        $movie_prices = $movie->prices()->get();
-        $not_delete_ids = array();
+            $movie_prices = $movie->prices()->get();
+            $not_delete_ids = array();
         foreach($spectators_types as $st)
         {
             $exist = false;
@@ -234,9 +228,11 @@ class MovieController extends Controller
                 $not_delete_ids[] = $new_movie->id;
             }
         }
+
         Movies_price::where('movie_id', $id)
            ->whereNotIn('id', $not_delete_ids)->delete();
-        // Repertuar
+
+                // Repertuar
         $input = $request->all();
         $input_repertoire = array();
         foreach($input as $name => $val)
@@ -245,7 +241,7 @@ class MovieController extends Controller
             if($name[0] == 'repertoire')
             {
                 if(!isset($input_repertoire[$name[1]]))
-                {
+               {
                     $input_repertoire[$name[1]] = array(
                         'monday' => false,
                         'tuesday' => false,
@@ -286,8 +282,13 @@ class MovieController extends Controller
         Movies_repertoire::where('movie_id', $id)
            ->whereNotIn('id', $not_delete_ids)->delete();
         
-        // Miniaturka
-        if($request->file('image'))
+
+
+
+
+
+
+         if($request->file('image'))
         {   
             $imageName = $movie->id . '.' . 
                 $request->file('image')->getClientOriginalExtension();

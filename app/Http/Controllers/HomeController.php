@@ -32,18 +32,13 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		
-
-
-
-		$pokazz = DB::table('reservations')->count();
 
 		$nowe = DB::table('reservations')->where('status',1)->count();
 		$anulowane = DB::table('reservations')->where('status',4)->count();
 		$pusty = NULL;
 		$niedokonczone = DB::table('reservations')->where('date_end','=',$pusty)->count();
-		$pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+		$notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
            
@@ -56,16 +51,15 @@ class HomeController extends Controller {
 
 
 		return view('home')
-		->with('katalog','users')
-        ->with('folder','logos')
-        ->with('plikjpg',Auth::user()->id)
-     	->with('pokaz',$pokaz)
-        ->with('pokazz',$pokazz)
+		->with('catalog','users')
+        ->with('folder','logos')        
+     	->with('notifications',$notification)
         ->with('nowe',$nowe)
         ->with('anulowane',$anulowane)
         ->with('niedokonczone',$niedokonczone)
-        ->with('stetting2',$stetting2)
-        ->with('plikpng',Auth::user()->id)
+        ->with('stettings',$stetting)
+        ->with('filepng',Auth::user()->id)
+        ->with('filejpg',Auth::user()->id)
         ->with('dates',$dates)
 		->with('totals',$totals);
 

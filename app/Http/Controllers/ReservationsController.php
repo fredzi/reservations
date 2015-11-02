@@ -32,8 +32,8 @@ class ReservationsController extends Controller
             //}
 
 
-        $pokaz = DB::table('reservations')->get();
-        $stetting2 = DB::table('users')
+        $notification = DB::table('reservations')->get();
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
@@ -41,12 +41,12 @@ class ReservationsController extends Controller
         return view('reservations.index')
             ->with('reservations',$reservations)
             ->with('header_big','Rezerwacje')
-            ->with('katalog','users')
-            ->with('pokaz',$pokaz)
-            ->with('stetting2',$stetting2)
+            ->with('catalog','users')
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
             ->with('folder','logos')
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id);
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id);
            
 
 
@@ -59,23 +59,22 @@ class ReservationsController extends Controller
      */
     public function create()
     {
-        $stetting2 = DB::table('users')
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            $pokaz = DB::table('reservations')->get();
-            $pokazz = DB::table('reservations')->count();
+            $notification = DB::table('reservations')->get();
+            
         
         $reservation = new Reservation();
         return view('reservations.edit',['reservation' => $reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Dodaj')
-            ->with('katalog','users')
-            ->with('pokaz',$pokaz)
-            ->with('stetting2',$stetting2)
+            ->with('catalog','users')
+            ->with('notifications',$notification)
+            ->with('stettings',$stetting)
             ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('ReservationsController@store'));
     }
 
@@ -109,23 +108,19 @@ class ReservationsController extends Controller
      */
     public function show($id)
     {   
-        $pokaz = DB::table('reservations')->get();
+        $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        $pokazz = DB::table('reservations')->count();
-        //$spectators = Spectator_type::all()
-            //->where('user_id', Auth::user()->id);
         $reservation = Reservation::findOrFail($id);
         return view('reservations.show')
         ->with('reservations',$reservation)
-        ->with('pokaz',$pokaz)
-        ->with('katalog','users')
+        ->with('notifications',$notification)
+        ->with('catalog','users')
         ->with('folder','logos')
-        ->with('pokazz',$pokazz)
-        ->with('plikjpg',Auth::user()->id)
-        ->with('plikpng',Auth::user()->id)
-        ->with('stetting',$stetting)
+        ->with('filejpg',Auth::user()->id)
+        ->with('filepng',Auth::user()->id)
+        ->with('stettings',$stetting)
         ->with('header_big','Informacje')
         ->with('header_small',$reservation->customer_last_name.' '.$reservation->customer_first_name);
 
@@ -139,26 +134,23 @@ class ReservationsController extends Controller
      */
     public function edit($id)
     {
-        $pokaz = DB::table('reservations')->get();
+        $notification = DB::table('reservations')->get();
         
-        $stetting2 = DB::table('users')
+        $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         $reservations = DB::table('reservations')->get();
-       $pokazz = DB::table('reservations')->count();
-       
         $reservation = Reservation::findOrFail($id);
         return view('reservations.edit',['reservation'=>$reservation])
             ->with('header_big','Rezerwacje')
             ->with('header_small','Edytuj')
-            ->with('katalog','users')
+            ->with('catalog','users')
             ->with('reservations',$reservations)
-            ->with('stetting2',$stetting2)
-            ->with('pokaz',$pokaz)
+            ->with('stettings',$stetting)
+            ->with('notifications',$notification)
             ->with('folder','logos')
-            ->with('pokazz',$pokazz)
-            ->with('plikjpg',Auth::user()->id)
-            ->with('plikpng',Auth::user()->id)
+            ->with('filejpg',Auth::user()->id)
+            ->with('filepng',Auth::user()->id)
             ->with('action', action('ReservationsController@edit', ['id' => $id]));
     }
 
