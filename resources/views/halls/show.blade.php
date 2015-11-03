@@ -37,9 +37,9 @@ input[type=checkbox] + label{
 
 <div class="box-body text-center">
     
-    @for($y = 0; $y < $hally;$y++)
+    @for($y = 0; $y < $rows;$y++)
 
-        @for($x = 0; $x < $hallx ; $x++)
+        @for($x = 0; $x < $num_in_row ; $x++)
 
             
             <input type="checkbox" class="check" name="<?= $x.'-'.$y ?>" id="<?= $x.'-'.$y ?>" value='1'><label for="<?= $x.'-'.$y ?>"></label>
@@ -52,12 +52,14 @@ input[type=checkbox] + label{
     
     <div class="alert alert-info">
         Ekran 
+        
     </div>
     
 </div>
-@include('forms/buttons', ['submit_action' => 'ReservationsController@index'])
+@include('forms/buttons', ['submit_action' => 'HallController@index'])
 
 
 {!! Form::close() !!}
+
 
 @stop

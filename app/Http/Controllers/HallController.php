@@ -136,22 +136,26 @@ class HallController extends Controller
         
         
         
-        $seatsx = DB::table('seats_in_halls')->where('hall_id',$id)->join('halls','seats_in_halls.hall_id', '=', 'halls.id')
-        ->select('pos_x')->get();
+        $num_in_row = DB::table('seats_in_halls')->select('pos_y')->where('pos_x','=','pox_y')->where('hall_id',$id)->count();
+        $rows = DB::table('seats_in_halls')->where('pos_x','=','pos_y')->where('hall_id',$id)->count();
 
-        $seatsy = DB::table('seats_in_halls')->where('hall_id',$id)->join('halls','seats_in_halls.hall_id', '=', 'halls.id')
-        ->select('pos_y')->get();
-       
+        
+        
+
+        
+
+
          
         return view('halls.show')
             ->with('header_big','Sale')
             ->with('header_small','Miejsca')
             ->with('catalog','users')
             ->with('folder','logos')
-            ->with('hallx',5)
-            ->with('hally',5)
+            ->with('rows',$rows)
+            ->with('num_in_row',$num_in_row)
             ->with('hall',$hall)
-
+            
+            
             ->with('notifications',$notification)
             ->with('stettings',$stetting)
             ->with('filejpg',Auth::user()->id)
