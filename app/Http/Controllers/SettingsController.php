@@ -35,7 +35,7 @@ class SettingsController extends Controller
 
         
 
-        return view('ustawienia.index')->with('stettings',$stetting)->with('header_big','Ustawienia')
+        return view('settings.index')->with('stettings',$stetting)->with('header_big','Ustawienia')
         ->with('catalog','users')
         ->with('folder','logos')
         ->with('notifications',$notification)
@@ -56,7 +56,7 @@ class SettingsController extends Controller
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        return view('ustawienia.create', ['stettings' =>$stetting])
+        return view('settings.create', ['stettings' =>$stetting])
             ->with('header_big','Ustawienia')
             ->with('header_small','Dodaj logo')
             ->with('catalog','users')
@@ -107,7 +107,7 @@ class SettingsController extends Controller
         $notification = DB::table('reservations')->get();
         $stettings = DB::table('users')->where('id',Auth::user()->id)->get();
         $stetting=User::findOrFail($id);
-        return view('ustawienia.edit')
+        return view('settings.edit')
             ->with('stettingss',$stetting)
             ->with('header_big','Ustawienia')
             ->with('header_small','Edytuj')

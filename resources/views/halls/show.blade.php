@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('main')
 
 @section('head')
 <style>
@@ -62,8 +62,15 @@ input[type=checkbox] + label.klasa{
     </div>
     
 </div>
-@include('forms/buttons', ['submit_action' => 'HallController@index'])
 
+<div class="box-footer">
+    
+
+    <a href="{{ action('HallController@index') }}" type="submit" class="btn btn-default pull-left" style="margin-left:10px;">
+        Powrót
+    </a>
+    
+</div>
 
 {!! Form::close() !!}
 

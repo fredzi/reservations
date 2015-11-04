@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('main')
 
 @section('head')
 <style>
@@ -48,7 +48,7 @@ input[type=checkbox]:checked + label{
         @for($x = 0; $x < Session::get('x'); $x++)
 
             
-            <input type="checkbox" class="check" name="{{$x.'-'.$y}}" id="{{$x.'-'.$y}}" value='1'><label for="{{$x.'-'.$y}}"></label>
+            <input type="checkbox" class="check" name="{{$x.'-'.$y}}" id="{{$x.'-'.$y}}" value='{{$x.'-'.$y}}'><label for="{{$x.'-'.$y}}"></label>
         @endfor
 
         <br />
@@ -60,8 +60,8 @@ input[type=checkbox]:checked + label{
     </div>
     
 </div>
-@include('forms/buttons', ['submit_action' => 'ReservationsController@index'])
-
+@include('forms/buttons', ['submit_action' => 'HallController@index'])
+    
 
 {!! Form::close() !!}
 
