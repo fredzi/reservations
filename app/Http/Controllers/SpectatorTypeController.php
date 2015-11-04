@@ -28,7 +28,11 @@ class SpectatorTypeController extends Controller
     public function index()
     {
         
-        
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -41,6 +45,7 @@ class SpectatorTypeController extends Controller
             ->get();
 
         return view('spectators.index')
+            ->with('film',$film)
             ->with('catalog','users')
             ->with('folder','logos')           
             ->with('stettings',$stetting)
@@ -59,6 +64,11 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -71,7 +81,7 @@ class SpectatorTypeController extends Controller
             ->with('header_small','Dodaj')
             ->with('catalog','users')
             ->with('folder','logos')
-            
+            ->with('film',$film)
             ->with('notifications',$notification)
             ->with('stettings',$stetting)
             ->with('filejpg',Auth::user()->id)
@@ -127,6 +137,11 @@ class SpectatorTypeController extends Controller
      */
     public function edit($id)
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -134,6 +149,7 @@ class SpectatorTypeController extends Controller
 
         $spectator=Spectator_type::findOrFail($id);
         return view('spectators.edit',['spectator'=>$spectator])
+            ->with('film',$film)
             ->with('header_big','Typ klienta')
             ->with('header_small','Edytuj')
             ->with('catalog','users')

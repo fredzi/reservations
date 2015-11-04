@@ -27,7 +27,11 @@ class HallController extends Controller
      */
     public function index()
     {
-        
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -36,6 +40,7 @@ class HallController extends Controller
             ->where('user_id', Auth::user()->id)
             ->get();
         return view('halls.index')
+            ->with('film',$film)
             ->with('halls', $halls)
             ->with('catalog','users')
             ->with('folder','logos')
@@ -53,12 +58,18 @@ class HallController extends Controller
      */
     public function create()
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get(); 
         $hall = new Hall();
         return view('halls.edit',['hall' => $hall])
+            ->with('film',$film)
             ->with('header_big','Sale')
             ->with('header_small','Dodaj')
             ->with('catalog','users')
@@ -125,7 +136,11 @@ class HallController extends Controller
      */
     public function show($id)
     {   
-        
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         
         $hall = Hall::findOrFail($id);
             
@@ -138,6 +153,7 @@ class HallController extends Controller
         $posy = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_y');     
         
         return view('halls.show')
+            ->with('film',$film)
             ->with('header_big','Sale')
             ->with('header_small','Miejsca')
             ->with('catalog','users')
@@ -161,6 +177,11 @@ class HallController extends Controller
      */
     public function edit($id)
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -168,6 +189,7 @@ class HallController extends Controller
             
         $hall = Hall::findOrFail($id);
         return view('halls.edit',['hall' => $hall])
+            ->with('film',$film)
             ->with('header_big','Sale')
             ->with('header_small','Edytuj')
             ->with('catalog','users')
@@ -212,12 +234,18 @@ class HallController extends Controller
     
     public function blockSeats(Request $request)
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
         return view('halls.block_seats')
+            ->with('film',$film)
             ->with('header_big','Sale')
             ->with('header_small','Określ dostępne miejsa')
             ->with('catalog','users')

@@ -25,7 +25,11 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         
          $notification = DB::table('reservations')->get();
         
@@ -40,6 +44,7 @@ class SettingsController extends Controller
         ->with('folder','logos')
         ->with('notifications',$notification)
         ->with('filejpg',Auth::user()->id)
+        ->with('film',$film)
         ->with('filepng',Auth::user()->id);
     }
 
@@ -51,12 +56,17 @@ class SettingsController extends Controller
     public function create()
     {
          $notification = DB::table('reservations')->get();
-
+         $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         return view('settings.create', ['stettings' =>$stetting])
+            ->with('film',$film)
             ->with('header_big','Ustawienia')
             ->with('header_small','Dodaj logo')
             ->with('catalog','users')
@@ -104,10 +114,16 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stettings = DB::table('users')->where('id',Auth::user()->id)->get();
         $stetting=User::findOrFail($id);
         return view('settings.edit')
+            ->with('film',$film)
             ->with('stettingss',$stetting)
             ->with('header_big','Ustawienia')
             ->with('header_small','Edytuj')

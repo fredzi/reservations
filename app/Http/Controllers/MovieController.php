@@ -32,7 +32,11 @@ class MovieController extends Controller
      */
     public function index()
     {
-        
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -43,6 +47,7 @@ class MovieController extends Controller
             ->get();
 
         return view('movies.index')
+        ->with('film',$film)
         ->with('stettings',$stetting)
         ->with('movies',$movies)
         ->with('header_big','Filmy')
@@ -61,6 +66,11 @@ class MovieController extends Controller
      */
     public function create()
     {
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
         $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -70,6 +80,7 @@ class MovieController extends Controller
             ->where('user_id', Auth::user()->id);
         $movie = new Movies();
         return view('movies.edit', ['movie' => $movie])
+            ->with('film',$film)
             ->with('header_big','Filmy')
             ->with('header_small','Dodaj')
             ->with('catalog','users')
@@ -152,7 +163,11 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        
+        $film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
        $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
@@ -166,6 +181,7 @@ class MovieController extends Controller
             $movie->{'price_'.$repertoire->spectator_type_id} = $repertoire->price;
         }
         return view('movies.edit', ['movie' => $movie])
+                ->with('film',$film)
                 ->with('header_big','Filmy')
                 ->with('header_small','Edytuj')
                 ->with('spectators_types', $spectators_types)

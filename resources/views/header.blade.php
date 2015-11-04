@@ -31,13 +31,20 @@
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
-                      @if(isset($notifications))
-                      @foreach($notifications as $notification)
-                      <li>
-                        <a href="{{action('ReservationsController@show',['id'=>$poka->id])}}" style="font-size:12px;">
-                          <i class="fa  fa-ticket text-green"></i> {{$notification->customer_first_name}} {{$notification->customer_last_name}} złożył rezerwację na film Avatar
-                        </a>
-                      </li>
+                      @if(isset($film))
+                      
+                      
+                        @foreach($film as $films)
+                          <li>
+                            
+                              <a href="{{action('ReservationsController@show',['id'=>$films->id])}}" style="font-size:12px;">
+                                <i class="fa  fa-ticket text-green"></i> {{$films->customer_first_name}} {{$films->customer_last_name}} złożył rezerwację na film {{$films->title}} 
+                              </a>
+                            
+                          
+                        
+                        
+                        </li>
                       @endforeach
                       @endif
                     </ul>

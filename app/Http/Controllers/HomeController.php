@@ -32,7 +32,11 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-
+		$film = DB::table('movies')
+            ->join('repertoire','repertoire.movie_id','=','movies.id')
+            ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
+            ->where('movies.user_id',Auth::User()->id)
+            ->get();
 		$nowe = DB::table('reservations')->where('status',1)->count();
 		$anulowane = DB::table('reservations')->where('status',4)->count();
 		$pusty = NULL;
@@ -51,6 +55,7 @@ class HomeController extends Controller {
 
 
 		return view('home')
+		->with('film',$film)
 		->with('catalog','users')
         ->with('folder','logos')        
      	->with('notifications',$notification)
