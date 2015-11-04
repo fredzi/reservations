@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\BlockSeats;
 use App\Hall;
 use Auth;
 use App\Http\Requests;
@@ -134,28 +134,18 @@ class HallController extends Controller
             ->where('id', Auth::user()->id)    
             ->get();
         
+        $posx = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_x');
+        $posy = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_y');     
         
-        
-        $num_in_row = DB::table('seats_in_halls')->select('pos_y')->where('pos_x','=','pox_y')->where('hall_id',$id)->count();
-        $rows = DB::table('seats_in_halls')->where('pos_x','=','pos_y')->where('hall_id',$id)->count();
-
-        
-        
-
-        
-
-
-         
         return view('halls.show')
             ->with('header_big','Sale')
             ->with('header_small','Miejsca')
             ->with('catalog','users')
             ->with('folder','logos')
-            ->with('rows',$rows)
-            ->with('num_in_row',$num_in_row)
+            ->with('downid',$id)
             ->with('hall',$hall)
-            
-            
+            ->with('posx',$posx)
+            ->with('posy',$posy)
             ->with('notifications',$notification)
             ->with('stettings',$stetting)
             ->with('filejpg',Auth::user()->id)

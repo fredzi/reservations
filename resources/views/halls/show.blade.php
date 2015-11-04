@@ -13,7 +13,13 @@ input[type=checkbox] + label{
     display:inline-block;
     padding: 0 0 0 0px;
 }
-
+input[type=checkbox] + label.klasa{
+    background:url('/chair2.png');
+    height: 32px;
+    width: 32px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
 
 </style>
 @stop
@@ -37,18 +43,18 @@ input[type=checkbox] + label{
 
 <div class="box-body text-center">
     
-    @for($y = 0; $y < $rows;$y++)
-
-        @for($x = 0; $x < $num_in_row ; $x++)
-
-            
-            <input type="checkbox" class="check" name="<?= $x.'-'.$y ?>" id="<?= $x.'-'.$y ?>" value='1'><label for="<?= $x.'-'.$y ?>"></label>
-            
-        @endfor
-
-        <br />
-
-    @endfor
+    @for($y = 0; $y < ($posy+1) ; $y++)
+                    @for ($x = 0; $x < ($posx+1) ; $x++)
+                        
+                                @if((DB::table('seats_in_halls')->select('pos_y','pos_x')->where('pos_y',$y)->where('pos_x',$x)->where('hall_id',$downid)->get()))
+                                <input type="checkbox" class="check" name="<?= $x.'-'.$y ?>" id="<?= $x.'-'.$y ?>" value='1'><label for="<?= $x.'-'.$y ?>"></label>
+                                @else
+                                <input type="checkbox" class="check" name="<?= $x.'-'.$y ?>" id="<?= $x.'-'.$y ?>" value='1'><label class="klasa" for="<?= $x.'-'.$y ?>"></label>
+                                @endif
+                    @endfor
+                    <br>
+                    
+                @endfor   
     
     <div class="alert alert-info">
         Ekran 
@@ -61,5 +67,4 @@ input[type=checkbox] + label{
 
 {!! Form::close() !!}
 
-
-@stop
+@stop 
