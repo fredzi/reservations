@@ -11,8 +11,7 @@
                 <h3 class="box-title">
                     Uzupełnij podstawowe informacje o filmie
                 </h3>
-            </div><!-- /.box-header -->
-            <!-- form start -->
+            </div>
             <div class="box-body">
                 <!-- TYTUL -->
                 <div class="form-group @if($errors->has('title'))  has-error @endif">
@@ -78,29 +77,84 @@
                 <h3 class="box-title">
                     Określ czas wyświetlania filmu
                 </h3>
-            </div><!-- /.box-header -->
-
-            <!-- POLA REPERTUARU -->
-            @foreach ($movie->repertoire as $repertoire)
-            <!-- Date range -->
-            <div class="form-group">
-                <label>Zakres dat wyświetlania (od - do):</label>
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                    {!! Form::text('repertoire-'.$repertoire['id'].'-date_from', $repertoire['date_from'], ['class' => 'form-control pull-right range-picker']) !!}
-                </div><!-- /.input group -->
-            </div><!-- /.form group -->
-
-            <!-- checkbox -->
-            <div class="form-group">
-                <label>
-                    {!! Form::checkbox('repertoire-'.$repertoire['id'].'-monday', '1', (($repertoire['monday'] == '1')?true:false), ['class' => 'minimal']) !!}
-                    Poniedziałek
-                </label>
             </div>
-            @endforeach
+            
+            <div class="box-body">
+                <!-- POLA REPERTUARU -->
+                @foreach ($movie->repertoire as $repertoire)
+                <!-- Date range -->
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label>Zakres dat wyświetlania (od - do):</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            {!! Form::text('repertoire-'.$repertoire['id'].'-date_from', $repertoire['date_from'], ['class' => 'form-control pull-right range-picker']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- time Picker -->
+                <div class="bootstrap-timepicker">
+                    <div class="form-group col-md-10">
+                      <label>Godzina wyświetlania:</label>
+                      <div class="input-group">
+                        {!! Form::text('repertoire-'.$repertoire['id'].'-time', $repertoire['time'], ['class' => 'form-control timepicker']) !!}
+                        <div class="input-group-addon">
+                          <i class="fa fa-clock-o"></i>
+                        </div>
+                      </div><!-- /.input group -->
+                    </div><!-- /.form group -->
+                </div>
+                
+                <!-- checkbox -->
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-monday', '1', (($repertoire['monday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Poniedziałek
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-tuesday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Wtorek
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-wednesday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Środa
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-thursday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Czwartek
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-friday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Piątek
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-saturday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Sobota
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            {!! Form::checkbox('repertoire-'.$repertoire['id'].'-sunday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
+                            Niedziela
+                        </label>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>
@@ -108,15 +162,15 @@
 
 @endsection
 
+@section('head')
+<link rel="stylesheet" href="{{ asset("/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css")}}">
+@endsection
+
 @section('js')
 <script src="{{ asset("/bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.js")}}"></script>
 <script src="{{ asset("/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js")}}"></script>
+
 <!-- Page script -->
 <script>
-$(function() {
-    //Date range picker
-    console.log('test');
-    $('.range-picker').daterangepicker();
-});
 </script>
 @endsection

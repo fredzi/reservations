@@ -232,7 +232,7 @@ class MovieController extends Controller
         Movies_price::where('movie_id', $id)
            ->whereNotIn('id', $not_delete_ids)->delete();
 
-                // Repertuar
+        // Repertuar
         $input = $request->all();
         $input_repertoire = array();
         foreach($input as $name => $val)
@@ -282,13 +282,8 @@ class MovieController extends Controller
         Movies_repertoire::where('movie_id', $id)
            ->whereNotIn('id', $not_delete_ids)->delete();
         
-
-
-
-
-
-
-         if($request->file('image'))
+        // Miniaturka
+        if($request->file('image'))
         {   
             $imageName = $movie->id . '.' . 
                 $request->file('image')->getClientOriginalExtension();
