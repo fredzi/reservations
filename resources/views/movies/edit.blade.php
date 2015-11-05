@@ -4,7 +4,7 @@
 @include('forms/errors')
 
 {!! Form::model($movie, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data', 'autocomplete' => false)) !!}
-<div class="row">
+<div class="row" id="form-movie">
     <div class="col-md-6">
         <div class="box box-info">
             <div class="box-header with-border">
@@ -71,7 +71,7 @@
             @include('forms/buttons', ['submit_action' => 'MovieController@index'])
         </div><!-- /.box -->
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 box-repertoire">
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">
@@ -81,20 +81,8 @@
             
             <div class="box-body">
                 <!-- POLA REPERTUARU -->
-                @foreach ($movie->repertoire as $repertoire)
-                <!-- Date range -->
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label>Zakres dat wyświetlania (od - do):</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            {!! Form::text('repertoire-'.$repertoire['id'].'-date_from', $repertoire['date_from'], ['class' => 'form-control pull-right range-picker']) !!}
-                        </div>
-                    </div>
-                </div>
-
+                @foreach ($movie_repertoire as $repertoire)
+                
                 <!-- time Picker -->
                 <div class="bootstrap-timepicker">
                     <div class="form-group col-md-10">
@@ -106,6 +94,14 @@
                         </div>
                       </div><!-- /.input group -->
                     </div><!-- /.form group -->
+                </div>
+                
+                <!-- checkbox -->
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label>Sala:</label>
+                        {!! Form::select('repertoire-'.$repertoire['id'].'-hall_id', $halls, null, ['class' => 'form-control']) !!}
+                    </div>
                 </div>
                 
                 <!-- checkbox -->
@@ -155,6 +151,9 @@
                 </div>
                 @endforeach
             </div>
+            <div class="box-footer">
+                <a class="add_repertoire" class="btn btn-info pull-left">Dodaj</a>
+            </div>
         </div>
     </div>
 </div>
@@ -172,5 +171,19 @@
 
 <!-- Page script -->
 <script>
+    $(function(){
+        var count = 0;
+        $('.add_repertoire').click(function(){
+            count++;
+            var box = $(this).parents('.box-repertoire').clone();
+            var inputs = box.find('input');
+            $.each(inputs, function(ind, rec) {
+                tmp_name = $(rec).attr('name').replace(/repertoire-([0-9])/, "repertoire-new"+count);
+                $(rec).attr('name', tmp_name);
+            });
+            $('#form-movie').append(box);
+        });
+    });
+    
 </script>
 @endsection

@@ -88,10 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div><!-- ./wrapper -->
     <!-- AdminLTE App -->
     <script src="{{ asset ("/bower_components/AdminLTE/dist/js/app.min.js")}}"></script>
-    <script>
-      $.widget.bridge('uibutton', $.ui.button);
-    </script>
-
+   
     @yield('js')
 
   </body>

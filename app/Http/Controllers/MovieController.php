@@ -12,6 +12,7 @@ use App\Http\Requests\CreateMovie;
 use App\Http\Controllers\Controller;
 use App\Movies_price;
 use App\Spectator_type;
+use App\Hall;
 use App\Movies_repertoire;
 use File;
 
@@ -168,23 +169,27 @@ class MovieController extends Controller
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
-       $notification = DB::table('reservations')->get();
+        $notification = DB::table('reservations')->get();
         $stetting = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            
+        $halls = Hall::where('user_id', Auth::user()->id)
+            ->lists('name', 'id');
         $spectators_types = Spectator_type::all()
-            ->where('user_id', Auth::user()->id);
+                ->where('user_id', Auth::user()->id);
         $movie = Movies::findOrFail($id);
         foreach($movie->prices as $repertoire)
         {
             $movie->{'price_'.$repertoire->spectator_type_id} = $repertoire->price;
         }
+        $movie_repertoire = $movie->repertoire;
         return view('movies.edit', ['movie' => $movie])
                 ->with('film',$film)
                 ->with('header_big','Filmy')
                 ->with('header_small','Edytuj')
+                ->with('movie_repertoire', $movie_repertoire)
                 ->with('spectators_types', $spectators_types)
+                ->with('halls', $halls)
                 ->with('catalog','users')
                 ->with('folder','logos')
                 ->with('notifications',$notification)
