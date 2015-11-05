@@ -12,7 +12,7 @@
         </h3>
     </div><!-- /.box-header -->
     <!-- form start -->
-      {!! Form::model($stettingss, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')) !!}
+      {!! Form::model($settingss, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')) !!}
         <div class="box-body">
         <!-- TYTUL -->
         <div class="form-group @if($errors->has('name'))  has-error @endif">

@@ -25,26 +25,26 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
         
-         $notification = DB::table('reservations')->get();
+        $notification = DB::table('reservations')->get();
         
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
 
         
 
-        return view('settings.index')->with('stettings',$stetting)->with('header_big','Ustawienia')
+        return view('settings.index')->with('settings',$settings)->with('header_big','Ustawienia')
         ->with('catalog','users')
         ->with('folder','logos')
         ->with('notifications',$notification)
         ->with('filejpg',Auth::user()->id)
-        ->with('film',$film)
+        ->with('films',$films)
         ->with('filepng',Auth::user()->id);
     }
 
@@ -56,17 +56,17 @@ class SettingsController extends Controller
     public function create()
     {
          $notification = DB::table('reservations')->get();
-         $film = DB::table('movies')
+         $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
         
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-        return view('settings.create', ['stettings' =>$stetting])
-            ->with('film',$film)
+        return view('settings.create', ['settings' =>$settings])
+            ->with('films',$films)
             ->with('header_big','Ustawienia')
             ->with('header_small','Dodaj logo')
             ->with('catalog','users')
@@ -114,21 +114,21 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
         $notification = DB::table('reservations')->get();
-        $stettings = DB::table('users')->where('id',Auth::user()->id)->get();
-        $stetting=User::findOrFail($id);
+        $settings = DB::table('users')->where('id',Auth::user()->id)->get();
+        $setting=User::findOrFail($id);
         return view('settings.edit')
-            ->with('film',$film)
-            ->with('stettingss',$stetting)
+            ->with('films',$films)
+            ->with('settingss',$setting)
             ->with('header_big','Ustawienia')
             ->with('header_small','Edytuj')
             ->with('catalog','users')
-            ->with('stettings',$stettings)
+            ->with('settings',$settings)
             ->with('notifications',$notification)
             ->with('folder','logos')
             ->with('filejpg',Auth::user()->id)

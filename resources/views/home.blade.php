@@ -13,7 +13,7 @@
                 <span class="info-box-icon bg-aqua"><i class="fa fa-ticket"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text" style="font-size:13px;">ILOŚĆ NOWYCH REZERWACJI</span>
-                  <span class="info-box-number">{{$nowe}}</span>
+                  <span class="info-box-number">{{$new}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -22,7 +22,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-edit"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text" style="font-size:13px;">ILOŚĆ NIEDOKOŃCZONYCH REZERWACJI</span>
-                  <span class="info-box-number">{{$niedokonczone}}</span>
+                  <span class="info-box-number">{{$unfinished}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-times-circle"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text" style="font-size:13px;">ILOŚĆ ANULOWANYCH REZERWACJI</span>
-                  <span class="info-box-number">{{$anulowane}}</span>
+                  <span class="info-box-number">{{$canceled}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->

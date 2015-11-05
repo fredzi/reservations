@@ -21,22 +21,11 @@ class ReservationsController extends Controller
      */
     public function index(Request $request)
     {
-        
-            //$wyniki = DB::table('reservations')->where('id',1)->first();
-            //if (is_null($wyniki)) {
-            //    $wyniki = "" ;
-            //}
-            //else
-            //{
-            //    $wyniki = 1;
-            //}
-
-
         $notification = DB::table('reservations')->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            $film = DB::table('movies')
+            $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
@@ -44,12 +33,12 @@ class ReservationsController extends Controller
             
         $reservations = Reservation::all();
         return view('reservations.index')
-            ->with('film',$film)
+            ->with('films',$films)
             ->with('reservations',$reservations)
             ->with('header_big','Rezerwacje')
             ->with('catalog','users')
             ->with('notifications',$notification)
-            ->with('stettings',$stetting)
+            ->with('settings',$settings)
             ->with('folder','logos')
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id);
@@ -65,11 +54,11 @@ class ReservationsController extends Controller
      */
     public function create()
     {
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             $notification = DB::table('reservations')->get();
-           $film = DB::table('movies')
+           $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
@@ -77,12 +66,12 @@ class ReservationsController extends Controller
         
         $reservation = new Reservation();
         return view('reservations.edit',['reservation' => $reservation])
-            ->with('film',$film)
+            ->with('films',$films)
             ->with('header_big','Rezerwacje')
             ->with('header_small','Dodaj')
             ->with('catalog','users')
             ->with('notifications',$notification)
-            ->with('stettings',$stetting)
+            ->with('settings',$settings)
             ->with('folder','logos')
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)
@@ -119,26 +108,26 @@ class ReservationsController extends Controller
      */
     public function show($id)
     {   
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
 
         $notification = DB::table('reservations')->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         $reservation = Reservation::findOrFail($id);
         return view('reservations.show')
-        ->with('film',$film)
+        ->with('films',$films)
         ->with('reservations',$reservation)
         ->with('notifications',$notification)
         ->with('catalog','users')
         ->with('folder','logos')
         ->with('filejpg',Auth::user()->id)
         ->with('filepng',Auth::user()->id)
-        ->with('stettings',$stetting)
+        ->with('settings',$settings)
         ->with('header_big','Informacje')
         ->with('header_small',$reservation->customer_last_name.' '.$reservation->customer_first_name);
 
@@ -153,23 +142,23 @@ class ReservationsController extends Controller
     public function edit($id)
     {
         $notification = DB::table('reservations')->get();
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         $reservations = DB::table('reservations')->get();
         $reservation = Reservation::findOrFail($id);
         return view('reservations.edit',['reservation'=>$reservation])
-            ->with('film',$film)
+            ->with('films',$films)
             ->with('header_big','Rezerwacje')
             ->with('header_small','Edytuj')
             ->with('catalog','users')
             ->with('reservations',$reservations)
-            ->with('stettings',$stetting)
+            ->with('settings',$settings)
             ->with('notifications',$notification)
             ->with('folder','logos')
             ->with('filejpg',Auth::user()->id)

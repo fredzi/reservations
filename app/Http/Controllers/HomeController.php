@@ -32,37 +32,32 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$film = DB::table('movies')
+		$films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
-		$nowe = DB::table('reservations')->where('status',1)->count();
-		$anulowane = DB::table('reservations')->where('status',4)->count();
-		$pusty = NULL;
-		$niedokonczone = DB::table('reservations')->where('date_end','=',$pusty)->count();
+		$new = DB::table('reservations')->where('status',1)->count();
+		$canceled = DB::table('reservations')->where('status',4)->count();
+		$null = NULL;
+		$unfinished = DB::table('reservations')->where('date_end','=',$null)->count();
 		$notification = DB::table('reservations')->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-           
-
-        $danedowykresu = Reservation::all();
+        $datachart = Reservation::all();
+		$dates = $datachart->lists('date_start');
+		$totals = $datachart->lists('id');
 		
-		$dates = $danedowykresu->lists('date_start');
-		$totals = $danedowykresu->lists('id');
-		
-
-
 		return view('home')
-		->with('film',$film)
+		->with('films',$films)
 		->with('catalog','users')
         ->with('folder','logos')        
      	->with('notifications',$notification)
-        ->with('nowe',$nowe)
-        ->with('anulowane',$anulowane)
-        ->with('niedokonczone',$niedokonczone)
-        ->with('stettings',$stetting)
+        ->with('new',$new)
+        ->with('canceled',$canceled)
+        ->with('unfinished',$unfinished)
+        ->with('settings',$settings)
         ->with('filepng',Auth::user()->id)
         ->with('filejpg',Auth::user()->id)
         ->with('dates',$dates)

@@ -28,13 +28,13 @@ class SpectatorTypeController extends Controller
     public function index()
     {
         
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
         $notification = DB::table('reservations')->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
         
@@ -45,10 +45,10 @@ class SpectatorTypeController extends Controller
             ->get();
 
         return view('spectators.index')
-            ->with('film',$film)
+            ->with('films',$films)
             ->with('catalog','users')
             ->with('folder','logos')           
-            ->with('stettings',$stetting)
+            ->with('settings',$settings)
             ->with('notifications',$notification)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)
@@ -64,13 +64,13 @@ class SpectatorTypeController extends Controller
      */
     public function create()
     {
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
         $notification = DB::table('reservations')->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
@@ -81,9 +81,9 @@ class SpectatorTypeController extends Controller
             ->with('header_small','Dodaj')
             ->with('catalog','users')
             ->with('folder','logos')
-            ->with('film',$film)
+            ->with('films',$films)
             ->with('notifications',$notification)
-            ->with('stettings',$stetting)
+            ->with('settings',$settings)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)
             ->with('action', action('SpectatorTypeController@store'));
@@ -120,13 +120,13 @@ class SpectatorTypeController extends Controller
      */
     public function show($id)
     {
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
             
         $spectators=Spectator_type::findOrFail($id);
         return view('spectators.show',['spectators'=>$spectators])
-            ->with('stettings',$stetting);
+            ->with('settings',$settings);
     }
 
     /**
@@ -137,25 +137,25 @@ class SpectatorTypeController extends Controller
      */
     public function edit($id)
     {
-        $film = DB::table('movies')
+        $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
             ->where('movies.user_id',Auth::User()->id)
             ->get();
         $notification = DB::table('reservations')->get();
-        $stetting = DB::table('users')
+        $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
 
         $spectator=Spectator_type::findOrFail($id);
         return view('spectators.edit',['spectator'=>$spectator])
-            ->with('film',$film)
+            ->with('films',$films)
             ->with('header_big','Typ klienta')
             ->with('header_small','Edytuj')
             ->with('catalog','users')
             ->with('folder','logos')            
             ->with('notifications',$notification)
-            ->with('stettings',$stetting)
+            ->with('settings',$settings)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)
             ->with('action',action('SpectatorTypeController@edit',['id'=>$id]));

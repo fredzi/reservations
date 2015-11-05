@@ -13,7 +13,7 @@
 
 
 	<!-- form start -->
-      {!! Form::model($stettings, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')) !!}
+      {!! Form::model($settings, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')) !!}
         <div class="box-body">        
         <!-- MINIATURKA FILMU -->
         <div class="form-group @if($errors->has('image'))  has-error @endif" >

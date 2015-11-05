@@ -35,9 +35,9 @@
 
 
 
-                  @if($stettings)
-                @foreach($stettings as $stetting)
-                  <h2 class="profile-username text-center">Nazwa kina : {{$stetting->name}}</h2>
+                  @if($settings)
+                @foreach($settings as $setting)
+                  <h2 class="profile-username text-center">Nazwa kina : {{$setting->name}}</h2>
                   
 
                   
@@ -60,25 +60,25 @@
 
                   <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                      <b>Nazwa firmy:</b> <a class="pull-right">{{$stetting->name}}</a>
+                      <b>Nazwa firmy:</b> <a class="pull-right">{{$setting->name}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Email:</b> <a class="pull-right">{{$stetting->email}}</a>
+                      <b>Email:</b> <a class="pull-right">{{$setting->email}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Miasto:</b> <a class="pull-right">{{$stetting->city}}</a>
+                      <b>Miasto:</b> <a class="pull-right">{{$setting->city}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Ulica</b> <a class="pull-right">{{$stetting->street}}</a>
+                      <b>Ulica</b> <a class="pull-right">{{$setting->street}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Kod pocztowy:</b> <a class="pull-right">{{$stetting->postcode}}</a>
+                      <b>Kod pocztowy:</b> <a class="pull-right">{{$setting->postcode}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>WWW:</b> <a class="pull-right">{{$stetting->www}}</a>
+                      <b>WWW:</b> <a class="pull-right">{{$setting->www}}</a>
                     </li>
                     
-                    <a class="pull-right btn btn-success" href="{{action('SettingsController@edit',['id'=>$stetting->id])}}" style="margin-top:10px;" ><i class="fa fa-edit"></i>Edytuj</a>
+                    <a class="pull-right btn btn-success" href="{{action('SettingsController@edit',['id'=>$setting->id])}}" style="margin-top:10px;" ><i class="fa fa-edit"></i>Edytuj</a>
                     </li>
                   </ul>
 
