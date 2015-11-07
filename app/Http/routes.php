@@ -37,13 +37,9 @@ Route::get('movies/{id}/edit','MovieController@edit');
 Route::post('movies/{id}/edit','MovieController@update');
 Route::delete('movies/delete/{id}','MovieController@destroy');
 
-//widok dla reportoire
+//widok dla Repertoire
 Route::get('repertoire','RepertoireController@index');
-Route::get('repertoire/create','RepertoireController@create');
-Route::post('repertoire','RepertoireController@store');
-Route::get('repertoire/{id}/edit','RepertoireController@edit');
-Route::post('repertoire/{id}/edit','RepertoireController@update');
-Route::delete('repertoire/delete/{id}','RepertoireController@destroy');
+
 
 //widok dla spectators
 Route::get('spectators','SpectatorTypeController@index');
