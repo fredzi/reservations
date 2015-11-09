@@ -5,7 +5,7 @@
 
 {!! Form::model($movie, array('url' => $action, 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data', 'autocomplete' => false)) !!}
 <div class="row" id="form-movie">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">
@@ -68,10 +68,12 @@
                 </div>
 
             </div><!-- /.box-body -->
-            @include('forms/buttons', ['submit_action' => 'MovieController@index'])
+            <div class="box-footer">
+                <a id="add_repertoire" class="btn btn-default pull-left">Dodaj czas wyświetlania</a>
+            </div>
         </div><!-- /.box -->
     </div>
-    <div class="col-md-6 box-repertoire">
+    <div class="col-md-12" id="box-repertoire">
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">
@@ -83,10 +85,18 @@
                 <!-- POLA REPERTUARU -->
                 @foreach ($movie_repertoire as $repertoire)
                 
+                <!-- checkbox -->
+                <div class="form-group col-sm-4">
+                    <div class="col-md-12">
+                        <label>Sala:</label>
+                        {!! Form::select('repertoire-'.$repertoire['id'].'-hall_id', $halls, null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                
                 <!-- time Picker -->
-                <div class="bootstrap-timepicker">
-                    <div class="form-group col-md-10">
-                      <label>Godzina wyświetlania:</label>
+                <div class="bootstrap-timepicker col-sm-2">
+                    <div class="form-group col-md-12">
+                      <label>Czas:</label>
                       <div class="input-group">
                         {!! Form::text('repertoire-'.$repertoire['id'].'-time', $repertoire['time'], ['class' => 'form-control timepicker']) !!}
                         <div class="input-group-addon">
@@ -96,64 +106,81 @@
                     </div><!-- /.form group -->
                 </div>
                 
-                <!-- checkbox -->
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label>Sala:</label>
-                        {!! Form::select('repertoire-'.$repertoire['id'].'-hall_id', $halls, null, ['class' => 'form-control']) !!}
-                    </div>
+                <!-- time Picker -->
+                <div class="bootstrap-datepicker col-sm-3">
+                    <div class="form-group col-md-12">
+                      <label>Wyświetlaj od:</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        {!! Form::text('repertoire-'.$repertoire['id'].'-date_from', $repertoire['date_from'], ['class' => 'form-control datepicker']) !!}
+                      </div><!-- /.input group -->
+                    </div><!-- /.form group -->
+                </div>
+                
+                <!-- time Picker -->
+                <div class="bootstrap-datepicker col-sm-3">
+                    <div class="form-group col-md-12">
+                      <label>Wyświetlaj do:</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        {!! Form::text('repertoire-'.$repertoire['id'].'-date_to', $repertoire['date_to'], ['class' => 'form-control datepicker']) !!}
+                      </div><!-- /.input group -->
+                    </div><!-- /.form group -->
                 </div>
                 
                 <!-- checkbox -->
                 <div class="form-group">
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-monday', '1', (($repertoire['monday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Poniedziałek
                         </label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-tuesday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Wtorek
                         </label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-wednesday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Środa
                         </label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-thursday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Czwartek
                         </label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-friday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Piątek
                         </label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-saturday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Sobota
                         </label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="checkbox col-xs-1">
                         <label>
                             {!! Form::checkbox('repertoire-'.$repertoire['id'].'-sunday', '1', (($repertoire['tuesday'] == '1')?true:false), ['class' => 'minimal']) !!}
                             Niedziela
                         </label>
                     </div>
                 </div>
+                <hr />
                 @endforeach
             </div>
-            <div class="box-footer">
-                <a class="add_repertoire" class="btn btn-info pull-left">Dodaj</a>
-            </div>
+            @include('forms/buttons', ['submit_action' => 'MovieController@index'])
         </div>
     </div>
 </div>
@@ -168,20 +195,33 @@
 @section('js')
 <script src="{{ asset("/bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.js")}}"></script>
 <script src="{{ asset("/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js")}}"></script>
+<script src="{{ asset("/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js")}}"></script>
+<script src="{{ asset("/bower_components/AdminLTE/plugins/datepicker/locales/bootstrap-datepicker.pl.js")}}"></script>
 
 <!-- Page script -->
 <script>
     $(function(){
         var count = 0;
-        $('.add_repertoire').click(function(){
+        $('#add_repertoire').click(function(){
             count++;
-            var box = $(this).parents('.box-repertoire').clone();
+            var box = $('#box-repertoire .box-body').clone();
             var inputs = box.find('input');
             $.each(inputs, function(ind, rec) {
                 tmp_name = $(rec).attr('name').replace(/repertoire-([0-9])/, "repertoire-new"+count);
                 $(rec).attr('name', tmp_name);
             });
-            $('#form-movie').append(box);
+            $('#box-repertoire .box-body').append(box);
+        });
+        
+        //Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false,
+          showMeridian: false,
+          minuteStep: 5
+        });
+        //Timepicker
+        $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd'
         });
     });
     
