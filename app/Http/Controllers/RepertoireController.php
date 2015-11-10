@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
-
+use App\Movies;
 class RepertoireController extends Controller
 {
     /**
@@ -26,6 +26,21 @@ class RepertoireController extends Controller
         $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
+        
+        $movies_title = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('title');
+        $movies_date_from = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('date_from');
+        $movies_date_to = DB::table('movies')
+        ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+        ->select('date_to');
+        $movie_title = $movies_title->lists('title');
+        $movie_date_from = $movies_date_from->lists('date_from');
+        $movie_date_to = $movies_date_to->lists('date_to');
+        $all = DB::table('movies_repertoire')->count();
+
 
         return view('repertoires.index')
             ->with('films',$films)
@@ -33,6 +48,10 @@ class RepertoireController extends Controller
             ->with('header_big','Repertuar')
             ->with('catalog','users')
             ->with('folder','logos')
+            ->with('all',$all)
+            ->with('movie_title',$movie_title)
+            ->with('movie_date_from',$movie_date_from)
+            ->with('movie_date_to',$movie_date_to)
             ->with('notifications',$notification)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id);

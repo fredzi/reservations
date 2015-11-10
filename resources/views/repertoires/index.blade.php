@@ -12,11 +12,10 @@
                 <div class="box-body">
                   <!-- the events -->
                   <div id="external-events">
-                    <div class="external-event bg-green">Lunch</div>
-                    <div class="external-event bg-yellow">Go home</div>
-                    <div class="external-event bg-aqua">Do homework</div>
-                    <div class="external-event bg-light-blue">Work on UI design</div>
-                    <div class="external-event bg-red">Sleep tight</div>
+                    @foreach($movie_title as $title)
+                      <div class="external-event bg-aqua">{{$title}}</div>
+                    @endforeach
+                    
                     <div class="checkbox">
                       <label for="drop-remove">
                         <input type="checkbox" id="drop-remove">
@@ -57,6 +56,7 @@
                   </div><!-- /input-group -->
                 </div>
               </div>
+              
             </div><!-- /.col -->
             <div class="col-md-9">
               <div class="box box-primary">
@@ -67,7 +67,7 @@
               </div><!-- /. box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
-     
+
 @endsection
 
 @section('head')
@@ -115,13 +115,7 @@
         /* initialize the calendar
          -----------------------------------------------------------------*/
         //Date for the calendar events (dummy data)
-        var date = new Date();
-        var d = date.getDate(),
-                m = date.getMonth(),
-                y = date.getFullYear();
-
         
-
         $('#calendar').fullCalendar({
           
           header: {
@@ -136,52 +130,23 @@
             day: 'dzień'
           },
           //Random default events
-          
-          events: [
-            {
-              title: 'All Day Event',
-              start: new Date(y, m, 1),
-              backgroundColor: "#f56954", //red
-              borderColor: "#f56954" //red
-            },
-            {
-              title: 'Long Event',
-              start: new Date(y, m, d - 5),
-              end: new Date(y, m, d - 2),
-              backgroundColor: "#f39c12", //yellow
-              borderColor: "#f39c12" //yellow
-            },
-            {
-              title: 'Meeting',
-              start: new Date(y, m, d, 10, 30),
-              allDay: false,
-              backgroundColor: "#0073b7", //Blue
-              borderColor: "#0073b7" //Blue
-            },
-            {
-              title: 'Lunch',
-              start: new Date(y, m, d, 12, 0),
-              end: new Date(y, m, d, 14, 0),
-              allDay: false,
-              backgroundColor: "#00c0ef", //Info (aqua)
-              borderColor: "#00c0ef" //Info (aqua)
-            },
-            {
-              title: 'Birthday Party',
-              start: new Date(y, m, d + 1, 19, 0),
-              end: new Date(y, m, d + 1, 22, 30),
-              allDay: false,
-              backgroundColor: "#00a65a", //Success (green)
-              borderColor: "#00a65a" //Success (green)
-            },
-            {
-              title: 'Click for Google',
-              start: new Date(y, m, 28),
-              end: new Date(y, m, 29),
-              url: 'http://google.com/',
-              backgroundColor: "#3c8dbc", //Primary (light-blue)
-              borderColor: "#3c8dbc" //Primary (light-blue)
-            }
+        
+            events: [
+
+            <?php for($i=0; $i<$all;$i++){ echo '{title: '.json_encode($movie_title[$i]).' , ';
+              $data_from = json_encode($movie_date_from[$i]);
+              $df = date_parse_from_format("Y-m-d",$data_from);
+              $data_to = json_encode($movie_date_to[$i]);
+              $dt = date_parse_from_format("Y-m-d",$data_to);
+              
+              echo 'start: new Date('. $df["year"].','. ($df["month"]-1).','. $df["day"].',12,0)';
+              echo ', end: new Date('.$dt["year"].','. ($dt["month"]-1).','. $dt["day"].',12,0)';
+              echo  ' , allDay: false, backgroundColor: "#00c0ef", borderColor: "#00c0ef" ';
+              echo '},'; }?>
+            
+
+            
+            
           ],
           editable: true,
           droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -244,5 +209,8 @@
           $("#new-event").val("");
         });
       });
+  
+      
     </script>
+    
 @endsection
