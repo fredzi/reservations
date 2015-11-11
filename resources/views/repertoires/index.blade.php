@@ -1,64 +1,8 @@
 @extends('main')
 @section('content')
 
-
-  
           <div class="row">
-            <div class="col-md-3">
-              <div class="box box-solid">
-                <div class="box-header with-border">
-                  <h4 class="box-title">Przeciągnij wydarzenie</h4>
-                </div>
-                <div class="box-body">
-                  <!-- the events -->
-                  <div id="external-events">
-                    @foreach($movie_title as $title)
-                      <div class="external-event bg-aqua">{{$title}}</div>
-                    @endforeach
-                    
-                    <div class="checkbox">
-                      <label for="drop-remove">
-                        <input type="checkbox" id="drop-remove">
-                        Usuń po spadku
-                      </label>
-                    </div>
-                  </div>
-                </div><!-- /.box-body -->
-              </div><!-- /. box -->
-              <div class="box box-solid">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Utwórz wydarzenie</h3>
-                </div>
-                <div class="box-body">
-                  <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
-                    <ul class="fc-color-picker" id="color-chooser">
-                      <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
-                      <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
-                    </ul>
-                  </div><!-- /btn-group -->
-                  <div class="input-group">
-                    <input id="new-event" type="text" class="form-control" placeholder="Tytuł wydarzenia">
-                    <div class="input-group-btn">
-                      <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Dodaj</button>
-                    </div><!-- /btn-group -->
-                  </div><!-- /input-group -->
-                </div>
-              </div>
-              
-            </div><!-- /.col -->
-            <div class="col-md-9">
+            <div class="col-md-12">
               <div class="box box-primary">
                 <div class="box-body no-padding">
                   <!-- THE CALENDAR -->
@@ -67,7 +11,7 @@
               </div><!-- /. box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
-
+         
 @endsection
 
 @section('head')
@@ -82,7 +26,7 @@
 <!-- fullCalendar 2.2.5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="{{ asset("/bower_components/AdminLTE/plugins/fullcalendar/fullcalendar.min.js") }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/lang/pl.js"></script>
      <!-- Page specific script -->
     <script>
       $(function () {
@@ -117,12 +61,13 @@
         //Date for the calendar events (dummy data)
         
         $('#calendar').fullCalendar({
-          
+          lang: 'pl',
           header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
           },
+
           buttonText: {
             today: 'dzisiaj',
             month: 'miesiąc',
@@ -133,22 +78,106 @@
         
             events: [
 
-            <?php for($i=0; $i<$all;$i++){ echo '{title: '.json_encode($movie_title[$i]).' , ';
+            <?php for($i=0; $i<$all;$i++){ 
               $data_from = json_encode($movie_date_from[$i]);
               $df = date_parse_from_format("Y-m-d",$data_from);
               $data_to = json_encode($movie_date_to[$i]);
               $dt = date_parse_from_format("Y-m-d",$data_to);
+              $hour = json_encode($time[$i]);
+              $h = date_parse_from_format("H",$hour);
+              $min = json_encode($time[$i]);
+              $m = date_parse_from_format("ii",$min);
+
+              $timestamps = strtotime($h['hour'].':'.$m['minute']) + json_encode($time_movie[$i])*60;
+              $times = date('H:i', $timestamps);
               
-              echo 'start: new Date('. $df["year"].','. ($df["month"]-1).','. $df["day"].',12,0)';
-              echo ', end: new Date('.$dt["year"].','. ($dt["month"]-1).','. $dt["day"].',12,0)';
-              echo  ' , allDay: false, backgroundColor: "#00c0ef", borderColor: "#00c0ef" ';
+
+              $hour_to = $times;
+              $h_to = date_parse_from_format("H",$hour_to);
+              $min_to = $times;
+              $m_to = date_parse_from_format("ii",$min_to);
+
+              if(json_encode($monday[$i])=="1")
+              {
+                $mon = 1;
+              }
+              else
+              {
+                $mon = 7;
+              }
+              if(json_encode($tuesday[$i])=="1")
+              {
+                $tue = 2;
+              }
+              else
+              {
+                $tue = 7;
+              }
+              if(json_encode($wednesday[$i])=="1")
+              {
+                $wed = 3;
+              }
+              else
+              {
+                $wed = 7;
+              }
+              if(json_encode($thursday[$i])=="1")
+              {
+                $thur = 4;
+              }
+              else
+              {
+                $thur = 7;
+              }
+              if(json_encode($friday[$i])=="1")
+              {
+                $fri = 5;
+              }
+              else
+              {
+                $fri = 7;
+              }
+              if(json_encode($saturday[$i])=="1")
+              {
+                $sat = 6;
+              }
+              else
+              {
+                $sat = 7;
+              }
+              if(json_encode($sunday[$i])=="1")
+              {
+                $sun = 0;
+              }
+              else
+              {
+                $sun = 7;
+              }
+
+              echo '{title: '.json_encode($movie_title[$i]).' , ';
+              echo 'start: "'.$h["hour"].':'.$m["minute"].'"';
+              echo ', end: "'.$h_to["hour"].':'.$m_to["minute"].'"';
+              echo  ' , allDay: false, backgroundColor: "#00c0ef", borderColor: "#00c0ef", dow: ['.$mon.','.$tue.','.$wed.','.$thur.','.$fri.','.$sat.','.$sun.'],  ';
+              echo "ranges: [{ 
+         
+        start: moment('".$df["year"]."-".($df["month"])."-".$df["day"]."' ,'YYYY-MM-DD'), 
+        end: moment('".$dt["year"]."-".($dt["month"])."-".($dt["day"]+1)."' ,'YYYY-MM-DD'),
+    }],";
               echo '},'; }?>
             
 
             
             
           ],
-          editable: true,
+          eventRender: function(event){
+    return (event.ranges.filter(function(range){ // test event against all the ranges
+
+        return (event.start.isBefore(range.end) &&
+                event.end.isAfter(range.start));
+
+    }).length)>0; //if it isn't in one of the ranges, don't render it (by returning false)
+},
+          editable: false,
           droppable: true, // this allows things to be dropped onto the calendar !!!
           drop: function (date, allDay) { // this function is called when something is dropped
 
@@ -164,53 +193,12 @@
             copiedEventObject.backgroundColor = $(this).css("background-color");
             copiedEventObject.borderColor = $(this).css("border-color");
 
-            // render the event on the calendar
-            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-            // is the "remove after drop" checkbox checked?
-            if ($('#drop-remove').is(':checked')) {
-              // if so, remove the element from the "Draggable Events" list
-              $(this).remove();
-            }
+            
+          
 
           }
-        });
-
-        /* ADDING EVENTS */
-        var currColor = "#3c8dbc"; //Red by default
-        //Color chooser button
-        var colorChooser = $("#color-chooser-btn");
-        $("#color-chooser > li > a").click(function (e) {
-          e.preventDefault();
-          //Save color
-          currColor = $(this).css("color");
-          //Add color effect to button
-          $('#add-new-event').css({"background-color": currColor, "border-color": currColor});
-        });
-        $("#add-new-event").click(function (e) {
-          e.preventDefault();
-          //Get value and make sure it is not null
-          var val = $("#new-event").val();
-          if (val.length == 0) {
-            return;
-          }
-
-          //Create events
-          var event = $("<div />");
-          event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
-          event.html(val);
-          $('#external-events').prepend(event);
-
-          //Add draggable funtionality
-          ini_events(event);
-
-          //Remove event from text input
-          $("#new-event").val("");
         });
       });
-  
-      
     </script>
     
 @endsection

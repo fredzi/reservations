@@ -40,8 +40,50 @@ class RepertoireController extends Controller
         $movie_date_from = $movies_date_from->lists('date_from');
         $movie_date_to = $movies_date_to->lists('date_to');
         $all = DB::table('movies_repertoire')->count();
+        $times = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('movies_repertoire.time');
+        $time = $times->lists('movies_repertoire.time');
+        $times_movies = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('movies.time');
+        $time_movie = $times_movies->lists('time');
 
+        $mondays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('monday');
+        $monday = $mondays->lists('monday');
 
+        $tuesdays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('tuesday');
+        $tuesday = $tuesdays->lists('tuesday');
+
+        $wednesdays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('wednesday');
+        $wednesday = $wednesdays->lists('wednesday');
+
+        $thursdays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('thursday');
+        $thursday = $thursdays->lists('thursday');
+
+        $fridays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('friday');
+        $friday = $fridays->lists('friday');
+
+        $saturdays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('saturday');
+        $saturday = $saturdays->lists('saturday');
+
+        $sundays = DB::table('movies')
+            ->join('movies_repertoire','movies_repertoire.movie_id','=','movies.id')
+            ->select('sunday');
+        $sunday = $sundays->lists('sunday');
+        
         return view('repertoires.index')
             ->with('films',$films)
             ->with('settings',$settings)
@@ -49,11 +91,20 @@ class RepertoireController extends Controller
             ->with('catalog','users')
             ->with('folder','logos')
             ->with('all',$all)
+            ->with('time',$time)
+            ->with('time_movie',$time_movie)
             ->with('movie_title',$movie_title)
             ->with('movie_date_from',$movie_date_from)
             ->with('movie_date_to',$movie_date_to)
             ->with('notifications',$notification)
             ->with('filejpg',Auth::user()->id)
+            ->with('monday',$monday)
+            ->with('tuesday',$tuesday)
+            ->with('wednesday',$wednesday)
+            ->with('thursday',$thursday)
+            ->with('friday',$friday)
+            ->with('saturday',$saturday)
+            ->with('sunday',$sunday)
             ->with('filepng',Auth::user()->id);
 
 
