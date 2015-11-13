@@ -153,11 +153,31 @@
               {
                 $sun = 7;
               }
+              $str = "#";
+              $randNum = rand(1, 7);
+              switch ($randNum) {
+                  case 1: $randNum = '4FC1E9';
+                      break;
+                  case 2: $randNum = '48CFAD';
+                      break;
+                  case 3: $randNum = '8CC152';
+                      break;
+                  case 4: $randNum = 'EC87C0';
+                      break;
+                  case 5: $randNum = 'ED5565';
+                      break;
+                  case 6: $randNum = 'FC6E51';
+                      break;
+                  case 7: $randNum = 'AAB2BD';
+                      break;
+                  
+              }
+              $str .= $randNum;
 
               echo '{title: '.json_encode($movie_title[$i]).' , ';
               echo 'start: "'.$h["hour"].':'.$m["minute"].'"';
               echo ', end: "'.$h_to["hour"].':'.$m_to["minute"].'"';
-              echo  ' , allDay: false, backgroundColor: "#00c0ef", borderColor: "#00c0ef", dow: ['.$mon.','.$tue.','.$wed.','.$thur.','.$fri.','.$sat.','.$sun.'],  ';
+              echo  ' , allDay: false, backgroundColor: "'.$str.'", borderColor: "'.$str.'", dow: ['.$mon.','.$tue.','.$wed.','.$thur.','.$fri.','.$sat.','.$sun.'],  ';
               echo "ranges: [{ 
          
         start: moment('".$df["year"]."-".($df["month"])."-".$df["day"]."' ,'YYYY-MM-DD'), 
