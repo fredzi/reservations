@@ -118,7 +118,8 @@ class HallController extends Controller
                         $seats_in_hall[] = [
                             'pos_x' => $x, 
                             'pos_y' => $y, 
-                            'hall_id' => $hall_id
+                            'hall_id' => $hall_id,
+                            'name' => $name
                         ];
                     }
                 }
@@ -166,6 +167,7 @@ class HallController extends Controller
             ->with('settings',$settings)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)
+            
             ->with('action', action('HallController@show'), ['id' => $id]);
     }
 
@@ -215,6 +217,14 @@ class HallController extends Controller
         $hall = Hall::findOrFail($id);
         $hall->name = $request->name;
         $hall->save();
+
+        $blockseats = BlockSeats::where('hall_id',$id)->get();
+       
+        foreach($blockseats as $blockseat)
+        {      
+            $blockseat->name =$request->name;
+            $blockseat->save();          
+        }
        
         return redirect('hall');
     }

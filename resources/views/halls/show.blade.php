@@ -1,6 +1,8 @@
 @extends('main')
 
 @section('head')
+<meta name="_token" content="{{ csrf_token() }}" />  
+
 <style>
 input[type=checkbox] {
     display:none;
