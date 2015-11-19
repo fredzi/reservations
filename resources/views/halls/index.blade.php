@@ -27,7 +27,7 @@
 		    	<tr>
                             <td>{{$hall->id}}</td>
                             <td>{{$hall->name}}</td>
-                            <td style="text-align:center"><a href="{{action('HallController@show',['id'=>$hall->id])}}" class="btn btn-primary">Podgląd miejsc</a></td>
+                            <td style="text-align:center"><a href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-primary">Podgląd miejsc</a></td>
                             <td >
                                 
                                 <a  href="{{action('HallController@edit',['id'=>$hall->id])}}" class="btn btn-success">

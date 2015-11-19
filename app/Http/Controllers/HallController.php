@@ -167,7 +167,6 @@ class HallController extends Controller
             ->with('settings',$settings)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)
-            
             ->with('action', action('HallController@show'), ['id' => $id]);
     }
 
@@ -179,6 +178,10 @@ class HallController extends Controller
      */
     public function edit($id)
     {
+        $encrypter = app('Illuminate\Encryption\Encrypter');
+        $encrypted_token = $encrypter->encrypt(csrf_token());
+
+    
         $films = DB::table('movies')
             ->join('repertoire','repertoire.movie_id','=','movies.id')
             ->join('reservations', 'reservations.repertoire_id','=','repertoire.id')
@@ -188,18 +191,27 @@ class HallController extends Controller
         $settings = DB::table('users')
             ->where('id', Auth::user()->id)    
             ->get();
-            
+        
+        $posx = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_x');
+        $posy = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_y');     
+
+
         $hall = Hall::findOrFail($id);
         return view('halls.edit',['hall' => $hall])
             ->with('films',$films)
             ->with('header_big','Sale')
-            ->with('header_small','Edytuj')
+            ->with('header_small','Miejsca')
             ->with('catalog','users')
             ->with('folder','logos')
+            ->with('downid',$id)
+            ->with('posx',$posx)
+            ->with('posy',$posy)
+            ->with('downid',$id)
             ->with('notifications',$notification)
             ->with('settings',$settings)
             ->with('filejpg',Auth::user()->id)
             ->with('filepng',Auth::user()->id)           
+            
             ->with('action', action('HallController@edit', ['id' => $id]));
     }
 
@@ -225,8 +237,13 @@ class HallController extends Controller
             $blockseat->name =$request->name;
             $blockseat->save();          
         }
-       
-        return redirect('hall');
+       if($request->ajax())
+        {
+            $json = $hall->name;
+            return $json;
+
+        }
+        return redirect()->back();
     }
 
     /**
