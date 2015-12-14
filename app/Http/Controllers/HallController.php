@@ -194,8 +194,15 @@ class HallController extends Controller
         
         $posx = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_x');
         $posy = DB::table('seats_in_halls')->where('hall_id',$id)->max('pos_y');     
-
-
+        $seats = DB::table('seats_in_halls')
+            ->select('pos_y','pos_x','name')
+            ->where('hall_id',$id)
+            ->get();
+        $seats_array = array();
+        foreach($seats as $seat)
+        {
+            $seats_array[$seat->pos_x][$seat->pos_y] = $seat->name;
+        }
         $hall = Hall::findOrFail($id);
         return view('halls.edit',['hall' => $hall])
             ->with('films',$films)
@@ -206,6 +213,7 @@ class HallController extends Controller
             ->with('downid',$id)
             ->with('posx',$posx)
             ->with('posy',$posy)
+            ->with('seats',$seats_array)
             ->with('downid',$id)
             ->with('notifications',$notification)
             ->with('settings',$settings)
