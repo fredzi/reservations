@@ -11,7 +11,22 @@
               </div><!-- /. box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
-         
+
+        @foreach($repertoires as $key=>$mov)
+        
+        <?php
+        $wynik = $mov->time;
+$timestamps = strtotime("$wynik") + 180*60;
+                $times = date('"H:i:s"', $timestamps);
+                echo $times;
+                echo '<br>';
+                echo $list[$key];
+        ?>
+        @endforeach
+
+        ?>
+        
+
 @endsection
 
 @section('head')
@@ -29,6 +44,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/lang/pl.js"></script>
      <!-- Page specific script -->
     <script>
+    
       $(function () {
 
         /* initialize the external events
@@ -59,15 +75,16 @@
         /* initialize the calendar
          -----------------------------------------------------------------*/
         //Date for the calendar events (dummy data)
-        
+        var date = new Date();
+        var d = date.getDate(),
+                m = date.getMonth(),
+                y = date.getFullYear();
         $('#calendar').fullCalendar({
-          lang: 'pl',
           header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
           },
-
           buttonText: {
             today: 'dzisiaj',
             month: 'miesiąc',
@@ -75,128 +92,138 @@
             day: 'dzień'
           },
           //Random default events
-        
-            events: [
+          events: [
+              @foreach($repertoires as $key=>$repertoire)
+                <?php
+                
+                $str = "#";
+                $randNum = rand(1, 15);
+                switch ($randNum) {
+                    case 1: $randNum = '4FC1E9';
+                        break;
+                    case 2: $randNum = '48CFAD';
+                        break;
+                    case 3: $randNum = '8CC152';
+                        break;
+                    case 4: $randNum = 'EC87C0';
+                        break;
+                    case 5: $randNum = 'ED5565';
+                        break;
+                    case 6: $randNum = 'FC6E51';
+                        break;
+                    case 7: $randNum = 'AAB2BD';
+                        break;
+                    case 8: $randNum = '03F9FF';
+                        break;
+                    case 9: $randNum = 'ff5591';
+                        break;
+                    case 10: $randNum = '55a5ff';
+                        break;
+                    case 11: $randNum = 'a377fb';
+                        break;
+                    case 12: $randNum = 'fb9877';
+                        break;
+                    case 13: $randNum = '77fbbc';
+                        break;
+                    case 14: $randNum = 'b177fb';
+                        break;
+                    case 15: $randNum = 'fbce77';
+                        break;
+                        
 
-            <?php for($i=0; $i<$all;$i++){ 
-              $data_from = json_encode($movie_date_from[$i]);
-              $df = date_parse_from_format("Y-m-d",$data_from);
-              $data_to = json_encode($movie_date_to[$i]);
-              $dt = date_parse_from_format("Y-m-d",$data_to);
-              $hour = json_encode($time[$i]);
-              $h = date_parse_from_format("H",$hour);
-              $min = json_encode($time[$i]);
-              $m = date_parse_from_format("ii",$min);
+                }
+                $str .= $randNum;
+                if($repertoire->monday== 1)
+                {
+                  $mon = 1;
+                }
+                else
+                {
+                  $mon = 7;
+                }
+                if($repertoire->tuesday == '1')
+                {
+                    $tue = 2;
+                    
+                }
+                else
+                {
+                    $tue = 7;
+                }
+                if($repertoire->wednesday == '1')
+                {
+                    $wed = 3;
+                    
+                }
+                else
+                {
+                    $wed = 7;
+                }
+                if($repertoire->thursday == '1')
+                {
+                    $thu = 4;
+                    
+                }
+                else
+                {
+                    $thu = 7;
+                }
+                if($repertoire->friday == '1')
+                {
+                    $fri = 5;
+                    
+                }
+                else
+                {
+                    $fri = 7;
+                }
+                if($repertoire->saturday == '1')
+                {
+                    $sat = 6;
+                    
+                }
+                else
+                {
+                    $sat = 7;
+                }
+                if($repertoire->sunday == '1')
+                {
+                    $sun = 0;
+                    
+                }
+                else
+                {
+                    $sun = 7;
+                }
 
-              $timestamps = strtotime($h['hour'].':'.$m['minute']) + json_encode($time_movie[$i])*60;
-              $times = date('H:i', $timestamps);
-              
-
-              $hour_to = $times;
-              $h_to = date_parse_from_format("H",$hour_to);
-              $min_to = $times;
-              $m_to = date_parse_from_format("ii",$min_to);
-
-              if(json_encode($monday[$i])=="1")
-              {
-                $mon = 1;
-              }
-              else
-              {
-                $mon = 7;
-              }
-              if(json_encode($tuesday[$i])=="1")
-              {
-                $tue = 2;
-              }
-              else
-              {
-                $tue = 7;
-              }
-              if(json_encode($wednesday[$i])=="1")
-              {
-                $wed = 3;
-              }
-              else
-              {
-                $wed = 7;
-              }
-              if(json_encode($thursday[$i])=="1")
-              {
-                $thur = 4;
-              }
-              else
-              {
-                $thur = 7;
-              }
-              if(json_encode($friday[$i])=="1")
-              {
-                $fri = 5;
-              }
-              else
-              {
-                $fri = 7;
-              }
-              if(json_encode($saturday[$i])=="1")
-              {
-                $sat = 6;
-              }
-              else
-              {
-                $sat = 7;
-              }
-              if(json_encode($sunday[$i])=="1")
-              {
-                $sun = 0;
-              }
-              else
-              {
-                $sun = 7;
-              }
-              $str = "#";
-              $randNum = rand(1, 7);
-              switch ($randNum) {
-                  case 1: $randNum = '4FC1E9';
-                      break;
-                  case 2: $randNum = '48CFAD';
-                      break;
-                  case 3: $randNum = '8CC152';
-                      break;
-                  case 4: $randNum = 'EC87C0';
-                      break;
-                  case 5: $randNum = 'ED5565';
-                      break;
-                  case 6: $randNum = 'FC6E51';
-                      break;
-                  case 7: $randNum = 'AAB2BD';
-                      break;
-                  
-              }
-              $str .= $randNum;
-
-              echo '{title: '.json_encode($movie_title[$i]).' , ';
-              echo 'start: "'.$h["hour"].':'.$m["minute"].'"';
-              echo ', end: "'.$h_to["hour"].':'.$m_to["minute"].'"';
-              echo  ' , allDay: false, backgroundColor: "'.$str.'", borderColor: "'.$str.'", dow: ['.$mon.','.$tue.','.$wed.','.$thur.','.$fri.','.$sat.','.$sun.'],  ';
-              echo "ranges: [{ 
+                $wynik = $repertoire->time;
+                $timestamps = strtotime("$wynik") + $list[$key]*60;
+                $times = date('"H:i:s"', $timestamps);
+                ?>
+            {
+              title: '{!!json_encode($repertoire->title)!!}',
+              start: {!!json_encode($repertoire->time)!!},
+              end: {!!$times!!},
+              backgroundColor: <?php echo "'$str'"; ?>, //red
+              borderColor: "#f56954", //red
+              allDay: false,
+              dow: [ {{$mon}},{{$tue}},{{$wed}},{{$thu}},{{$fri}},{{$sat}},{{$sun}}],
+              ranges: [{ 
          
-        start: moment('".$df["year"]."-".($df["month"])."-".$df["day"]."' ,'YYYY-MM-DD'), 
-        end: moment('".$dt["year"]."-".($dt["month"])."-".($dt["day"]+1)."' ,'YYYY-MM-DD'),
-    }],";
-              echo '},'; }?>
-            
-
-            
-            
+        start: moment({!!json_encode($repertoire->date_from )!!} ,'YYYY-MM-DD'), 
+        end: moment({!!json_encode($repertoire->date_to)!!} ,'YYYY-MM-DD'),
+    }],
+            },
+              @endforeach
           ],
           eventRender: function(event){
-    return (event.ranges.filter(function(range){ // test event against all the ranges
+        return (event.ranges.filter(function(range){ // test event against all the ranges
 
         return (event.start.isBefore(range.end) &&
                 event.end.isAfter(range.start));
 
-    }).length)>0; //if it isn't in one of the ranges, don't render it (by returning false)
-},
+              }).length)>0; //if it isn't in one of the ranges, don't render it (by returning false)
+          },
           editable: false,
           droppable: true, // this allows things to be dropped onto the calendar !!!
           drop: function (date, allDay) { // this function is called when something is dropped
@@ -212,7 +239,6 @@
             copiedEventObject.allDay = allDay;
             copiedEventObject.backgroundColor = $(this).css("background-color");
             copiedEventObject.borderColor = $(this).css("border-color");
-
             
           
 
